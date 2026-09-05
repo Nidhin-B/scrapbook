@@ -1,1 +1,753 @@
-h
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    >
+
+    <title>Music — Scrapbook</title>
+
+    <meta
+        name="description"
+        content="Music, themes, experiments, and sounds from the Scrapbook."
+    >
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+
+        /* =========================
+           MUSIC PAGE
+        ========================= */
+
+        .music-page {
+            min-height: 100vh;
+        }
+
+        .music-hero {
+            width: 84%;
+            max-width: 1300px;
+
+            margin: 0 auto;
+
+            padding: 12vh 0 10vh;
+
+            position: relative;
+        }
+
+        .back-link {
+            display: inline-block;
+
+            margin-bottom: 60px;
+
+            font-size: 0.65rem;
+
+            text-transform: uppercase;
+
+            border-bottom: 1px solid currentColor;
+
+            padding-bottom: 4px;
+
+            opacity: 0.7;
+        }
+
+        .music-label {
+            color: #65715b;
+
+            font-size: 0.7rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.15em;
+
+            margin-bottom: 25px;
+        }
+
+        .music-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(5rem, 14vw, 11rem);
+
+            line-height: 0.8;
+
+            letter-spacing: -0.06em;
+        }
+
+        .music-intro {
+            max-width: 500px;
+
+            margin-top: 45px;
+
+            font-size: 0.75rem;
+
+            line-height: 1.9;
+        }
+
+
+        /* =========================
+           FEATURED
+        ========================= */
+
+        .featured {
+            width: 84%;
+            max-width: 1100px;
+
+            margin: 0 auto 15vh;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 50px;
+
+            align-items: center;
+        }
+
+        .album-paper {
+            min-height: 500px;
+
+            background: #bfc8b3;
+
+            position: relative;
+
+            padding: 45px;
+
+            transform: rotate(-2deg);
+
+            box-shadow: 12px 15px 0 rgba(23,23,20,0.1);
+
+            overflow: hidden;
+        }
+
+        .album-paper::before {
+            content: "";
+
+            position: absolute;
+
+            width: 310px;
+            height: 310px;
+
+            border-radius: 50%;
+
+            background:
+                repeating-radial-gradient(
+                    circle,
+                    #171714 0px,
+                    #171714 2px,
+                    #262622 3px,
+                    #171714 5px
+                );
+
+            top: 70px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            box-shadow: 4px 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .album-paper::after {
+            content: "";
+
+            position: absolute;
+
+            width: 80px;
+            height: 80px;
+
+            border-radius: 50%;
+
+            background: #a6aa91;
+
+            top: 185px;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .album-note {
+            position: absolute;
+
+            left: 35px;
+            bottom: 30px;
+
+            font-family: "Playfair Display", serif;
+
+            font-style: italic;
+
+            font-size: 1rem;
+        }
+
+
+        /* FEATURED INFO */
+
+        .featured-info {
+            padding: 30px;
+        }
+
+        .featured-info .small-label {
+            color: #65715b;
+
+            font-size: 0.6rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.12em;
+        }
+
+        .featured-info h2 {
+            margin-top: 15px;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 3.5rem;
+
+            line-height: 1;
+        }
+
+        .featured-info p {
+            max-width: 450px;
+
+            margin-top: 25px;
+
+            font-size: 0.72rem;
+
+            line-height: 1.9;
+        }
+
+        .fake-player {
+            margin-top: 35px;
+
+            padding: 18px;
+
+            border: 1px solid rgba(23,23,20,0.35);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+        .play-button {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #171714;
+
+            color: #e9e3d5;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            font-size: 0.7rem;
+        }
+
+        .player-info {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+        .player-info span {
+            font-size: 0.55rem;
+
+            opacity: 0.5;
+
+            text-transform: uppercase;
+        }
+
+        .player-info strong {
+            font-size: 0.7rem;
+        }
+
+
+        /* =========================
+           ARCHIVE
+        ========================= */
+
+        .music-archive {
+            width: 84%;
+            max-width: 1100px;
+
+            margin: 0 auto 15vh;
+        }
+
+        .archive-heading {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            border-bottom: 1px solid rgba(23,23,20,0.35);
+
+            padding-bottom: 20px;
+
+            margin-bottom: 20px;
+        }
+
+        .archive-heading h2 {
+            font-family: "Playfair Display", serif;
+
+            font-size: 2.5rem;
+        }
+
+        .archive-heading span {
+            font-size: 0.6rem;
+
+            opacity: 0.5;
+        }
+
+        .track {
+            display: grid;
+
+            grid-template-columns: 60px 1fr auto;
+
+            gap: 20px;
+
+            align-items: center;
+
+            padding: 25px 10px;
+
+            border-bottom: 1px solid rgba(23,23,20,0.18);
+
+            transition: padding 0.2s ease;
+        }
+
+        .track:hover {
+            padding-left: 18px;
+        }
+
+        .track-number {
+            font-size: 0.6rem;
+
+            opacity: 0.45;
+        }
+
+        .track-name {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+        .track-name strong {
+            font-family: "Playfair Display", serif;
+
+            font-size: 1.2rem;
+        }
+
+        .track-name span {
+            font-size: 0.55rem;
+
+            opacity: 0.5;
+        }
+
+        .track-type {
+            font-size: 0.55rem;
+
+            text-transform: uppercase;
+
+            opacity: 0.5;
+        }
+
+
+        /* =========================
+           FOOTNOTE
+        ========================= */
+
+        .music-note {
+            width: 84%;
+            max-width: 700px;
+
+            margin: 0 auto 15vh;
+
+            padding: 45px;
+
+            background: #d2c9aa;
+
+            text-align: center;
+
+            transform: rotate(1.5deg);
+
+            box-shadow: 9px 11px 0 rgba(23,23,20,0.1);
+        }
+
+        .music-note p {
+            font-family: "Playfair Display", serif;
+
+            font-size: 1.5rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .music-hero {
+                width: 88%;
+
+                padding-top: 8vh;
+            }
+
+            .back-link {
+                margin-bottom: 45px;
+            }
+
+            .music-title {
+                font-size: 21vw;
+            }
+
+            .music-intro {
+                font-size: 0.68rem;
+            }
+
+            .featured {
+                width: 88%;
+
+                display: flex;
+
+                flex-direction: column;
+
+                gap: 45px;
+            }
+
+            .album-paper {
+                width: 100%;
+
+                min-height: 430px;
+
+                padding: 30px;
+            }
+
+            .album-paper::before {
+                width: 270px;
+                height: 270px;
+
+                top: 55px;
+            }
+
+            .album-paper::after {
+                width: 70px;
+                height: 70px;
+
+                top: 155px;
+            }
+
+            .featured-info {
+                width: 100%;
+
+                padding: 0;
+            }
+
+            .featured-info h2 {
+                font-size: 2.8rem;
+            }
+
+            .music-archive {
+                width: 88%;
+            }
+
+            .archive-heading h2 {
+                font-size: 2rem;
+            }
+
+            .track {
+                grid-template-columns: 35px 1fr;
+
+                gap: 12px;
+            }
+
+            .track-type {
+                display: none;
+            }
+
+            .music-note {
+                width: 82%;
+
+                padding: 35px 20px;
+            }
+
+            .music-note p {
+                font-size: 1.2rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="paper"></div>
+
+
+    <header class="site-header">
+
+        <a href="../index.html" class="logo">
+            SCRAPBOOK<span>.</span>
+        </a>
+
+        <nav>
+            <a href="index.html">Music</a>
+            <a href="../games/index.html">Games</a>
+            <a href="../art/index.html">Art</a>
+            <a href="../projects/index.html">Projects</a>
+        </nav>
+
+    </header>
+
+
+    <main class="music-page">
+
+
+        <!-- HERO -->
+
+        <section class="music-hero">
+
+            <a href="../index.html" class="back-link">
+                ← back to scrapbook
+            </a>
+
+            <p class="music-label">
+                page 01 / sounds
+            </p>
+
+            <h1 class="music-title">
+                MUSIC.
+            </h1>
+
+            <p class="music-intro">
+                Soundtracks, themes, experiments, and pieces
+                that somehow escaped the notebook and became
+                actual music.
+            </p>
+
+        </section>
+
+
+        <!-- FEATURED -->
+
+        <section class="featured">
+
+
+            <div class="album-paper">
+
+                <div class="album-note">
+                    currently playing somewhere...
+                </div>
+
+            </div>
+
+
+            <div class="featured-info">
+
+                <span class="small-label">
+                    featured piece
+                </span>
+
+                <h2>
+                    Untitled<br>
+                    for now.
+                </h2>
+
+                <p>
+                    A place for one of the main pieces
+                    I'm working on. Album artwork,
+                    description, credits, and an actual
+                    player will eventually live here.
+                </p>
+
+
+                <div class="fake-player">
+
+                    <div class="play-button">
+                        ▶
+                    </div>
+
+                    <div class="player-info">
+
+                        <span>
+                            track
+                        </span>
+
+                        <strong>
+                            Coming soon
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ARCHIVE -->
+
+        <section class="music-archive">
+
+            <div class="archive-heading">
+
+                <h2>
+                    ARCHIVE
+                </h2>
+
+                <span>
+                    things I've made
+                </span>
+
+            </div>
+
+
+            <div class="track">
+
+                <span class="track-number">
+                    01
+                </span>
+
+                <div class="track-name">
+
+                    <strong>
+                        First Transmission
+                    </strong>
+
+                    <span>
+                        atmospheric / experimental
+                    </span>
+
+                </div>
+
+                <span class="track-type">
+                    theme
+                </span>
+
+            </div>
+
+
+            <div class="track">
+
+                <span class="track-number">
+                    02
+                </span>
+
+                <div class="track-name">
+
+                    <strong>
+                        Somewhere Unknown
+                    </strong>
+
+                    <span>
+                        ambient / cinematic
+                    </span>
+
+                </div>
+
+                <span class="track-type">
+                    soundtrack
+                </span>
+
+            </div>
+
+
+            <div class="track">
+
+                <span class="track-number">
+                    03
+                </span>
+
+                <div class="track-name">
+
+                    <strong>
+                        Untitled 03
+                    </strong>
+
+                    <span>
+                        currently unfinished
+                    </span>
+
+                </div>
+
+                <span class="track-type">
+                    demo
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- NOTE -->
+
+        <section class="music-note">
+
+            <p>
+                "Sometimes the soundtrack
+                comes before the story."
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+        <div class="footer-logo">
+            SCRAPBOOK<span>.</span>
+        </div>
+
+        <p>
+            made with questionable amounts of caffeine
+        </p>
+
+        <div class="footer-links">
+
+            <a href="../index.html">
+                Home
+            </a>
+
+            <a href="../games/index.html">
+                Games
+            </a>
+
+            <a href="../art/index.html">
+                Art
+            </a>
+
+            <a href="../projects/index.html">
+                Projects
+            </a>
+
+        </div>
+
+        <p class="copyright">
+            © 2026 Scrapbook
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
