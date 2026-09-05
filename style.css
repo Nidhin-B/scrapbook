@@ -1947,7 +1947,9 @@ footer > p {
     .motion-enabled.page-ready main:not(.page-main),  
     .motion-enabled.page-ready footer {  
         animation: none;  
-    }  
+    } 
+}
+
 /* ========================================
    MUSIC PLAYER — FIX ONLY
    Does not affect other pages
