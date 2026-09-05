@@ -1,5 +1,5 @@
 /* =========================================
-   SCRAPBOOK — GLOBAL CSS
+   SCRAPBOOK — GLOBAL STYLES
 ========================================= */
 
 
@@ -10,7 +10,6 @@
 :root {
     --paper: #e9e5d8;
     --paper-light: #f7f4eb;
-
     --sage: #68745f;
     --sage-light: #aab19e;
 
@@ -18,7 +17,6 @@
     --dark: #23231f;
 
     --muted: #77776f;
-
     --line: rgba(23, 23, 20, .16);
 
     --white: #f7f4eb;
@@ -44,9 +42,7 @@ html {
 body {
     min-height: 100vh;
 
-    background-color: var(--paper);
-
-    background-image:
+    background:
         radial-gradient(
             rgba(23, 23, 20, .035) 1px,
             transparent 1px
@@ -54,18 +50,15 @@ body {
 
     background-size: 5px 5px;
 
+    background-color: var(--paper);
+
     color: var(--ink);
 
-    font-family:
-        "DM Mono",
-        monospace;
+    font-family: "DM Mono", monospace;
 
     line-height: 1.7;
 
     overflow-x: hidden;
-
-    animation:
-        pageIn .45s ease both;
 }
 
 
@@ -87,12 +80,6 @@ input {
 }
 
 
-::selection {
-    background: var(--sage);
-    color: var(--white);
-}
-
-
 /* =========================================
    TYPOGRAPHY
 ========================================= */
@@ -101,28 +88,20 @@ h1,
 h2,
 h3,
 h4 {
-    font-family:
-        "Playfair Display",
-        serif;
-
+    font-family: "Playfair Display", serif;
     font-weight: 500;
-
     line-height: 1.05;
 }
 
 
 h1 {
-    font-size:
-        clamp(58px, 9vw, 120px);
-
+    font-size: clamp(58px, 9vw, 120px);
     letter-spacing: -4px;
 }
 
 
 h2 {
-    font-size:
-        clamp(34px, 5vw, 58px);
-
+    font-size: clamp(34px, 5vw, 58px);
     letter-spacing: -2px;
 }
 
@@ -142,9 +121,20 @@ em {
 }
 
 
+::selection {
+    background: var(--sage);
+    color: var(--white);
+}
+
+
 /* =========================================
    PAGE ENTRANCE
 ========================================= */
+
+body {
+    animation: pageIn .45s ease both;
+}
+
 
 @keyframes pageIn {
 
@@ -174,8 +164,7 @@ em {
 
     padding: 24px 5vw;
 
-    border-bottom:
-        1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 
     position: sticky;
     top: 0;
@@ -190,9 +179,7 @@ em {
 
 
 .logo {
-    font-family:
-        "Playfair Display",
-        serif;
+    font-family: "Playfair Display", serif;
 
     font-size: 22px;
 
@@ -207,10 +194,6 @@ em {
     color: var(--sage);
 }
 
-
-/* =========================================
-   NAV
-========================================= */
 
 .main-nav {
     display: flex;
@@ -231,8 +214,7 @@ em {
 
     color: var(--muted);
 
-    transition:
-        color .2s ease;
+    transition: color .2s ease;
 }
 
 
@@ -249,8 +231,7 @@ em {
 
     background: var(--ink);
 
-    transition:
-        width .2s ease;
+    transition: width .2s ease;
 }
 
 
@@ -267,7 +248,7 @@ em {
 
 
 /* =========================================
-   HOMEPAGE HERO
+   HOMEPAGE
 ========================================= */
 
 .hero {
@@ -301,6 +282,19 @@ em {
 }
 
 
+.eyebrow {
+    margin-bottom: 18px;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    color: var(--sage);
+
+    text-transform: uppercase;
+}
+
+
 .hero h1 {
     max-width: 900px;
 }
@@ -318,24 +312,7 @@ em {
 
 
 /* =========================================
-   EYEBROW
-========================================= */
-
-.eyebrow {
-    margin-bottom: 18px;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: var(--sage);
-
-    text-transform: uppercase;
-}
-
-
-/* =========================================
-   SECTION LABEL
+   SECTION LABELS
 ========================================= */
 
 .section-label {
@@ -380,8 +357,7 @@ em {
 
     background: var(--paper-light);
 
-    border:
-        1px solid var(--line);
+    border: 1px solid var(--line);
 
     position: relative;
 
@@ -417,8 +393,7 @@ em {
         rotate(0deg);
 
     box-shadow:
-        7px 8px 0
-        rgba(23, 23, 20, .08);
+        7px 8px 0 rgba(23, 23, 20, .08);
 }
 
 
@@ -449,8 +424,7 @@ em {
     padding:
         7vw 5vw;
 
-    border-top:
-        1px solid var(--line);
+    border-top: 1px solid var(--line);
 }
 
 
@@ -494,8 +468,7 @@ em {
 
     border-radius: 50%;
 
-    border:
-        1px solid
+    border: 1px solid
         rgba(247, 244, 235, .5);
 
     left: 18%;
@@ -542,14 +515,12 @@ em {
         0 auto
         8vw;
 
-    padding:
-        30px 35px;
+    padding: 30px 35px;
 
     background:
         #d9dfcc;
 
-    border:
-        1px solid
+    border: 1px solid
         rgba(104, 116, 95, .25);
 
     transform: rotate(.8deg);
@@ -557,9 +528,7 @@ em {
 
 
 .note p {
-    font-family:
-        "Playfair Display",
-        serif;
+    font-family: "Playfair Display", serif;
 
     font-size: 20px;
 
@@ -572,9 +541,7 @@ em {
 
     margin-top: 15px;
 
-    font-family:
-        "DM Mono",
-        monospace;
+    font-family: "DM Mono", monospace;
 
     font-size: 9px;
 
@@ -593,57 +560,12 @@ em {
 }
 
 
-/* =========================================
-   BACK BUTTON
-========================================= */
-
-.back-link-wrap {
-    padding:
-        28px 5vw
-        0;
-}
-
-
-.back-link {
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    color: var(--muted);
-
-    font-size: 9px;
-
-    letter-spacing: 1px;
-
-    text-transform: uppercase;
-
-    transition:
-        color .2s ease,
-        transform .2s ease;
-}
-
-
-.back-link:hover {
-    color: var(--ink);
-
-    transform:
-        translateX(-3px);
-}
-
-
-/* =========================================
-   SUBPAGE HERO
-========================================= */
-
 .subpage-hero {
     padding:
-        7vw 5vw
+        9vw 5vw
         7vw;
 
-    border-bottom:
-        1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 }
 
 
@@ -663,17 +585,16 @@ em {
 
 .paper-block {
     margin:
-        5vw auto;
+        5vw
+        auto;
 
     max-width: 1100px;
 
     padding: 42px;
 
-    background:
-        var(--paper-light);
+    background: var(--paper-light);
 
-    border:
-        1px solid var(--line);
+    border: 1px solid var(--line);
 
     position: relative;
 }
@@ -690,11 +611,9 @@ em {
     width: 38px;
     height: 1px;
 
-    background:
-        var(--sage);
+    background: var(--sage);
 
-    transform:
-        rotate(-2deg);
+    transform: rotate(-2deg);
 }
 
 
@@ -707,406 +626,6 @@ em {
 
 .paper-block h2 {
     margin-bottom: 18px;
-}
-
-
-/* =========================================
-   MUSIC FEATURE
-========================================= */
-
-.music-feature {
-    overflow: hidden;
-}
-
-
-.feature-description {
-    margin-bottom: 4px;
-}
-
-
-/* =========================================
-   MUSIC PLAYER
-========================================= */
-
-.music-player {
-    width: 100%;
-
-    margin-top: 30px;
-
-    padding:
-        24px 25px
-        20px;
-
-    background:
-        var(--dark);
-
-    color:
-        var(--white);
-
-    border:
-        1px solid
-        rgba(23, 23, 20, .5);
-
-    box-shadow:
-        5px 6px 0
-        rgba(23, 23, 20, .08);
-
-    transform:
-        rotate(.25deg);
-
-    position: relative;
-}
-
-
-/* LITTLE PAPER-TAPE DETAIL */
-
-.music-player::before {
-    content: "";
-
-    position: absolute;
-
-    width: 72px;
-    height: 17px;
-
-    top: -9px;
-    left: 50%;
-
-    transform:
-        translateX(-50%)
-        rotate(-1deg);
-
-    background:
-        rgba(217, 223, 204, .72);
-
-    opacity: .75;
-}
-
-
-/* PLAYER TOP */
-
-.music-player-top {
-    display: flex;
-
-    align-items: center;
-
-    width: 100%;
-
-    gap: 17px;
-}
-
-
-/* =========================================
-   PLAY BUTTON
-========================================= */
-
-.play-button {
-    width: 48px;
-    height: 48px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border:
-        1px solid
-        rgba(247, 244, 235, .4);
-
-    border-radius: 50%;
-
-    background:
-        transparent;
-
-    color:
-        var(--white);
-
-    cursor: pointer;
-
-    font-family:
-        "DM Mono",
-        monospace;
-
-    font-size: 11px;
-
-    line-height: 1;
-
-    padding: 0;
-
-    transition:
-        background .2s ease,
-        transform .2s ease,
-        border-color .2s ease;
-}
-
-
-.play-button:hover {
-    background:
-        rgba(247, 244, 235, .1);
-
-    border-color:
-        rgba(247, 244, 235, .7);
-
-    transform:
-        scale(1.05);
-}
-
-
-.play-button:active {
-    transform:
-        scale(.95);
-}
-
-
-.play-button.playing {
-    background:
-        rgba(104, 116, 95, .25);
-
-    border-color:
-        var(--sage);
-}
-
-
-/* =========================================
-   TRACK INFO
-========================================= */
-
-.track-info {
-    min-width: 0;
-
-    flex: 1;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 4px;
-}
-
-
-.track-info strong {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 18px;
-
-    font-weight: 500;
-
-    line-height: 1.2;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-}
-
-
-.track-info span {
-    color:
-        rgba(247, 244, 235, .52);
-
-    font-size: 8px;
-
-    letter-spacing:
-        1.5px;
-
-    line-height: 1.2;
-}
-
-
-/* =========================================
-   MUSIC NOTE
-========================================= */
-
-.track-mark {
-    width: 38px;
-    height: 38px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    color:
-        rgba(247, 244, 235, .25);
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 23px;
-
-    transform:
-        rotate(-8deg);
-}
-
-
-/* =========================================
-   PROGRESS
-========================================= */
-
-.music-progress {
-    width: 100%;
-
-    margin-top: 25px;
-}
-
-
-/* RANGE */
-
-.music-progress input[type="range"] {
-    width: 100%;
-
-    height: 5px;
-
-    display: block;
-
-    appearance: none;
-    -webkit-appearance: none;
-
-    border: 0;
-
-    outline: none;
-
-    cursor: pointer;
-
-    border-radius: 999px;
-
-    background:
-        rgba(247, 244, 235, .18);
-}
-
-
-/* WEBKIT TRACK */
-
-.music-progress
-input[type="range"]::-webkit-slider-runnable-track {
-
-    width: 100%;
-
-    height: 5px;
-
-    border-radius: 999px;
-
-    background:
-        rgba(247, 244, 235, .18);
-}
-
-
-/* WEBKIT THUMB */
-
-.music-progress
-input[type="range"]::-webkit-slider-thumb {
-
-    appearance: none;
-    -webkit-appearance: none;
-
-    width: 14px;
-    height: 14px;
-
-    margin-top: -4.5px;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background:
-        var(--sage);
-
-    cursor: pointer;
-
-    box-shadow:
-        0 0 0 2px
-        rgba(247, 244, 235, .08);
-
-    transition:
-        transform .15s ease;
-}
-
-
-.music-progress
-input[type="range"]::-webkit-slider-thumb:hover {
-
-    transform:
-        scale(1.15);
-}
-
-
-/* FIREFOX TRACK */
-
-.music-progress
-input[type="range"]::-moz-range-track {
-
-    width: 100%;
-
-    height: 5px;
-
-    border-radius: 999px;
-
-    background:
-        rgba(247, 244, 235, .18);
-}
-
-
-/* FIREFOX PROGRESS */
-
-.music-progress
-input[type="range"]::-moz-range-progress {
-
-    height: 5px;
-
-    border-radius: 999px;
-
-    background:
-        var(--sage);
-}
-
-
-/* FIREFOX THUMB */
-
-.music-progress
-input[type="range"]::-moz-range-thumb {
-
-    width: 14px;
-    height: 14px;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background:
-        var(--sage);
-
-    cursor: pointer;
-}
-
-
-/* =========================================
-   TIME
-========================================= */
-
-.music-time {
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-top: 9px;
-
-    color:
-        rgba(247, 244, 235, .48);
-
-    font-size: 8px;
-
-    letter-spacing: .6px;
 }
 
 
@@ -1141,9 +660,7 @@ input[type="range"]::-moz-range-thumb {
     min-height: 220px;
 
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
 }
 
@@ -1159,7 +676,287 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* =========================================
-   ALBUM GRID
+   MUSIC PLAYER
+========================================= */
+
+.music-player {
+    width: 100%;
+
+    margin-top: 32px;
+
+    padding:
+        22px 24px
+        18px;
+
+    background: var(--dark);
+
+    color: var(--white);
+
+    transform: rotate(.35deg);
+
+    box-shadow:
+        5px 6px 0
+        rgba(23, 23, 20, .08);
+}
+
+
+/* PLAYER TOP */
+
+.player-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+/* PLAY BUTTON */
+
+.play-button {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(247, 244, 235, .35);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: var(--white);
+
+    cursor: pointer;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 12px;
+
+    padding: 0;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.play-button:hover {
+    background:
+        rgba(247, 244, 235, .1);
+
+    transform: scale(1.05);
+}
+
+
+.play-button:active {
+    transform: scale(.95);
+}
+
+
+/* TRACK INFO */
+
+.track-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    min-width: 0;
+}
+
+
+.track-info strong {
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.track-info span {
+    color:
+        rgba(247, 244, 235, .55);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1.2px;
+}
+
+
+/* =========================================
+   MUSIC PROGRESS
+========================================= */
+
+.music-progress {
+    width: 100%;
+
+    margin-top: 22px;
+}
+
+
+.music-progress input[type="range"] {
+    width: 100%;
+
+    height: 5px;
+
+    display: block;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .18);
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+
+/* CHROME / SAFARI TRACK */
+
+.music-progress
+input[type="range"]::-webkit-slider-runnable-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .18);
+}
+
+
+/* CHROME / SAFARI THUMB */
+
+.music-progress
+input[type="range"]::-webkit-slider-thumb {
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 13px;
+    height: 13px;
+
+    margin-top: -4px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: var(--sage);
+
+    cursor: pointer;
+
+    transition:
+        transform .15s ease;
+}
+
+
+.music-progress
+input[type="range"]::-webkit-slider-thumb:hover {
+
+    transform: scale(1.15);
+}
+
+
+/* FIREFOX TRACK */
+
+.music-progress
+input[type="range"]::-moz-range-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .18);
+}
+
+
+/* FIREFOX FILLED TRACK */
+
+.music-progress
+input[type="range"]::-moz-range-progress {
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background: var(--sage);
+}
+
+
+/* FIREFOX THUMB */
+
+.music-progress
+input[type="range"]::-moz-range-thumb {
+
+    width: 13px;
+    height: 13px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: var(--sage);
+
+    cursor: pointer;
+}
+
+
+/* MUSIC TIME */
+
+.music-time {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 8px;
+
+    color:
+        rgba(247, 244, 235, .48);
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: .5px;
+}
+
+
+/* =========================================
+   ALBUM / MUSIC CARDS
 ========================================= */
 
 .album-grid {
@@ -1181,11 +978,9 @@ input[type="range"]::-moz-range-thumb {
 
 
 .album-card {
-    background:
-        var(--paper-light);
+    background: var(--paper-light);
 
-    border:
-        1px solid var(--line);
+    border: 1px solid var(--line);
 
     padding: 20px;
 
@@ -1206,16 +1001,14 @@ input[type="range"]::-moz-range-thumb {
 
     margin-bottom: 18px;
 
-    background:
-        var(--dark);
+    background: var(--dark);
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    color:
-        var(--white);
+    color: var(--white);
 
     font-family:
         "Playfair Display",
@@ -1242,7 +1035,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* =========================================
-   PROJECT LIST
+   GAME / PROJECT CARDS
 ========================================= */
 
 .project-list {
@@ -1275,8 +1068,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 .project-number {
-    color:
-        var(--sage);
+    color: var(--sage);
 
     font-size: 10px;
 
@@ -1292,8 +1084,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 .project-item p {
-    color:
-        var(--muted);
+    color: var(--muted);
 
     max-width: 550px;
 }
@@ -1304,7 +1095,8 @@ input[type="range"]::-moz-range-thumb {
         5px 9px;
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
     font-size: 8px;
 
@@ -1327,8 +1119,7 @@ input[type="range"]::-moz-range-thumb {
     padding:
         0 5vw;
 
-    columns:
-        3 250px;
+    columns: 3 250px;
 
     column-gap: 20px;
 }
@@ -1354,16 +1145,15 @@ input[type="range"]::-moz-range-thumb {
 
     min-height: 180px;
 
-    background:
-        var(--sage);
+    background: var(--sage);
 
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
-    color:
-        var(--white);
+    color: var(--white);
 
     font-family:
         "Playfair Display",
@@ -1376,8 +1166,7 @@ input[type="range"]::-moz-range-thumb {
 .art-card p {
     margin-top: 12px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
     font-size: 10px;
 }
@@ -1418,16 +1207,14 @@ input[type="range"]::-moz-range-thumb {
 
 
 .site-footer p {
-    color:
-        var(--muted);
+    color: var(--muted);
 
     text-align: center;
 }
 
 
 .site-footer > span {
-    color:
-        var(--muted);
+    color: var(--muted);
 
     font-size: 9px;
 
@@ -1436,7 +1223,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* =========================================
-   TABLET
+   RESPONSIVE
 ========================================= */
 
 @media (max-width: 900px) {
@@ -1482,7 +1269,7 @@ input[type="range"]::-moz-range-thumb {
 
     .site-header {
         padding:
-            18px 6vw;
+            18px 5vw;
 
         flex-direction: column;
 
@@ -1506,20 +1293,6 @@ input[type="range"]::-moz-range-thumb {
     .main-nav a {
         flex-shrink: 0;
 
-        font-size: 8px;
-    }
-
-
-    /* BACK */
-
-    .back-link-wrap {
-        padding:
-            22px 6vw
-            0;
-    }
-
-
-    .back-link {
         font-size: 8px;
     }
 
@@ -1564,7 +1337,7 @@ input[type="range"]::-moz-range-thumb {
     }
 
 
-    /* CATEGORIES */
+    /* CATEGORY GRID */
 
     .categories {
         grid-template-columns:
@@ -1612,6 +1385,7 @@ input[type="range"]::-moz-range-thumb {
 
         padding:
             25px;
+
     }
 
 
@@ -1624,12 +1398,10 @@ input[type="range"]::-moz-range-thumb {
 
     .subpage-hero {
         padding:
-            15vw 6vw
+            18vw 6vw
             13vw;
     }
 
-
-    /* PAPER */
 
     .paper-block {
         margin:
@@ -1640,68 +1412,7 @@ input[type="range"]::-moz-range-thumb {
     }
 
 
-    /* MUSIC PLAYER */
-
-    .music-player {
-        margin-top: 27px;
-
-        padding:
-            21px 17px
-            18px;
-
-        transform:
-            rotate(.15deg);
-    }
-
-
-    .music-player-top {
-        gap: 13px;
-    }
-
-
-    .play-button {
-        width: 43px;
-        height: 43px;
-
-        font-size: 10px;
-    }
-
-
-    .track-info strong {
-        font-size: 15px;
-    }
-
-
-    .track-info span {
-        font-size: 7px;
-
-        letter-spacing: 1.2px;
-    }
-
-
-    .track-mark {
-        display: none;
-    }
-
-
-    .music-progress {
-        margin-top: 22px;
-    }
-
-
-    .music-progress
-    input[type="range"] {
-
-        height: 5px;
-    }
-
-
-    .music-time {
-        font-size: 8px;
-    }
-
-
-    /* GRID */
+    /* PAGE GRID */
 
     .page-grid {
         grid-template-columns:
@@ -1716,6 +1427,56 @@ input[type="range"]::-moz-range-thumb {
 
     .small-card {
         min-height: 190px;
+    }
+
+
+    /* MUSIC PLAYER */
+
+    .music-player {
+        padding:
+            19px 18px
+            16px;
+
+        margin-top: 26px;
+
+        transform:
+            rotate(.2deg);
+    }
+
+
+    .player-top {
+        gap: 14px;
+    }
+
+
+    .play-button {
+        width: 42px;
+        height: 42px;
+
+        font-size: 11px;
+    }
+
+
+    .track-info strong {
+        font-size: 15px;
+    }
+
+
+    .track-info span {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .music-progress {
+        margin-top: 20px;
+    }
+
+
+    .music-progress
+    input[type="range"] {
+        height: 5px;
     }
 
 
@@ -1747,7 +1508,8 @@ input[type="range"]::-moz-range-thumb {
 
 
     .project-status {
-        grid-column: 2;
+        grid-column:
+            2;
 
         width: fit-content;
     }
@@ -1825,8 +1587,8 @@ input[type="range"]::-moz-range-thumb {
 
     .music-player {
         padding:
-            19px 14px
-            16px;
+            18px 15px
+            15px;
     }
 
 
