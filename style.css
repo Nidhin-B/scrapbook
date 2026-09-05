@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&display=swap');
 
+
 /* ========================================
    SCRAPBOOK — GLOBAL
 ======================================== */
@@ -79,111 +80,49 @@ body::before {
 
 
 /* ========================================
-   CROSS-PAGE VIEW TRANSITIONS
+   PAGE ENTRANCE
 ======================================== */
 
-@view-transition {
-    navigation: auto;
+@keyframes scrapbook-content-in {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
 }
 
-::view-transition-group(root) {
-    animation-duration: .95s;
-}
-
-::view-transition-old(root) {
+.motion-enabled.page-ready .page-main {
     animation:
-        scrapbook-old
-        .72s
-        cubic-bezier(.76, 0, .24, 1)
-        both;
-}
-
-::view-transition-new(root) {
-    animation:
-        scrapbook-new
-        1s
+        scrapbook-content-in
+        .28s
         cubic-bezier(.22, .61, .36, 1)
         both;
 }
 
-@keyframes scrapbook-old {
-
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    60% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: .98;
-        transform: translateY(-2%);
-    }
+.motion-enabled.page-ready main:not(.page-main) {
+    animation:
+        scrapbook-content-in
+        .28s
+        cubic-bezier(.22, .61, .36, 1)
+        both;
 }
 
-@keyframes scrapbook-new {
-
-    0% {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    35% {
-        opacity: .35;
-    }
-
-    70% {
-        opacity: .8;
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ========================================
-   FALLBACK PAGE COVER
-======================================== */
-
-.fallback-cover {
-    position: fixed;
-    inset: 0;
-
-    z-index: 99999;
-
-    pointer-events: none;
-
-    background: var(--paper);
-
-    transform: translateY(0);
-
-    transition:
-        transform .9s cubic-bezier(.76, 0, .24, 1);
-}
-
-.fallback-cover::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: -8px;
-
-    height: 12px;
-
-    background: rgba(0, 0, 0, .08);
-
-    box-shadow:
-        0 -8px 25px rgba(0, 0, 0, .08);
-}
-
-.fallback-cover.hide {
-    transform: translateY(-100%);
+.motion-enabled.page-ready footer {
+    animation:
+        scrapbook-content-in
+        .32s
+        .03s
+        cubic-bezier(.22, .61, .36, 1)
+        both;
 }
 
 
@@ -194,7 +133,7 @@ body::before {
 .site-header {
     width: 100%;
 
-    padding: 28px 6vw;
+    padding: 20px 6vw;
 
     display: flex;
     align-items: center;
@@ -205,47 +144,44 @@ body::before {
     position: sticky;
     top: 0;
 
-    z-index: 100;
+    z-index: 1000;
 
-    background: rgba(233, 227, 213, .92);
+    background:
+        rgba(233, 227, 213, .94);
 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    border-bottom: 1px solid transparent;
+    border-bottom:
+        1px solid rgba(23, 23, 20, .10);
+
+    box-shadow:
+        0 4px 18px rgba(23, 23, 20, .035);
 
     transition:
-        padding .3s ease,
-        background .3s ease,
-        border-color .3s ease;
+        padding .25s ease,
+        background .25s ease;
 }
 
 
-/*
-   Subtle paper strip under the header.
-*/
-
-.site-header::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: -1px;
-
-    height: 1px;
-
-    background: rgba(23, 23, 20, .08);
-}
+/* ========================================
+   LOGO
+======================================== */
 
 .logo {
-    font-family: "Playfair Display", serif;
+    display: inline-block;
+
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 25px;
+
     font-weight: 800;
 
     letter-spacing: -1px;
+
+    line-height: 1;
 
     white-space: nowrap;
 }
@@ -254,8 +190,14 @@ body::before {
     color: var(--sage);
 }
 
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
 nav {
     display: flex;
+
     align-items: center;
 
     gap: clamp(18px, 3vw, 38px);
@@ -264,7 +206,10 @@ nav {
 nav a {
     position: relative;
 
+    display: inline-block;
+
     font-size: 12px;
+
     font-weight: 500;
 
     text-transform: uppercase;
@@ -282,18 +227,21 @@ nav a::after {
     position: absolute;
 
     left: 0;
-    bottom: -7px;
+    bottom: -6px;
 
     width: 0;
     height: 1px;
 
-    background: var(--ink);
+    background:
+        var(--ink);
 
-    transition: width .25s ease;
+    transition:
+        width .2s ease;
 }
 
 nav a:hover {
-    transform: translateY(-2px);
+    transform:
+        translateY(-1px);
 }
 
 nav a:hover::after {
@@ -336,7 +284,8 @@ main {
 .tape {
     position: absolute;
 
-    background: rgba(191, 200, 179, .72);
+    background:
+        rgba(191, 200, 179, .72);
 
     transform: rotate(-3deg);
 
@@ -351,7 +300,8 @@ main {
     top: 70px;
     right: 11%;
 
-    transform: rotate(7deg);
+    transform:
+        rotate(7deg);
 }
 
 .eyebrow {
@@ -367,9 +317,12 @@ main {
 }
 
 .hero h1 {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    font-size: clamp(55px, 9vw, 112px);
+    font-size:
+        clamp(55px, 9vw, 112px);
 
     line-height: .86;
 
@@ -403,7 +356,9 @@ main {
 .scribble {
     margin-top: 30px;
 
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 17px;
 
@@ -444,7 +399,8 @@ main {
 
     overflow: hidden;
 
-    border: 1px solid rgba(23, 23, 20, .14);
+    border:
+        1px solid rgba(23, 23, 20, .14);
 
     padding: 34px;
 
@@ -490,9 +446,12 @@ main {
 }
 
 .scrap-card h2 {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    font-size: clamp(35px, 4vw, 54px);
+    font-size:
+        clamp(35px, 4vw, 54px);
 
     line-height: .95;
 
@@ -522,7 +481,8 @@ main {
 
     text-transform: uppercase;
 
-    border-bottom: 1px solid var(--ink);
+    border-bottom:
+        1px solid var(--ink);
 
     padding-bottom: 4px;
 
@@ -532,7 +492,8 @@ main {
 }
 
 .scrap-card:hover .card-link {
-    transform: translateX(6px);
+    transform:
+        translateX(6px);
 
     opacity: .65;
 }
@@ -543,9 +504,11 @@ main {
 ======================================== */
 
 .music-card {
-    background: var(--paper-light);
+    background:
+        var(--paper-light);
 
-    transform: rotate(-1deg);
+    transform:
+        rotate(-1deg);
 }
 
 .card-tape {
@@ -561,7 +524,8 @@ main {
         translateX(-50%)
         rotate(-2deg);
 
-    background: rgba(191, 200, 179, .72);
+    background:
+        rgba(191, 200, 179, .72);
 
     z-index: 5;
 }
@@ -599,7 +563,9 @@ main {
 
     border-radius: 50%;
 
-    border: 1px solid rgba(255, 255, 255, .08);
+    border:
+        1px solid
+        rgba(255, 255, 255, .08);
 }
 
 .vinyl-label {
@@ -616,7 +582,8 @@ main {
     transform:
         translate(-50%, -50%);
 
-    background: var(--sage);
+    background:
+        var(--sage);
 }
 
 .vinyl-label::after {
@@ -629,7 +596,8 @@ main {
 
     border-radius: 50%;
 
-    background: var(--paper);
+    background:
+        var(--paper);
 
     top: 50%;
     left: 50%;
@@ -644,9 +612,11 @@ main {
 ======================================== */
 
 .games-card {
-    background: #d7d3c7;
+    background:
+        #d7d3c7;
 
-    transform: rotate(1deg);
+    transform:
+        rotate(1deg);
 }
 
 .photo-placeholder {
@@ -670,16 +640,19 @@ main {
             #353833
         );
 
-    border: 8px solid var(--white);
+    border:
+        8px solid var(--white);
 
     box-shadow:
         0 8px 18px rgba(0, 0, 0, .13);
 
-    transform: rotate(-1.5deg);
+    transform:
+        rotate(-1.5deg);
 }
 
 .photo-placeholder span {
-    color: var(--white);
+    color:
+        var(--white);
 
     text-align: center;
 
@@ -696,9 +669,11 @@ main {
 ======================================== */
 
 .art-card {
-    background: #d9dfd2;
+    background:
+        #d9dfd2;
 
-    transform: rotate(.7deg);
+    transform:
+        rotate(.7deg);
 }
 
 .art-paper {
@@ -710,9 +685,11 @@ main {
     top: 30px;
     left: 40px;
 
-    background: var(--paper-light);
+    background:
+        var(--paper-light);
 
-    transform: rotate(-4deg);
+    transform:
+        rotate(-4deg);
 
     box-shadow:
         0 10px 25px rgba(0, 0, 0, .09);
@@ -726,11 +703,14 @@ main {
 }
 
 .art-paper span {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 42px;
 
-    color: var(--sage);
+    color:
+        var(--sage);
 }
 
 .art-paper span:nth-child(2) {
@@ -751,9 +731,11 @@ main {
 ======================================== */
 
 .projects-card {
-    background: #ded7c4;
+    background:
+        #ded7c4;
 
-    transform: rotate(-.6deg);
+    transform:
+        rotate(-.6deg);
 }
 
 .note-paper {
@@ -765,11 +747,14 @@ main {
     top: 28px;
     right: 38px;
 
-    padding: 35px 28px;
+    padding:
+        35px 28px;
 
-    background: #efe7c9;
+    background:
+        #efe7c9;
 
-    transform: rotate(4deg);
+    transform:
+        rotate(4deg);
 
     box-shadow:
         0 10px 25px rgba(0, 0, 0, .09);
@@ -784,27 +769,33 @@ main {
     width: 48px;
     height: 18px;
 
-    background: rgba(191, 200, 179, .72);
+    background:
+        rgba(191, 200, 179, .72);
 }
 
 .note-paper::before {
     top: -8px;
     left: 50px;
 
-    transform: rotate(-8deg);
+    transform:
+        rotate(-8deg);
 }
 
 .note-paper::after {
     bottom: -7px;
     right: 35px;
 
-    transform: rotate(-6deg);
+    transform:
+        rotate(-6deg);
 }
 
 .note-paper p {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    color: var(--ink);
+    color:
+        var(--ink);
 
     font-size: 22px;
 
@@ -833,13 +824,16 @@ main {
 }
 
 .currently-title span {
-    color: var(--sage);
+    color:
+        var(--sage);
 
     font-size: 18px;
 }
 
 .currently-title h2 {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 31px;
 
@@ -853,19 +847,23 @@ main {
         repeat(3, minmax(0, 1fr));
 
     border-top:
-        1px solid rgba(23, 23, 20, .18);
+        1px solid
+        rgba(23, 23, 20, .18);
 }
 
 .current-item {
-    padding: 25px 20px;
+    padding:
+        25px 20px;
 
     border-bottom:
-        1px solid rgba(23, 23, 20, .18);
+        1px solid
+        rgba(23, 23, 20, .18);
 }
 
 .current-item + .current-item {
     border-left:
-        1px solid rgba(23, 23, 20, .18);
+        1px solid
+        rgba(23, 23, 20, .18);
 }
 
 .current-item span {
@@ -875,13 +873,16 @@ main {
 
     letter-spacing: 2px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     margin-bottom: 9px;
 }
 
 .current-item strong {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 18px;
 
@@ -906,16 +907,21 @@ main {
 .note {
     position: relative;
 
-    width: min(430px, 90%);
+    width:
+        min(430px, 90%);
 
-    padding: 35px 40px;
+    padding:
+        35px 40px;
 
-    background: var(--note);
+    background:
+        var(--note);
 
-    transform: rotate(-2deg);
+    transform:
+        rotate(-2deg);
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, .08);
+        0 10px 25px
+        rgba(0, 0, 0, .08);
 }
 
 .note .pin {
@@ -929,11 +935,14 @@ main {
 
     font-size: 17px;
 
-    color: var(--sage);
+    color:
+        var(--sage);
 }
 
 .note p {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 21px;
 
@@ -949,7 +958,8 @@ main {
 
     letter-spacing: 1px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 }
 
 
@@ -959,11 +969,14 @@ main {
 
 footer {
     border-top:
-        1px solid rgba(23, 23, 20, .16);
+        1px solid
+        rgba(23, 23, 20, .16);
 
-    width: min(1180px, 88vw);
+    width:
+        min(1180px, 88vw);
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
     padding:
         45px 0
@@ -974,13 +987,16 @@ footer {
     grid-template-columns:
         1fr auto;
 
-    gap: 12px 30px;
+    gap:
+        12px 30px;
 
     align-items: center;
 }
 
 .footer-logo {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 24px;
 
@@ -988,13 +1004,15 @@ footer {
 }
 
 .footer-logo span {
-    color: var(--sage);
+    color:
+        var(--sage);
 }
 
 footer > p {
     font-size: 10px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 }
 
 .footer-links {
@@ -1019,23 +1037,26 @@ footer > p {
 }
 
 .copyright {
-    grid-column: 1 / -1;
+    grid-column:
+        1 / -1;
 
     margin-top: 12px;
 }
 
 
-/* =========================================================
+/* ========================================
    SUBPAGES
-   MUSIC / GAMES / ART / PROJECTS
-========================================================= */
+======================================== */
 
 .page-main {
-    width: min(1080px, 88vw);
+    width:
+        min(1080px, 88vw);
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
-    padding-bottom: 100px;
+    padding-bottom:
+        100px;
 }
 
 
@@ -1052,7 +1073,8 @@ footer > p {
         70px;
 
     border-bottom:
-        1px solid rgba(23, 23, 20, .16);
+        1px solid
+        rgba(23, 23, 20, .16);
 }
 
 .page-label {
@@ -1060,7 +1082,8 @@ footer > p {
 
     letter-spacing: 2.5px;
 
-    color: var(--sage);
+    color:
+        var(--sage);
 
     text-transform: uppercase;
 
@@ -1068,9 +1091,12 @@ footer > p {
 }
 
 .page-title {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    font-size: clamp(58px, 10vw, 110px);
+    font-size:
+        clamp(58px, 10vw, 110px);
 
     line-height: .9;
 
@@ -1084,68 +1110,13 @@ footer > p {
 .page-intro {
     max-width: 680px;
 
-    font-size: clamp(14px, 1.7vw, 18px);
+    font-size:
+        clamp(14px, 1.7vw, 18px);
 
     line-height: 1.8;
 
-    color: var(--muted);
-}
-
-
-/* ========================================
-   STICKY SUBPAGE TITLE
-======================================== */
-
-/*
-   The page title itself stays part of the
-   hero. Once the user scrolls down, this
-   compact label gives them a persistent
-   sense of which scrapbook section they're in.
-
-   It is generated from the existing .page-title
-   so no HTML changes are required.
-*/
-
-.page-hero::after {
-    content: "";
-
-    position: sticky;
-
-    top: 83px;
-
-    display: block;
-
-    width: fit-content;
-
-    margin-top: 45px;
-
-    padding: 8px 13px;
-
-    background: rgba(242, 238, 228, .94);
-
-    border:
-        1px solid rgba(23, 23, 20, .12);
-
-    font-family: "DM Mono", monospace;
-
-    font-size: 9px;
-
-    letter-spacing: 1.8px;
-
-    color: var(--sage);
-
-    text-transform: uppercase;
-
-    z-index: 20;
-}
-
-
-/*
-   Actual section labels.
-*/
-
-.page-main .page-label {
-    position: relative;
+    color:
+        var(--muted);
 }
 
 
@@ -1175,7 +1146,8 @@ footer > p {
 }
 
 .back-scrapbook:hover {
-    transform: translateX(-6px);
+    transform:
+        translateX(-6px);
 
     opacity: .55;
 }
@@ -1194,16 +1166,19 @@ footer > p {
 
     padding: 45px;
 
-    background: var(--paper-light);
+    background:
+        var(--paper-light);
 
     border:
-        1px solid rgba(23, 23, 20, .12);
+        1px solid
+        rgba(23, 23, 20, .12);
 
     box-shadow:
         8px 10px 0
         rgba(101, 113, 91, .10);
 
-    transform: rotate(-.35deg);
+    transform:
+        rotate(-.35deg);
 }
 
 .paper-block::before {
@@ -1226,9 +1201,12 @@ footer > p {
 }
 
 .paper-block h2 {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    font-size: clamp(30px, 5vw, 48px);
+    font-size:
+        clamp(30px, 5vw, 48px);
 
     line-height: 1;
 
@@ -1240,7 +1218,8 @@ footer > p {
 .paper-block > p {
     max-width: 700px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: 12px;
 
@@ -1261,13 +1240,17 @@ footer > p {
 
     margin-top: 32px;
 
-    padding: 17px 20px;
+    padding:
+        17px 20px;
 
-    background: var(--dark);
+    background:
+        var(--dark);
 
-    color: var(--white);
+    color:
+        var(--white);
 
-    transform: rotate(.4deg);
+    transform:
+        rotate(.4deg);
 }
 
 .play-button {
@@ -1282,7 +1265,8 @@ footer > p {
     justify-content: center;
 
     border:
-        1px solid rgba(247, 244, 235, .3);
+        1px solid
+        rgba(247, 244, 235, .3);
 
     border-radius: 50%;
 
@@ -1298,7 +1282,9 @@ footer > p {
 }
 
 .track-info strong {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 16px;
 }
@@ -1335,10 +1321,12 @@ footer > p {
 
     padding: 35px;
 
-    background: var(--paper-light);
+    background:
+        var(--paper-light);
 
     border:
-        1px solid rgba(23, 23, 20, .13);
+        1px solid
+        rgba(23, 23, 20, .13);
 
     box-shadow:
         5px 7px 0
@@ -1350,19 +1338,23 @@ footer > p {
 }
 
 .page-card:nth-child(1) {
-    transform: rotate(-.7deg);
+    transform:
+        rotate(-.7deg);
 }
 
 .page-card:nth-child(2) {
-    transform: rotate(.7deg);
+    transform:
+        rotate(.7deg);
 }
 
 .page-card:nth-child(3) {
-    transform: rotate(.5deg);
+    transform:
+        rotate(.5deg);
 }
 
 .page-card:nth-child(4) {
-    transform: rotate(-.5deg);
+    transform:
+        rotate(-.5deg);
 }
 
 .page-card:hover {
@@ -1376,7 +1368,9 @@ footer > p {
 }
 
 .page-card h3 {
-    font-family: "Playfair Display", serif;
+    font-family:
+        "Playfair Display",
+        serif;
 
     font-size: 28px;
 
@@ -1388,84 +1382,12 @@ footer > p {
 }
 
 .page-card p {
-    color: var(--muted);
+    color:
+        var(--muted);
 
     font-size: 11px;
 
     line-height: 1.8;
-}
-
-
-/* ========================================
-   SUBPAGE FOOTER
-======================================== */
-
-.page-main + footer {
-    margin-top: 0;
-}
-
-
-/* ========================================
-   PAGE ENTRANCE
-======================================== */
-
-@keyframes scrapbook-content-in {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(24px);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-.motion-enabled.page-ready .page-main {
-    animation:
-        scrapbook-content-in
-        .7s
-        cubic-bezier(.22, .61, .36, 1)
-        both;
-}
-
-.motion-enabled.page-ready footer {
-    animation:
-        scrapbook-content-in
-        .8s
-        .12s
-        cubic-bezier(.22, .61, .36, 1)
-        both;
-}
-
-.motion-enabled.page-leaving .page-main {
-    animation:
-        scrapbook-content-out
-        .45s
-        ease
-        both;
-}
-
-@keyframes scrapbook-content-out {
-
-    from {
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-
-    to {
-        opacity: .15;
-
-        transform:
-            translateY(-18px);
-    }
 }
 
 
@@ -1475,49 +1397,86 @@ footer > p {
 
 @media (max-width: 700px) {
 
-    /* ---------- HEADER ---------- */
+
+    /* ------------------------------------
+       HEADER
+    ------------------------------------ */
 
     .site-header {
-        padding: 19px 6vw;
+        position: sticky;
 
-        align-items: flex-start;
+        top: 0;
 
-        flex-direction: column;
+        z-index: 1000;
 
-        gap: 15px;
-
-        background:
-            rgba(233, 227, 213, .95);
-    }
-
-    .logo {
-        font-size: 22px;
-    }
-
-    nav {
         width: 100%;
 
-        justify-content: space-between;
+        padding:
+            17px 6vw
+            15px;
+
+        display: flex;
+
+        align-items: center;
+
+        flex-direction: row;
 
         gap: 10px;
+
+        background:
+            rgba(233, 227, 213, .96);
+
+        backdrop-filter:
+            blur(12px);
+
+        -webkit-backdrop-filter:
+            blur(12px);
+
+        border-bottom:
+            1px solid
+            rgba(23, 23, 20, .10);
     }
+
+
+    .logo {
+        font-size: 21px;
+
+        flex-shrink: 0;
+    }
+
+
+    nav {
+        width: auto;
+
+        flex: 1;
+
+        justify-content: flex-end;
+
+        gap:
+            clamp(8px, 2.7vw, 15px);
+    }
+
 
     nav a {
-        font-size: 9px;
+        font-size: 8px;
 
-        letter-spacing: 1px;
+        letter-spacing: .8px;
     }
+
 
     nav a::after {
         bottom: -5px;
     }
 
 
-    /* ---------- HOMEPAGE ---------- */
+    /* ------------------------------------
+       HOMEPAGE
+    ------------------------------------ */
 
     main {
         width: 88vw;
     }
+
 
     .hero {
         min-height: 520px;
@@ -1527,11 +1486,13 @@ footer > p {
             65px;
     }
 
+
     .tape-hero {
         top: 40px;
 
         right: 2%;
     }
+
 
     .eyebrow {
         font-size: 9px;
@@ -1541,12 +1502,14 @@ footer > p {
         margin-bottom: 20px;
     }
 
+
     .hero h1 {
         font-size:
             clamp(48px, 14vw, 76px);
 
         letter-spacing: -3px;
     }
+
 
     .hero-text {
         font-size: 11px;
@@ -1556,9 +1519,11 @@ footer > p {
         margin-top: 30px;
     }
 
+
     .scribble {
         font-size: 14px;
     }
+
 
     .categories {
         grid-template-columns: 1fr;
@@ -1570,24 +1535,29 @@ footer > p {
             80px;
     }
 
+
     .scrap-card {
         min-height: 440px;
 
         padding: 28px;
     }
 
+
     .vinyl {
         width: 205px;
         height: 205px;
 
         right: -45px;
+
         top: 30px;
     }
+
 
     .vinyl-label {
         width: 68px;
         height: 68px;
     }
+
 
     .photo-placeholder {
         top: 28px;
@@ -1598,13 +1568,16 @@ footer > p {
         height: 220px;
     }
 
+
     .art-paper {
         width: 205px;
+
         height: 195px;
 
         top: 30px;
         left: 30px;
     }
+
 
     .note-paper {
         width: 215px;
@@ -1615,16 +1588,20 @@ footer > p {
         right: 25px;
     }
 
+
     .scrap-card h2 {
         font-size: 42px;
     }
+
 
     .scrap-card p {
         font-size: 10px;
     }
 
 
-    /* ---------- CURRENTLY ---------- */
+    /* ------------------------------------
+       CURRENTLY
+    ------------------------------------ */
 
     .currently {
         padding:
@@ -1632,28 +1609,36 @@ footer > p {
             75px;
     }
 
+
     .currently-title h2 {
         font-size: 27px;
     }
+
 
     .currently-list {
         grid-template-columns: 1fr;
     }
 
+
     .current-item + .current-item {
         border-left: 0;
     }
 
+
     .current-item {
-        padding: 20px 5px;
+        padding:
+            20px 5px;
     }
+
 
     .current-item strong {
         font-size: 17px;
     }
 
 
-    /* ---------- NOTE ---------- */
+    /* ------------------------------------
+       NOTE
+    ------------------------------------ */
 
     .little-note {
         padding:
@@ -1661,18 +1646,22 @@ footer > p {
             90px;
     }
 
+
     .note {
         width: 92%;
 
         padding: 30px;
     }
 
+
     .note p {
         font-size: 18px;
     }
 
 
-    /* ---------- FOOTER ---------- */
+    /* ------------------------------------
+       FOOTER
+    ------------------------------------ */
 
     footer {
         width: 88vw;
@@ -1686,20 +1675,22 @@ footer > p {
             45px;
     }
 
+
     .footer-links {
         flex-wrap: wrap;
 
         gap: 15px;
     }
 
+
     .copyright {
         grid-column: auto;
     }
 
 
-    /* ====================================
-       SUBPAGES — MOBILE
-    ==================================== */
+    /* ------------------------------------
+       SUBPAGES
+    ------------------------------------ */
 
     .page-main {
         width: 88vw;
@@ -1707,11 +1698,13 @@ footer > p {
         padding-bottom: 65px;
     }
 
+
     .page-hero {
         padding:
             55px 0
             48px;
     }
+
 
     .page-label {
         font-size: 9px;
@@ -1720,6 +1713,7 @@ footer > p {
 
         margin-bottom: 15px;
     }
+
 
     .page-title {
         font-size:
@@ -1730,11 +1724,13 @@ footer > p {
         margin-bottom: 24px;
     }
 
+
     .page-intro {
         font-size: 12px;
 
         line-height: 1.8;
     }
+
 
     .back-scrapbook {
         margin-top: 25px;
@@ -1745,22 +1741,9 @@ footer > p {
     }
 
 
-    /* ---------- STICKY PAGE MARKER ---------- */
-
-    .page-hero::after {
-        top: 86px;
-
-        margin-top: 32px;
-
-        padding: 7px 10px;
-
-        font-size: 8px;
-
-        letter-spacing: 1.5px;
-    }
-
-
-    /* ---------- PAPER ---------- */
+    /* ------------------------------------
+       PAPER
+    ------------------------------------ */
 
     .paper-block {
         margin:
@@ -1771,17 +1754,20 @@ footer > p {
             32px 27px;
     }
 
+
     .paper-block::before {
         width: 85px;
 
         height: 21px;
     }
 
+
     .paper-block h2 {
         font-size: 32px;
 
         letter-spacing: -1.5px;
     }
+
 
     .paper-block > p {
         font-size: 10px;
@@ -1790,7 +1776,9 @@ footer > p {
     }
 
 
-    /* ---------- PLAYER ---------- */
+    /* ------------------------------------
+       PLAYER
+    ------------------------------------ */
 
     .fake-player {
         margin-top: 25px;
@@ -1799,17 +1787,21 @@ footer > p {
             14px 15px;
     }
 
+
     .play-button {
         width: 37px;
         height: 37px;
     }
+
 
     .track-info strong {
         font-size: 14px;
     }
 
 
-    /* ---------- CARDS ---------- */
+    /* ------------------------------------
+       CARDS
+    ------------------------------------ */
 
     .page-grid {
         grid-template-columns: 1fr;
@@ -1819,6 +1811,7 @@ footer > p {
         margin-top: 45px;
     }
 
+
     .page-card {
         min-height: 180px;
 
@@ -1826,15 +1819,18 @@ footer > p {
             30px 27px;
     }
 
+
     .page-card h3 {
         font-size: 25px;
     }
+
 
     .page-card p {
         font-size: 10px;
 
         line-height: 1.8;
     }
+
 }
 
 
@@ -1851,19 +1847,19 @@ footer > p {
     *,
     *::before,
     *::after {
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-    }
+        transition-duration:
+            .01ms !important;
 
-    .page-card,
-    .back-scrapbook {
-        transition: none;
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
     }
 
     .motion-enabled.page-ready .page-main,
-    .motion-enabled.page-ready footer,
-    .motion-enabled.page-leaving .page-main {
+    .motion-enabled.page-ready main:not(.page-main),
+    .motion-enabled.page-ready footer {
         animation: none;
     }
 }
