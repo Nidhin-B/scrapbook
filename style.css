@@ -87,16 +87,12 @@ body::before {
 
     from {
         opacity: 0;
-
-        transform:
-            translateY(14px);
+        transform: translateY(14px);
     }
 
     to {
         opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 }
 
@@ -1270,7 +1266,32 @@ footer > p {
 
     border-radius: 50%;
 
+    background: transparent;
+
+    color: var(--white);
+
+    cursor: pointer;
+
     font-size: 12px;
+
+    padding: 0;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.play-button:hover {
+    background:
+        rgba(247, 244, 235, .10);
+
+    transform:
+        scale(1.05);
+}
+
+.play-button:active {
+    transform:
+        scale(.95);
 }
 
 .track-info {
@@ -1279,6 +1300,8 @@ footer > p {
     flex-direction: column;
 
     gap: 3px;
+
+    min-width: 0;
 }
 
 .track-info strong {
@@ -1287,6 +1310,12 @@ footer > p {
         serif;
 
     font-size: 16px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }
 
 .track-info span {
@@ -1296,6 +1325,77 @@ footer > p {
     font-size: 9px;
 
     letter-spacing: 1px;
+}
+
+
+/* ========================================
+   MUSIC PROGRESS
+======================================== */
+
+.music-progress {
+    margin-top: 14px;
+}
+
+.music-progress input[type="range"] {
+    width: 100%;
+
+    height: 3px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background:
+        rgba(23, 23, 20, .18);
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.music-progress input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 11px;
+    height: 11px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--sage);
+
+    cursor: pointer;
+}
+
+.music-progress input[type="range"]::-moz-range-thumb {
+    width: 11px;
+    height: 11px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--sage);
+
+    cursor: pointer;
+}
+
+.music-time {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: .5px;
 }
 
 
@@ -1397,11 +1497,6 @@ footer > p {
 
 @media (max-width: 700px) {
 
-
-    /* ------------------------------------
-       HEADER
-    ------------------------------------ */
-
     .site-header {
         position: sticky;
 
@@ -1468,10 +1563,6 @@ footer > p {
         bottom: -5px;
     }
 
-
-    /* ------------------------------------
-       HOMEPAGE
-    ------------------------------------ */
 
     main {
         width: 88vw;
@@ -1599,10 +1690,6 @@ footer > p {
     }
 
 
-    /* ------------------------------------
-       CURRENTLY
-    ------------------------------------ */
-
     .currently {
         padding:
             10px 0
@@ -1636,10 +1723,6 @@ footer > p {
     }
 
 
-    /* ------------------------------------
-       NOTE
-    ------------------------------------ */
-
     .little-note {
         padding:
             10px 0
@@ -1658,10 +1741,6 @@ footer > p {
         font-size: 18px;
     }
 
-
-    /* ------------------------------------
-       FOOTER
-    ------------------------------------ */
 
     footer {
         width: 88vw;
@@ -1741,10 +1820,6 @@ footer > p {
     }
 
 
-    /* ------------------------------------
-       PAPER
-    ------------------------------------ */
-
     .paper-block {
         margin:
             55px 0
@@ -1776,21 +1851,21 @@ footer > p {
     }
 
 
-    /* ------------------------------------
-       PLAYER
-    ------------------------------------ */
-
     .fake-player {
         margin-top: 25px;
 
         padding:
             14px 15px;
+
+        gap: 13px;
     }
 
 
     .play-button {
         width: 37px;
         height: 37px;
+
+        font-size: 10px;
     }
 
 
@@ -1799,9 +1874,20 @@ footer > p {
     }
 
 
-    /* ------------------------------------
-       CARDS
-    ------------------------------------ */
+    .track-info span {
+        font-size: 8px;
+    }
+
+
+    .music-progress {
+        margin-top: 12px;
+    }
+
+
+    .music-time {
+        font-size: 8px;
+    }
+
 
     .page-grid {
         grid-template-columns: 1fr;
