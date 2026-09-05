@@ -1,223 +1,224 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&display=swap');
+/* =========================================
+   SCRAPBOOK — GLOBAL STYLES
+========================================= */
 
 
-/* ========================================
-   SCRAPBOOK — GLOBAL
-======================================== */
+/* =========================================
+   VARIABLES
+========================================= */
 
 :root {
-    --paper: #e9e3d5;
-    --paper-light: #f2eee4;
-    --sage: #65715b;
-    --sage-light: #bfc8b3;
-    --note: #d2c9aa;
+    --paper: #e9e5d8;
+    --paper-light: #f7f4eb;
+    --sage: #68745f;
+    --sage-light: #aab19e;
+
     --ink: #171714;
-    --muted: #66665d;
-    --dark: #20201c;
+    --dark: #23231f;
+
+    --muted: #77776f;
+    --line: rgba(23, 23, 20, .16);
+
     --white: #f7f4eb;
 }
 
+
+/* =========================================
+   RESET
+========================================= */
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
+
 
 html {
-    background: var(--paper);
-    color: var(--ink);
-    overflow-x: hidden;
     scroll-behavior: smooth;
-    color-scheme: light;
 }
 
+
 body {
-    background: var(--paper);
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            rgba(23, 23, 20, .035) 1px,
+            transparent 1px
+        );
+
+    background-size: 5px 5px;
+
+    background-color: var(--paper);
+
     color: var(--ink);
 
     font-family: "DM Mono", monospace;
-    line-height: 1.5;
+
+    line-height: 1.7;
 
     overflow-x: hidden;
-
-    color-scheme: light;
 }
+
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
 
 a {
     color: inherit;
     text-decoration: none;
 }
 
-button {
-    font-family: inherit;
+
+button,
+input {
+    font: inherit;
 }
 
 
-/* ========================================
-   PAPER TEXTURE
-======================================== */
+/* =========================================
+   TYPOGRAPHY
+========================================= */
 
-body::before {
-    content: "";
-
-    position: fixed;
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 9990;
-
-    opacity: .035;
-
-    background-image:
-        radial-gradient(
-            rgba(0, 0, 0, .8) .6px,
-            transparent .6px
-        );
-
-    background-size: 5px 5px;
+h1,
+h2,
+h3,
+h4 {
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    line-height: 1.05;
 }
 
 
-/* ========================================
+h1 {
+    font-size: clamp(58px, 9vw, 120px);
+    letter-spacing: -4px;
+}
+
+
+h2 {
+    font-size: clamp(34px, 5vw, 58px);
+    letter-spacing: -2px;
+}
+
+
+h3 {
+    font-size: 28px;
+}
+
+
+p {
+    font-size: 12px;
+}
+
+
+em {
+    font-style: italic;
+}
+
+
+::selection {
+    background: var(--sage);
+    color: var(--white);
+}
+
+
+/* =========================================
    PAGE ENTRANCE
-======================================== */
+========================================= */
 
-@keyframes scrapbook-content-in {
+body {
+    animation: pageIn .45s ease both;
+}
+
+
+@keyframes pageIn {
 
     from {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(8px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
 
-.motion-enabled.page-ready .page-main {
-    animation:
-        scrapbook-content-in
-        .28s
-        cubic-bezier(.22, .61, .36, 1)
-        both;
-}
-
-.motion-enabled.page-ready main:not(.page-main) {
-    animation:
-        scrapbook-content-in
-        .28s
-        cubic-bezier(.22, .61, .36, 1)
-        both;
-}
-
-.motion-enabled.page-ready footer {
-    animation:
-        scrapbook-content-in
-        .32s
-        .03s
-        cubic-bezier(.22, .61, .36, 1)
-        both;
 }
 
 
-/* ========================================
+/* =========================================
    HEADER
-======================================== */
+========================================= */
 
 .site-header {
     width: 100%;
-
-    padding: 20px 6vw;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    gap: 30px;
+    padding: 24px 5vw;
+
+    border-bottom: 1px solid var(--line);
 
     position: sticky;
     top: 0;
 
-    z-index: 1000;
+    z-index: 100;
 
     background:
-        rgba(233, 227, 213, .94);
+        rgba(233, 229, 216, .92);
 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    border-bottom:
-        1px solid rgba(23, 23, 20, .10);
-
-    box-shadow:
-        0 4px 18px rgba(23, 23, 20, .035);
-
-    transition:
-        padding .25s ease,
-        background .25s ease;
+    backdrop-filter: blur(8px);
 }
 
 
-/* ========================================
-   LOGO
-======================================== */
-
 .logo {
-    display: inline-block;
+    font-family: "Playfair Display", serif;
 
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 25px;
-
-    font-weight: 800;
+    font-size: 22px;
 
     letter-spacing: -1px;
 
-    line-height: 1;
-
-    white-space: nowrap;
+    font-weight: 600;
 }
 
-.logo span {
+
+.logo span,
+.footer-logo span {
     color: var(--sage);
 }
 
 
-/* ========================================
-   NAVIGATION
-======================================== */
-
-nav {
+.main-nav {
     display: flex;
-
     align-items: center;
 
-    gap: clamp(18px, 3vw, 38px);
+    gap: 25px;
 }
 
-nav a {
+
+.main-nav a {
     position: relative;
 
-    display: inline-block;
+    font-size: 10px;
 
-    font-size: 12px;
-
-    font-weight: 500;
+    letter-spacing: 1px;
 
     text-transform: uppercase;
 
-    letter-spacing: 1.5px;
+    color: var(--muted);
 
-    transition:
-        transform .2s ease,
-        opacity .2s ease;
+    transition: color .2s ease;
 }
 
-nav a::after {
+
+.main-nav a::after {
     content: "";
 
     position: absolute;
@@ -228,1030 +229,493 @@ nav a::after {
     width: 0;
     height: 1px;
 
-    background:
-        var(--ink);
+    background: var(--ink);
 
-    transition:
-        width .2s ease;
+    transition: width .2s ease;
 }
 
-nav a:hover {
-    transform:
-        translateY(-1px);
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: var(--ink);
 }
 
-nav a:hover::after {
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
     width: 100%;
 }
 
 
-/* ========================================
-   MAIN
-======================================== */
-
-main {
-    width: min(1180px, 88vw);
-
-    margin: 0 auto;
-}
-
-
-/* ========================================
-   HOMEPAGE HERO
-======================================== */
+/* =========================================
+   HOMEPAGE
+========================================= */
 
 .hero {
-    min-height: 560px;
-
-    position: relative;
-
-    padding:
-        clamp(70px, 10vw, 125px)
-        5vw
-        80px;
+    min-height: 78vh;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    overflow: hidden;
-}
-
-.tape {
-    position: absolute;
-
-    background:
-        rgba(191, 200, 179, .72);
-
-    transform: rotate(-3deg);
-
-    box-shadow:
-        0 2px 5px rgba(0, 0, 0, .05);
-}
-
-.tape-hero {
-    width: 120px;
-    height: 28px;
-
-    top: 70px;
-    right: 11%;
-
-    transform:
-        rotate(7deg);
-}
-
-.eyebrow {
-    color: var(--muted);
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 24px;
-}
-
-.hero h1 {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(55px, 9vw, 112px);
-
-    line-height: .86;
-
-    font-weight: 800;
-
-    letter-spacing: -5px;
-
-    max-width: 900px;
-
-    position: relative;
-
-    z-index: 2;
-}
-
-.hero h1 span {
-    color: var(--sage);
-}
-
-.hero-text {
-    max-width: 500px;
-
-    margin-top: 38px;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.8;
-}
-
-.scribble {
-    margin-top: 30px;
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 17px;
-
-    font-style: italic;
-
-    transform: rotate(-3deg);
-
-    width: fit-content;
-}
-
-
-/* ========================================
-   HOMEPAGE CATEGORY GRID
-======================================== */
-
-.categories {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 28px;
-
     padding:
-        40px 0
-        100px;
-}
-
-
-/* ========================================
-   SCRAPBOOK CARDS
-======================================== */
-
-.scrap-card {
-    min-height: 430px;
+        8vw 5vw
+        7vw;
 
     position: relative;
-
-    overflow: hidden;
-
-    border:
-        1px solid rgba(23, 23, 20, .14);
-
-    padding: 34px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: flex-end;
-
-    box-shadow:
-        0 8px 25px rgba(23, 23, 20, .05);
-
-    transition:
-        transform .35s cubic-bezier(.22, .61, .36, 1),
-        box-shadow .35s ease;
-}
-
-.scrap-card:hover {
-    transform:
-        translateY(-7px)
-        rotate(-.4deg);
-
-    box-shadow:
-        0 18px 40px rgba(23, 23, 20, .10);
-}
-
-.card-content {
-    position: relative;
-
-    z-index: 3;
-}
-
-.card-number {
-    display: block;
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: var(--muted);
-
-    margin-bottom: 7px;
-}
-
-.scrap-card h2 {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(35px, 4vw, 54px);
-
-    line-height: .95;
-
-    letter-spacing: -2px;
-
-    margin-bottom: 15px;
-}
-
-.scrap-card p {
-    max-width: 390px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.7;
-}
-
-.card-link {
-    display: inline-block;
-
-    margin-top: 23px;
-
-    font-size: 10px;
-
-    letter-spacing: 1.4px;
-
-    text-transform: uppercase;
-
-    border-bottom:
-        1px solid var(--ink);
-
-    padding-bottom: 4px;
-
-    transition:
-        transform .25s ease,
-        opacity .25s ease;
-}
-
-.scrap-card:hover .card-link {
-    transform:
-        translateX(6px);
-
-    opacity: .65;
 }
 
 
-/* ========================================
-   MUSIC CARD
-======================================== */
-
-.music-card {
-    background:
-        var(--paper-light);
-
-    transform:
-        rotate(-1deg);
-}
-
-.card-tape {
-    position: absolute;
-
-    top: 20px;
-    left: 50%;
-
-    width: 115px;
-    height: 28px;
-
-    transform:
-        translateX(-50%)
-        rotate(-2deg);
-
-    background:
-        rgba(191, 200, 179, .72);
-
-    z-index: 5;
-}
-
-.vinyl {
-    position: absolute;
-
-    width: 250px;
-    height: 250px;
-
-    border-radius: 50%;
-
-    right: -45px;
-    top: 35px;
-
-    background:
-        repeating-radial-gradient(
-            circle,
-            #171714 0px,
-            #171714 3px,
-            #252520 4px,
-            #171714 6px
-        );
-
-    box-shadow:
-        0 15px 35px rgba(0, 0, 0, .15);
-}
-
-.vinyl::before {
-    content: "";
+.hero::before {
+    content: "✳";
 
     position: absolute;
 
-    inset: 18px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, .08);
-}
-
-.vinyl-label {
-    position: absolute;
-
-    width: 82px;
-    height: 82px;
-
-    border-radius: 50%;
-
-    top: 50%;
-    left: 50%;
-
-    transform:
-        translate(-50%, -50%);
-
-    background:
-        var(--sage);
-}
-
-.vinyl-label::after {
-    content: "";
-
-    position: absolute;
-
-    width: 9px;
-    height: 9px;
-
-    border-radius: 50%;
-
-    background:
-        var(--paper);
-
-    top: 50%;
-    left: 50%;
-
-    transform:
-        translate(-50%, -50%);
-}
-
-
-/* ========================================
-   GAMES CARD
-======================================== */
-
-.games-card {
-    background:
-        #d7d3c7;
-
-    transform:
-        rotate(1deg);
-}
-
-.photo-placeholder {
-    position: absolute;
-
-    top: 32px;
-    left: 32px;
-    right: 32px;
-
-    height: 220px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #6b7064,
-            #353833
-        );
-
-    border:
-        8px solid var(--white);
-
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, .13);
-
-    transform:
-        rotate(-1.5deg);
-}
-
-.photo-placeholder span {
-    color:
-        var(--white);
-
-    text-align: center;
-
-    font-size: 12px;
-
-    line-height: 1.7;
-
-    letter-spacing: 2px;
-}
-
-
-/* ========================================
-   ART CARD
-======================================== */
-
-.art-card {
-    background:
-        #d9dfd2;
-
-    transform:
-        rotate(.7deg);
-}
-
-.art-paper {
-    position: absolute;
-
-    width: 230px;
-    height: 220px;
-
-    top: 30px;
-    left: 40px;
-
-    background:
-        var(--paper-light);
-
-    transform:
-        rotate(-4deg);
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, .09);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 30px;
-}
-
-.art-paper span {
-    font-family:
-        "Playfair Display",
-        serif;
+    top: 15%;
+    right: 8%;
 
     font-size: 42px;
 
-    color:
-        var(--sage);
-}
+    color: var(--sage);
 
-.art-paper span:nth-child(2) {
-    transform:
-        translateY(-25px)
-        rotate(8deg);
-}
-
-.art-paper span:nth-child(3) {
-    transform:
-        translateY(22px)
-        rotate(-12deg);
+    transform: rotate(14deg);
 }
 
 
-/* ========================================
-   PROJECTS CARD
-======================================== */
+.eyebrow {
+    margin-bottom: 18px;
 
-.projects-card {
-    background:
-        #ded7c4;
+    font-size: 10px;
 
-    transform:
-        rotate(-.6deg);
-}
+    letter-spacing: 2px;
 
-.note-paper {
-    position: absolute;
+    color: var(--sage);
 
-    width: 245px;
-    min-height: 205px;
-
-    top: 28px;
-    right: 38px;
-
-    padding:
-        35px 28px;
-
-    background:
-        #efe7c9;
-
-    transform:
-        rotate(4deg);
-
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, .09);
-}
-
-.note-paper::before,
-.note-paper::after {
-    content: "";
-
-    position: absolute;
-
-    width: 48px;
-    height: 18px;
-
-    background:
-        rgba(191, 200, 179, .72);
-}
-
-.note-paper::before {
-    top: -8px;
-    left: 50px;
-
-    transform:
-        rotate(-8deg);
-}
-
-.note-paper::after {
-    bottom: -7px;
-    right: 35px;
-
-    transform:
-        rotate(-6deg);
-}
-
-.note-paper p {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    color:
-        var(--ink);
-
-    font-size: 22px;
-
-    line-height: 1.15;
+    text-transform: uppercase;
 }
 
 
-/* ========================================
-   CURRENTLY
-======================================== */
-
-.currently {
-    padding:
-        30px 0
-        100px;
+.hero h1 {
+    max-width: 900px;
 }
 
-.currently-title {
-    display: flex;
 
-    align-items: center;
+.hero-description {
+    max-width: 460px;
 
-    gap: 13px;
+    margin-top: 30px;
 
-    margin-bottom: 30px;
+    color: var(--muted);
+
+    font-size: 12px;
 }
 
-.currently-title span {
-    color:
-        var(--sage);
 
-    font-size: 18px;
-}
+/* =========================================
+   SECTION LABELS
+========================================= */
 
-.currently-title h2 {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 31px;
-
-    letter-spacing: -1px;
-}
-
-.currently-list {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    border-top:
-        1px solid
-        rgba(23, 23, 20, .18);
-}
-
-.current-item {
-    padding:
-        25px 20px;
-
-    border-bottom:
-        1px solid
-        rgba(23, 23, 20, .18);
-}
-
-.current-item + .current-item {
-    border-left:
-        1px solid
-        rgba(23, 23, 20, .18);
-}
-
-.current-item span {
-    display: block;
+.section-label {
+    margin-bottom: 14px;
 
     font-size: 9px;
 
     letter-spacing: 2px;
 
-    color:
-        var(--muted);
+    text-transform: uppercase;
 
-    margin-bottom: 9px;
-}
-
-.current-item strong {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 18px;
-
-    font-weight: 600;
+    color: var(--sage);
 }
 
 
-/* ========================================
-   LITTLE NOTE
-======================================== */
+/* =========================================
+   HOMEPAGE CATEGORIES
+========================================= */
 
-.little-note {
-    display: flex;
-
-    justify-content: center;
-
-    padding:
-        20px 0
-        110px;
-}
-
-.note {
-    position: relative;
-
-    width:
-        min(430px, 90%);
-
-    padding:
-        35px 40px;
-
-    background:
-        var(--note);
-
-    transform:
-        rotate(-2deg);
-
-    box-shadow:
-        0 10px 25px
-        rgba(0, 0, 0, .08);
-}
-
-.note .pin {
-    position: absolute;
-
-    top: -11px;
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
-    font-size: 17px;
-
-    color:
-        var(--sage);
-}
-
-.note p {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 21px;
-
-    line-height: 1.25;
-}
-
-.note small {
-    display: block;
-
-    margin-top: 17px;
-
-    font-size: 10px;
-
-    letter-spacing: 1px;
-
-    color:
-        var(--muted);
-}
-
-
-/* ========================================
-   FOOTER
-======================================== */
-
-footer {
-    border-top:
-        1px solid
-        rgba(23, 23, 20, .16);
-
-    width:
-        min(1180px, 88vw);
-
-    margin:
-        0 auto;
-
-    padding:
-        45px 0
-        55px;
-
+.categories {
     display: grid;
 
     grid-template-columns:
-        1fr auto;
+        repeat(4, 1fr);
 
-    gap:
-        12px 30px;
+    gap: 18px;
+
+    padding:
+        0 5vw
+        7vw;
+}
+
+
+.category-card {
+    min-height: 230px;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: var(--paper-light);
+
+    border: 1px solid var(--line);
+
+    position: relative;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.category-card:nth-child(1) {
+    transform: rotate(-1deg);
+}
+
+
+.category-card:nth-child(2) {
+    transform: rotate(.8deg);
+}
+
+
+.category-card:nth-child(3) {
+    transform: rotate(-.5deg);
+}
+
+
+.category-card:nth-child(4) {
+    transform: rotate(1deg);
+}
+
+
+.category-card:hover {
+    transform:
+        translateY(-6px)
+        rotate(0deg);
+
+    box-shadow:
+        7px 8px 0 rgba(23, 23, 20, .08);
+}
+
+
+.category-number {
+    font-size: 9px;
+
+    color: var(--muted);
+}
+
+
+.category-card h2 {
+    font-size: 35px;
+}
+
+
+.category-card p {
+    max-width: 230px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   CURRENT SECTION
+========================================= */
+
+.current-section {
+    padding:
+        7vw 5vw;
+
+    border-top: 1px solid var(--line);
+}
+
+
+.current-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 5vw;
 
     align-items: center;
 }
 
-.footer-logo {
-    font-family:
-        "Playfair Display",
-        serif;
 
-    font-size: 24px;
-
-    font-weight: 800;
-}
-
-.footer-logo span {
-    color:
-        var(--sage);
-}
-
-footer > p {
-    font-size: 10px;
-
-    color:
-        var(--muted);
-}
-
-.footer-links {
-    display: flex;
-
-    gap: 22px;
-}
-
-.footer-links a {
-    font-size: 10px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1.3px;
-
-    transition:
-        opacity .2s ease;
-}
-
-.footer-links a:hover {
-    opacity: .5;
-}
-
-.copyright {
-    grid-column:
-        1 / -1;
-
-    margin-top: 12px;
-}
-
-
-/* ========================================
-   SUBPAGES
-======================================== */
-
-.page-main {
-    width:
-        min(1080px, 88vw);
-
-    margin:
-        0 auto;
-
-    padding-bottom:
-        100px;
-}
-
-
-/* ========================================
-   SUBPAGE HERO
-======================================== */
-
-.page-hero {
-    position: relative;
-
-    padding:
-        clamp(65px, 9vw, 105px)
-        0
-        70px;
-
-    border-bottom:
-        1px solid
-        rgba(23, 23, 20, .16);
-}
-
-.page-label {
-    font-size: 10px;
-
-    letter-spacing: 2.5px;
-
-    color:
-        var(--sage);
-
-    text-transform: uppercase;
-
-    margin-bottom: 18px;
-}
-
-.page-title {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(58px, 10vw, 110px);
-
-    line-height: .9;
-
-    letter-spacing: -5px;
-
-    font-weight: 800;
-
-    margin-bottom: 30px;
-}
-
-.page-intro {
-    max-width: 680px;
-
-    font-size:
-        clamp(14px, 1.7vw, 18px);
-
-    line-height: 1.8;
-
-    color:
-        var(--muted);
-}
-
-
-/* ========================================
-   BACK TO SCRAPBOOK
-======================================== */
-
-.back-scrapbook {
-    display: inline-block;
-
-    margin-top: 32px;
-
-    padding-bottom: 6px;
-
-    border-bottom:
-        1px solid var(--ink);
-
-    font-size: 10px;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    transition:
-        transform .25s ease,
-        opacity .25s ease;
-}
-
-.back-scrapbook:hover {
-    transform:
-        translateX(-6px);
-
-    opacity: .55;
-}
-
-
-/* ========================================
-   PAPER BLOCK
-======================================== */
-
-.paper-block {
-    position: relative;
-
-    margin:
-        70px 0
-        45px;
-
-    padding: 45px;
+.current-art {
+    aspect-ratio: 1 / 1;
 
     background:
-        var(--paper-light);
+        linear-gradient(
+            135deg,
+            var(--dark),
+            var(--sage)
+        );
 
-    border:
-        1px solid
-        rgba(23, 23, 20, .12);
+    position: relative;
 
-    box-shadow:
-        8px 10px 0
-        rgba(101, 113, 91, .10);
+    overflow: hidden;
 
-    transform:
-        rotate(-.35deg);
+    transform: rotate(-1.5deg);
 }
+
+
+.current-art::before {
+    content: "";
+
+    position: absolute;
+
+    width: 65%;
+    height: 65%;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(247, 244, 235, .5);
+
+    left: 18%;
+    top: 17%;
+}
+
+
+.current-art::after {
+    content: "NOW PLAYING";
+
+    position: absolute;
+
+    bottom: 20px;
+    left: 20px;
+
+    color: var(--white);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+
+.current-copy h2 {
+    margin-bottom: 20px;
+}
+
+
+.current-copy p {
+    max-width: 430px;
+
+    color: var(--muted);
+}
+
+
+/* =========================================
+   NOTE
+========================================= */
+
+.note {
+    max-width: 720px;
+
+    margin:
+        0 auto
+        8vw;
+
+    padding: 30px 35px;
+
+    background:
+        #d9dfcc;
+
+    border: 1px solid
+        rgba(104, 116, 95, .25);
+
+    transform: rotate(.8deg);
+}
+
+
+.note p {
+    font-family: "Playfair Display", serif;
+
+    font-size: 20px;
+
+    line-height: 1.5;
+}
+
+
+.note small {
+    display: block;
+
+    margin-top: 15px;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    color: var(--muted);
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   SUBPAGE
+========================================= */
+
+.subpage {
+    padding-bottom: 8vw;
+}
+
+
+.subpage-hero {
+    padding:
+        9vw 5vw
+        7vw;
+
+    border-bottom: 1px solid var(--line);
+}
+
+
+.subpage-hero h1 {
+    max-width: 850px;
+}
+
+
+.subpage-hero .hero-description {
+    margin-top: 28px;
+}
+
+
+/* =========================================
+   PAPER BLOCK
+========================================= */
+
+.paper-block {
+    margin:
+        5vw
+        auto;
+
+    max-width: 1100px;
+
+    padding: 42px;
+
+    background: var(--paper-light);
+
+    border: 1px solid var(--line);
+
+    position: relative;
+}
+
 
 .paper-block::before {
     content: "";
 
     position: absolute;
 
-    width: 100px;
-    height: 24px;
+    top: 12px;
+    right: 14px;
 
-    top: -11px;
-    left: 50%;
+    width: 38px;
+    height: 1px;
 
-    transform:
-        translateX(-50%)
-        rotate(-2deg);
+    background: var(--sage);
 
-    background:
-        rgba(191, 200, 179, .72);
+    transform: rotate(-2deg);
 }
 
+
+.paper-block > p {
+    max-width: 650px;
+
+    color: var(--muted);
+}
+
+
 .paper-block h2 {
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size:
-        clamp(30px, 5vw, 48px);
-
-    line-height: 1;
-
-    letter-spacing: -2px;
-
     margin-bottom: 18px;
 }
 
-.paper-block > p {
-    max-width: 700px;
 
-    color:
-        var(--muted);
+/* =========================================
+   PAGE GRID
+========================================= */
 
-    font-size: 12px;
+.page-grid {
+    max-width: 1100px;
 
-    line-height: 1.8;
+    margin:
+        5vw auto;
+
+    padding:
+        0 5vw;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
 }
 
 
-/* ========================================
-   MUSIC PLAYER
-======================================== */
+.page-grid .paper-block {
+    margin: 0;
+}
 
-.fake-player {
+
+.small-card {
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.small-card h3 {
+    margin-bottom: 12px;
+}
+
+
+.small-card p {
+    max-width: 360px;
+}
+
+
+/* =========================================
+   MUSIC PLAYER
+========================================= */
+
+.music-player {
+    width: 100%;
+
+    margin-top: 32px;
+
+    padding:
+        22px 24px
+        18px;
+
+    background: var(--dark);
+
+    color: var(--white);
+
+    transform: rotate(.35deg);
+
+    box-shadow:
+        5px 6px 0
+        rgba(23, 23, 20, .08);
+}
+
+
+/* PLAYER TOP */
+
+.player-top {
     display: flex;
 
     align-items: center;
 
     gap: 18px;
-
-    margin-top: 32px;
-
-    padding:
-        17px 20px;
-
-    background:
-        var(--dark);
-
-    color:
-        var(--white);
-
-    transform:
-        rotate(.4deg);
 }
 
+
+/* PLAY BUTTON */
+
 .play-button {
-    width: 42px;
-    height: 42px;
+    width: 46px;
+    height: 46px;
 
     flex-shrink: 0;
 
@@ -1262,7 +726,7 @@ footer > p {
 
     border:
         1px solid
-        rgba(247, 244, 235, .3);
+        rgba(247, 244, 235, .35);
 
     border-radius: 50%;
 
@@ -1271,6 +735,8 @@ footer > p {
     color: var(--white);
 
     cursor: pointer;
+
+    font-family: "DM Mono", monospace;
 
     font-size: 12px;
 
@@ -1281,35 +747,41 @@ footer > p {
         transform .2s ease;
 }
 
+
 .play-button:hover {
     background:
-        rgba(247, 244, 235, .10);
+        rgba(247, 244, 235, .1);
 
-    transform:
-        scale(1.05);
+    transform: scale(1.05);
 }
+
 
 .play-button:active {
-    transform:
-        scale(.95);
+    transform: scale(.95);
 }
+
+
+/* TRACK INFO */
 
 .track-info {
     display: flex;
 
     flex-direction: column;
 
-    gap: 3px;
+    gap: 4px;
 
     min-width: 0;
 }
+
 
 .track-info strong {
     font-family:
         "Playfair Display",
         serif;
 
-    font-size: 16px;
+    font-size: 17px;
+
+    font-weight: 500;
 
     white-space: nowrap;
 
@@ -1318,80 +790,164 @@ footer > p {
     text-overflow: ellipsis;
 }
 
+
 .track-info span {
     color:
-        rgba(247, 244, 235, .6);
+        rgba(247, 244, 235, .55);
+
+    font-family:
+        "DM Mono",
+        monospace;
 
     font-size: 9px;
 
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
 }
 
 
-/* ========================================
+/* =========================================
    MUSIC PROGRESS
-======================================== */
+========================================= */
 
 .music-progress {
-    margin-top: 14px;
+    width: 100%;
+
+    margin-top: 22px;
 }
+
 
 .music-progress input[type="range"] {
     width: 100%;
 
-    height: 3px;
+    height: 5px;
+
+    display: block;
 
     appearance: none;
     -webkit-appearance: none;
 
+    border-radius: 20px;
+
     background:
-        rgba(23, 23, 20, .18);
+        rgba(247, 244, 235, .18);
 
     outline: none;
 
     cursor: pointer;
 }
 
-.music-progress input[type="range"]::-webkit-slider-thumb {
+
+/* CHROME / SAFARI TRACK */
+
+.music-progress
+input[type="range"]::-webkit-slider-runnable-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .18);
+}
+
+
+/* CHROME / SAFARI THUMB */
+
+.music-progress
+input[type="range"]::-webkit-slider-thumb {
+
     appearance: none;
     -webkit-appearance: none;
 
-    width: 11px;
-    height: 11px;
+    width: 13px;
+    height: 13px;
+
+    margin-top: -4px;
 
     border: 0;
 
     border-radius: 50%;
 
-    background:
-        var(--sage);
+    background: var(--sage);
 
     cursor: pointer;
+
+    transition:
+        transform .15s ease;
 }
 
-.music-progress input[type="range"]::-moz-range-thumb {
-    width: 11px;
-    height: 11px;
+
+.music-progress
+input[type="range"]::-webkit-slider-thumb:hover {
+
+    transform: scale(1.15);
+}
+
+
+/* FIREFOX TRACK */
+
+.music-progress
+input[type="range"]::-moz-range-track {
+
+    width: 100%;
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .18);
+}
+
+
+/* FIREFOX FILLED TRACK */
+
+.music-progress
+input[type="range"]::-moz-range-progress {
+
+    height: 5px;
+
+    border-radius: 20px;
+
+    background: var(--sage);
+}
+
+
+/* FIREFOX THUMB */
+
+.music-progress
+input[type="range"]::-moz-range-thumb {
+
+    width: 13px;
+    height: 13px;
 
     border: 0;
 
     border-radius: 50%;
 
-    background:
-        var(--sage);
+    background: var(--sage);
 
     cursor: pointer;
 }
+
+
+/* MUSIC TIME */
 
 .music-time {
     display: flex;
 
     justify-content: space-between;
 
-    margin-top: 7px;
+    margin-top: 8px;
 
     color:
-        var(--muted);
+        rgba(247, 244, 235, .48);
+
+    font-family:
+        "DM Mono",
+        monospace;
 
     font-size: 9px;
 
@@ -1399,473 +955,646 @@ footer > p {
 }
 
 
-/* ========================================
-   SUBPAGE CARD GRID
-======================================== */
+/* =========================================
+   ALBUM / MUSIC CARDS
+========================================= */
 
-.page-grid {
+.album-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+    max-width: 1100px;
+
+    margin:
+        5vw auto;
+
+    padding:
+        0 5vw;
+}
+
+
+.album-card {
+    background: var(--paper-light);
+
+    border: 1px solid var(--line);
+
+    padding: 20px;
+
+    transition:
+        transform .2s ease;
+}
+
+
+.album-card:hover {
+    transform:
+        translateY(-4px)
+        rotate(-.5deg);
+}
+
+
+.album-cover {
+    aspect-ratio: 1 / 1;
+
+    margin-bottom: 18px;
+
+    background: var(--dark);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: var(--white);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 30px;
+}
+
+
+.album-card h3 {
+    font-size: 23px;
+
+    margin-bottom: 5px;
+}
+
+
+.album-card span {
+    font-size: 9px;
+
+    color: var(--muted);
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================
+   GAME / PROJECT CARDS
+========================================= */
+
+.project-list {
+    max-width: 1100px;
+
+    margin:
+        5vw auto;
+
+    padding:
+        0 5vw;
+}
+
+
+.project-item {
+    display: grid;
+
+    grid-template-columns:
+        100px 1fr auto;
+
+    align-items: center;
 
     gap: 25px;
 
-    margin-top: 55px;
+    padding:
+        25px 0;
+
+    border-bottom:
+        1px solid var(--line);
 }
 
-.page-card {
-    position: relative;
 
-    min-height: 210px;
+.project-number {
+    color: var(--sage);
 
-    padding: 35px;
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+.project-item h3 {
+    font-size: 25px;
+
+    margin-bottom: 4px;
+}
+
+
+.project-item p {
+    color: var(--muted);
+
+    max-width: 550px;
+}
+
+
+.project-status {
+    padding:
+        5px 9px;
+
+    border:
+        1px solid
+        var(--line);
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   ART GRID
+========================================= */
+
+.art-grid {
+    max-width: 1100px;
+
+    margin:
+        5vw auto;
+
+    padding:
+        0 5vw;
+
+    columns: 3 250px;
+
+    column-gap: 20px;
+}
+
+
+.art-card {
+    break-inside: avoid;
+
+    margin-bottom: 20px;
 
     background:
         var(--paper-light);
 
     border:
-        1px solid
-        rgba(23, 23, 20, .13);
+        1px solid var(--line);
 
-    box-shadow:
-        5px 7px 0
-        rgba(23, 23, 20, .035);
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
+    padding: 14px;
 }
 
-.page-card:nth-child(1) {
-    transform:
-        rotate(-.7deg);
-}
 
-.page-card:nth-child(2) {
-    transform:
-        rotate(.7deg);
-}
+.art-image {
+    width: 100%;
 
-.page-card:nth-child(3) {
-    transform:
-        rotate(.5deg);
-}
+    min-height: 180px;
 
-.page-card:nth-child(4) {
-    transform:
-        rotate(-.5deg);
-}
+    background: var(--sage);
 
-.page-card:hover {
-    transform:
-        translateY(-5px)
-        rotate(0deg);
+    display: flex;
 
-    box-shadow:
-        8px 12px 0
-        rgba(23, 23, 20, .06);
-}
+    align-items: center;
 
-.page-card h3 {
+    justify-content: center;
+
+    color: var(--white);
+
     font-family:
         "Playfair Display",
         serif;
 
-    font-size: 28px;
-
-    line-height: 1;
-
-    letter-spacing: -1px;
-
-    margin-bottom: 15px;
-}
-
-.page-card p {
-    color:
-        var(--muted);
-
-    font-size: 11px;
-
-    line-height: 1.8;
+    font-size: 24px;
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+.art-card p {
+    margin-top: 12px;
 
-@media (max-width: 700px) {
+    color: var(--muted);
 
-    .site-header {
-        position: sticky;
-
-        top: 0;
-
-        z-index: 1000;
-
-        width: 100%;
-
-        padding:
-            17px 6vw
-            15px;
-
-        display: flex;
-
-        align-items: center;
-
-        flex-direction: row;
-
-        gap: 10px;
-
-        background:
-            rgba(233, 227, 213, .96);
-
-        backdrop-filter:
-            blur(12px);
-
-        -webkit-backdrop-filter:
-            blur(12px);
-
-        border-bottom:
-            1px solid
-            rgba(23, 23, 20, .10);
-    }
+    font-size: 10px;
+}
 
 
-    .logo {
-        font-size: 21px;
+/* =========================================
+   FOOTER
+========================================= */
 
-        flex-shrink: 0;
-    }
+.site-footer {
+    padding:
+        50px 5vw
+        35px;
 
+    border-top:
+        1px solid var(--line);
 
-    nav {
-        width: auto;
+    display: grid;
 
-        flex: 1;
+    grid-template-columns:
+        1fr 1fr 1fr;
 
-        justify-content: flex-end;
+    align-items: end;
 
-        gap:
-            clamp(8px, 2.7vw, 15px);
-    }
-
-
-    nav a {
-        font-size: 8px;
-
-        letter-spacing: .8px;
-    }
+    gap: 20px;
+}
 
 
-    nav a::after {
-        bottom: -5px;
-    }
+.footer-logo {
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 25px;
+
+    font-weight: 600;
+}
 
 
-    main {
-        width: 88vw;
-    }
+.site-footer p {
+    color: var(--muted);
+
+    text-align: center;
+}
 
 
-    .hero {
-        min-height: 520px;
+.site-footer > span {
+    color: var(--muted);
 
-        padding:
-            65px 0
-            65px;
-    }
+    font-size: 9px;
 
-
-    .tape-hero {
-        top: 40px;
-
-        right: 2%;
-    }
+    text-align: right;
+}
 
 
-    .eyebrow {
-        font-size: 9px;
+/* =========================================
+   RESPONSIVE
+========================================= */
 
-        letter-spacing: 1.5px;
+@media (max-width: 900px) {
 
-        margin-bottom: 20px;
-    }
-
-
-    .hero h1 {
+    h1 {
         font-size:
-            clamp(48px, 14vw, 76px);
-
-        letter-spacing: -3px;
-    }
-
-
-    .hero-text {
-        font-size: 11px;
-
-        max-width: 340px;
-
-        margin-top: 30px;
-    }
-
-
-    .scribble {
-        font-size: 14px;
+            clamp(52px, 11vw, 90px);
     }
 
 
     .categories {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
 
-        gap: 30px;
+
+    .current-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .current-art {
+        max-width: 600px;
+    }
+
+
+    .album-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    /* HEADER */
+
+    .site-header {
+        padding:
+            18px 5vw;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 14px;
+    }
+
+
+    .main-nav {
+        width: 100%;
+
+        gap: 15px;
+
+        overflow-x: auto;
+
+        padding-bottom: 3px;
+    }
+
+
+    .main-nav a {
+        flex-shrink: 0;
+
+        font-size: 8px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 70vh;
 
         padding:
-            20px 0
-            80px;
+            18vw 6vw
+            12vw;
     }
 
 
-    .scrap-card {
-        min-height: 440px;
+    .hero::before {
+        font-size: 30px;
 
-        padding: 28px;
+        top: 12%;
+        right: 8%;
     }
 
 
-    .vinyl {
-        width: 205px;
-        height: 205px;
+    h1 {
+        font-size:
+            clamp(50px, 16vw, 78px);
 
-        right: -45px;
-
-        top: 30px;
+        letter-spacing: -3px;
     }
 
 
-    .vinyl-label {
-        width: 68px;
-        height: 68px;
+    h2 {
+        font-size:
+            clamp(32px, 10vw, 48px);
     }
 
 
-    .photo-placeholder {
-        top: 28px;
+    .hero-description {
+        max-width: 330px;
 
-        left: 28px;
-        right: 28px;
-
-        height: 220px;
+        margin-top: 24px;
     }
 
 
-    .art-paper {
-        width: 205px;
+    /* CATEGORY GRID */
 
-        height: 195px;
+    .categories {
+        grid-template-columns:
+            1fr;
 
-        top: 30px;
-        left: 30px;
+        gap: 16px;
+
+        padding:
+            0 6vw
+            15vw;
     }
 
 
-    .note-paper {
-        width: 215px;
-
+    .category-card {
         min-height: 190px;
 
-        top: 28px;
-        right: 25px;
+        padding: 22px;
     }
 
 
-    .scrap-card h2 {
-        font-size: 42px;
+    .category-card h2 {
+        font-size: 32px;
     }
 
 
-    .scrap-card p {
-        font-size: 10px;
-    }
+    /* CURRENT */
 
-
-    .currently {
+    .current-section {
         padding:
-            10px 0
-            75px;
+            15vw 6vw;
     }
 
 
-    .currently-title h2 {
-        font-size: 27px;
+    .current-grid {
+        gap: 35px;
     }
 
 
-    .currently-list {
-        grid-template-columns: 1fr;
-    }
-
-
-    .current-item + .current-item {
-        border-left: 0;
-    }
-
-
-    .current-item {
-        padding:
-            20px 5px;
-    }
-
-
-    .current-item strong {
-        font-size: 17px;
-    }
-
-
-    .little-note {
-        padding:
-            10px 0
-            90px;
-    }
-
+    /* NOTE */
 
     .note {
-        width: 92%;
+        margin:
+            0 6vw
+            15vw;
 
-        padding: 30px;
+        padding:
+            25px;
+
     }
 
 
     .note p {
-        font-size: 18px;
+        font-size: 17px;
     }
 
 
-    footer {
-        width: 88vw;
+    /* SUBPAGE */
 
-        grid-template-columns: 1fr;
-
-        gap: 14px;
-
+    .subpage-hero {
         padding:
-            38px 0
-            45px;
-    }
-
-
-    .footer-links {
-        flex-wrap: wrap;
-
-        gap: 15px;
-    }
-
-
-    .copyright {
-        grid-column: auto;
-    }
-
-
-    /* ------------------------------------
-       SUBPAGES
-    ------------------------------------ */
-
-    .page-main {
-        width: 88vw;
-
-        padding-bottom: 65px;
-    }
-
-
-    .page-hero {
-        padding:
-            55px 0
-            48px;
-    }
-
-
-    .page-label {
-        font-size: 9px;
-
-        letter-spacing: 2px;
-
-        margin-bottom: 15px;
-    }
-
-
-    .page-title {
-        font-size:
-            clamp(52px, 16vw, 76px);
-
-        letter-spacing: -3px;
-
-        margin-bottom: 24px;
-    }
-
-
-    .page-intro {
-        font-size: 12px;
-
-        line-height: 1.8;
-    }
-
-
-    .back-scrapbook {
-        margin-top: 25px;
-
-        font-size: 9px;
-
-        letter-spacing: 1.2px;
+            18vw 6vw
+            13vw;
     }
 
 
     .paper-block {
         margin:
-            55px 0
-            35px;
+            10vw 6vw;
 
         padding:
-            32px 27px;
+            28px 22px;
     }
 
 
-    .paper-block::before {
-        width: 85px;
+    /* PAGE GRID */
 
-        height: 21px;
-    }
-
-
-    .paper-block h2 {
-        font-size: 32px;
-
-        letter-spacing: -1.5px;
-    }
-
-
-    .paper-block > p {
-        font-size: 10px;
-
-        line-height: 1.8;
-    }
-
-
-    .fake-player {
-        margin-top: 25px;
+    .page-grid {
+        grid-template-columns:
+            1fr;
 
         padding:
-            14px 15px;
+            0 6vw;
 
-        gap: 13px;
+        gap: 16px;
+    }
+
+
+    .small-card {
+        min-height: 190px;
+    }
+
+
+    /* MUSIC PLAYER */
+
+    .music-player {
+        padding:
+            19px 18px
+            16px;
+
+        margin-top: 26px;
+
+        transform:
+            rotate(.2deg);
+    }
+
+
+    .player-top {
+        gap: 14px;
     }
 
 
     .play-button {
-        width: 37px;
-        height: 37px;
+        width: 42px;
+        height: 42px;
 
-        font-size: 10px;
+        font-size: 11px;
+    }
+
+
+    .track-info strong {
+        font-size: 15px;
+    }
+
+
+    .track-info span {
+        font-size: 8px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .music-progress {
+        margin-top: 20px;
+    }
+
+
+    .music-progress
+    input[type="range"] {
+        height: 5px;
+    }
+
+
+    /* ALBUMS */
+
+    .album-grid {
+        grid-template-columns:
+            1fr;
+
+        padding:
+            0 6vw;
+    }
+
+
+    /* PROJECTS */
+
+    .project-list {
+        padding:
+            0 6vw;
+    }
+
+
+    .project-item {
+        grid-template-columns:
+            45px 1fr;
+
+        gap: 15px;
+    }
+
+
+    .project-status {
+        grid-column:
+            2;
+
+        width: fit-content;
+    }
+
+
+    /* ART */
+
+    .art-grid {
+        columns: 1;
+
+        padding:
+            0 6vw;
+    }
+
+
+    /* FOOTER */
+
+    .site-footer {
+        padding:
+            40px 6vw
+            30px;
+
+        grid-template-columns:
+            1fr;
+
+        gap: 12px;
+
+        text-align: left;
+    }
+
+
+    .site-footer p {
+        text-align: left;
+    }
+
+
+    .site-footer > span {
+        text-align: left;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+
+    .main-nav {
+        gap: 12px;
+    }
+
+
+    .main-nav a {
+        font-size: 7px;
+    }
+
+
+    .hero {
+        padding-top: 22vw;
+    }
+
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+
+    .paper-block {
+        padding:
+            25px 18px;
+    }
+
+
+    .music-player {
+        padding:
+            18px 15px
+            15px;
+    }
+
+
+    .play-button {
+        width: 40px;
+        height: 40px;
     }
 
 
@@ -1873,56 +1602,12 @@ footer > p {
         font-size: 14px;
     }
 
-
-    .track-info span {
-        font-size: 8px;
-    }
-
-
-    .music-progress {
-        margin-top: 12px;
-    }
-
-
-    .music-time {
-        font-size: 8px;
-    }
-
-
-    .page-grid {
-        grid-template-columns: 1fr;
-
-        gap: 22px;
-
-        margin-top: 45px;
-    }
-
-
-    .page-card {
-        min-height: 180px;
-
-        padding:
-            30px 27px;
-    }
-
-
-    .page-card h3 {
-        font-size: 25px;
-    }
-
-
-    .page-card p {
-        font-size: 10px;
-
-        line-height: 1.8;
-    }
-
 }
 
 
-/* ========================================
+/* =========================================
    REDUCED MOTION
-======================================== */
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -1930,22 +1615,16 @@ footer > p {
         scroll-behavior: auto;
     }
 
+
+    body {
+        animation: none;
+    }
+
+
     *,
     *::before,
     *::after {
-        transition-duration:
-            .01ms !important;
-
-        animation-duration:
-            .01ms !important;
-
-        animation-iteration-count:
-            1 !important;
+        transition: none !important;
     }
 
-    .motion-enabled.page-ready .page-main,
-    .motion-enabled.page-ready main:not(.page-main),
-    .motion-enabled.page-ready footer {
-        animation: none;
-    }
 }
