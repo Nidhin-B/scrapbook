@@ -1,31 +1,55 @@
 // ========================================
-// SCRAPBOOK
+// SCRAPBOOK PAGE TRANSITIONS
 // ========================================
 
-console.log("Welcome to the Scrapbook.");
+document.addEventListener("DOMContentLoaded", () => {
 
-// Smooth navigation
-document.querySelectorAll('a[href^="#"]').forEach(link => {
+    // Make the page appear when loaded
+    document.body.classList.add("page-ready");
 
-    link.addEventListener("click", function (event) {
 
-        const targetId = this.getAttribute("href");
+    // Handle internal page navigation
+    const pageLinks = document.querySelectorAll(
+        'a[href$=".html"], a[href*="/"]'
+    );
 
-        if (targetId === "#") {
-            return;
-        }
 
-        const target = document.querySelector(targetId);
+    pageLinks.forEach(link => {
 
-        if (!target) {
-            return;
-        }
+        link.addEventListener("click", (event) => {
 
-        event.preventDefault();
+            const href = link.getAttribute("href");
 
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+            // Ignore empty links
+            if (!href || href === "#") {
+                return;
+            }
+
+            // Ignore external websites
+            if (
+                href.startsWith("http") ||
+                href.startsWith("//") ||
+                link.target === "_blank"
+            ) {
+                return;
+            }
+
+            // Ignore same-page anchors
+            if (href.startsWith("#")) {
+                return;
+            }
+
+            event.preventDefault();
+
+            // Start page transition
+            document.body.classList.add("page-leaving");
+
+
+            // Wait for animation before changing page
+            setTimeout(() => {
+                window.location.href = href;
+            }, 480);
+
         });
 
     });
