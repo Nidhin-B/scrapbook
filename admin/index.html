@@ -1,1 +1,255 @@
-uwu
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Publisher — Scrapbook</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 30px 18px;
+            background: #f3f0e7;
+            color: #171713;
+            font-family: Arial, sans-serif;
+        }
+
+        .publisher {
+            width: min(760px, 100%);
+            margin: 0 auto;
+        }
+
+        .top {
+            margin-bottom: 28px;
+        }
+
+        .label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            opacity: .6;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(38px, 8vw, 64px);
+            letter-spacing: -2px;
+        }
+
+        .intro {
+            max-width: 560px;
+            line-height: 1.6;
+            opacity: .7;
+        }
+
+        .panel {
+            background: #fffdf7;
+            border: 1px solid rgba(23, 23, 20, .18);
+            padding: 24px;
+            box-shadow: 7px 8px 0 rgba(101, 113, 91, .12);
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(23, 23, 20, .25);
+            background: #f8f6ef;
+            color: #171713;
+            font: inherit;
+            border-radius: 0;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #171713;
+        }
+
+        .checks {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .check input {
+            width: auto;
+        }
+
+        .publish {
+            width: 100%;
+            padding: 14px;
+            border: 0;
+            background: #171713;
+            color: #fffdf7;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .publish:hover {
+            opacity: .85;
+        }
+
+        .notice {
+            margin-top: 18px;
+            padding: 12px;
+            background: #eeece3;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 24px;
+            color: inherit;
+            font-size: 13px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="publisher">
+
+    <div class="top">
+        <div class="label">SCRAPBOOK / PRIVATE TOOL</div>
+
+        <h1>Publisher.</h1>
+
+        <p class="intro">
+            Add something to the Scrapbook without manually rebuilding
+            the website every time.
+        </p>
+    </div>
+
+    <div class="panel">
+
+        <div class="field">
+            <label for="type">CONTENT TYPE</label>
+
+            <select id="type">
+                <option value="art">Art</option>
+                <option value="music">Music</option>
+                <option value="games">Game</option>
+                <option value="projects">Project</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="title">TITLE</label>
+
+            <input
+                id="title"
+                type="text"
+                placeholder="e.g. Nico."
+            >
+        </div>
+
+        <div class="field">
+            <label for="category">CATEGORY</label>
+
+            <input
+                id="category"
+                type="text"
+                placeholder="e.g. Original Character"
+            >
+        </div>
+
+        <div class="field">
+            <label for="description">DESCRIPTION</label>
+
+            <textarea
+                id="description"
+                placeholder="Write something about it..."
+            ></textarea>
+        </div>
+
+        <div class="field">
+            <label for="asset">FILE</label>
+
+            <input
+                id="asset"
+                type="file"
+            >
+        </div>
+
+        <div class="field">
+            <div class="checks">
+
+                <label class="check">
+                    <input id="published" type="checkbox" checked>
+                    Published
+                </label>
+
+                <label class="check">
+                    <input id="featured" type="checkbox">
+                    Featured
+                </label>
+
+            </div>
+        </div>
+
+        <button class="publish" type="button" id="publishButton">
+            PUBLISH
+        </button>
+
+        <div class="notice">
+            Publisher connection isn't active yet.
+            We're building the interface first. Your GitHub files
+            are safe and nothing is uploaded by this button yet.
+        </div>
+
+    </div>
+
+    <a class="back" href="../index.html">
+        ← BACK TO SCRAPBOOK
+    </a>
+
+</div>
+
+<script>
+    const publishButton = document.getElementById("publishButton");
+
+    publishButton.addEventListener("click", function () {
+        alert("Publisher UI is working. GitHub publishing comes next.");
+    });
+</script>
+
+</body>
+</html>
