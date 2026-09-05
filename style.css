@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700&display=swap');
 
 
-/* =========================
+/* ========================================
    RESET
-========================= */
+======================================== */
 
 * {
     margin: 0;
@@ -12,13 +12,21 @@
 }
 
 html {
+    width: 100%;
+    max-width: 100%;
     scroll-behavior: smooth;
 }
 
 body {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+
     background: #e9e3d5;
     color: #171714;
+
     font-family: "DM Mono", monospace;
+
     overflow-x: hidden;
 }
 
@@ -28,46 +36,62 @@ a {
 }
 
 
-/* =========================
-   PAPER
-========================= */
+/* ========================================
+   PAPER TEXTURE
+======================================== */
 
 .paper {
     position: fixed;
-    inset: 0;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
     pointer-events: none;
+
     opacity: 0.35;
+
     z-index: 100;
+
     background-image:
         repeating-linear-gradient(
             0deg,
-            rgba(0,0,0,0.025) 0px,
-            rgba(0,0,0,0.025) 1px,
+            rgba(0, 0, 0, 0.025) 0px,
+            rgba(0, 0, 0, 0.025) 1px,
             transparent 1px,
             transparent 4px
         );
 }
 
 
-/* =========================
+/* ========================================
    HEADER
-========================= */
+======================================== */
 
 .site-header {
     width: 100%;
+
     padding: 28px 6vw;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 1px solid rgba(23,23,20,0.25);
+    gap: 25px;
+
+    border-bottom: 1px solid rgba(23, 23, 20, 0.25);
 }
 
 .logo {
+    flex-shrink: 0;
+
     font-family: "Playfair Display", serif;
+
     font-size: 1.4rem;
     font-weight: 700;
+
     letter-spacing: 0.08em;
 }
 
@@ -76,15 +100,25 @@ a {
     color: #65715b;
 }
 
+
+/* NAV */
+
 nav {
     display: flex;
+
     gap: 28px;
+
+    min-width: 0;
 }
 
 nav a {
+    flex-shrink: 0;
+
     font-size: 0.72rem;
+
     text-transform: uppercase;
-    transition: opacity 0.2s;
+
+    transition: opacity 0.2s ease;
 }
 
 nav a:hover {
@@ -92,11 +126,13 @@ nav a:hover {
 }
 
 
-/* =========================
+/* ========================================
    HERO
-========================= */
+======================================== */
 
 .hero {
+    width: 100%;
+
     min-height: 75vh;
 
     padding: 12vh 10vw 10vh;
@@ -109,19 +145,26 @@ nav a:hover {
 }
 
 .eyebrow {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-
     margin-bottom: 28px;
 
     color: #65715b;
+
+    font-size: 0.7rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.15em;
 }
 
 .hero h1 {
+    max-width: 100%;
+
     font-family: "Playfair Display", serif;
+
     font-size: clamp(4rem, 10vw, 9rem);
+
     line-height: 0.85;
+
     letter-spacing: -0.05em;
 }
 
@@ -131,9 +174,11 @@ nav a:hover {
 
 .hero-text {
     max-width: 430px;
+
     margin-top: 40px;
 
     font-size: 0.8rem;
+
     line-height: 1.8;
 }
 
@@ -143,18 +188,19 @@ nav a:hover {
     right: 12%;
     bottom: 16%;
 
+    color: #65715b;
+
     font-family: "Playfair Display", serif;
+
     font-style: italic;
 
     transform: rotate(-7deg);
-
-    color: #65715b;
 }
 
 
-/* =========================
+/* ========================================
    TAPE
-========================= */
+======================================== */
 
 .tape {
     position: absolute;
@@ -162,11 +208,11 @@ nav a:hover {
     width: 120px;
     height: 30px;
 
-    background: rgba(191,185,155,0.7);
-
-    transform: rotate(-8deg);
+    background: rgba(191, 185, 155, 0.7);
 
     opacity: 0.75;
+
+    transform: rotate(-8deg);
 }
 
 .tape-hero {
@@ -175,9 +221,9 @@ nav a:hover {
 }
 
 
-/* =========================
+/* ========================================
    CATEGORY GRID
-========================= */
+======================================== */
 
 .categories {
     width: 84%;
@@ -186,17 +232,20 @@ nav a:hover {
     margin: 0 auto 15vh;
 
     display: grid;
+
     grid-template-columns: 1fr 1fr;
 
     gap: 55px 40px;
 }
 
 
-/* =========================
-   SCRAP CARDS
-========================= */
+/* ========================================
+   SCRAPBOOK CARDS
+======================================== */
 
 .scrap-card {
+    width: 100%;
+
     min-height: 500px;
 
     position: relative;
@@ -207,7 +256,7 @@ nav a:hover {
 
     background: #d6d0c0;
 
-    border: 1px solid rgba(23,23,20,0.25);
+    border: 1px solid rgba(23, 23, 20, 0.25);
 
     transition:
         transform 0.3s ease,
@@ -217,8 +266,11 @@ nav a:hover {
 .scrap-card:hover {
     transform: translateY(-8px) rotate(-0.5deg);
 
-    box-shadow: 12px 14px 0 rgba(23,23,20,0.12);
+    box-shadow: 12px 14px 0 rgba(23, 23, 20, 0.12);
 }
+
+
+/* CARD ROTATIONS */
 
 .scrap-card:nth-child(2) {
     transform: rotate(1.5deg);
@@ -239,7 +291,9 @@ nav a:hover {
 }
 
 
-/* CARD CONTENT */
+/* ========================================
+   CARD CONTENT
+======================================== */
 
 .card-content {
     position: absolute;
@@ -251,6 +305,7 @@ nav a:hover {
 
 .card-number {
     font-size: 0.65rem;
+
     opacity: 0.5;
 }
 
@@ -260,6 +315,7 @@ nav a:hover {
     font-family: "Playfair Display", serif;
 
     font-size: 3rem;
+
     line-height: 1;
 }
 
@@ -269,6 +325,7 @@ nav a:hover {
     margin-top: 18px;
 
     font-size: 0.72rem;
+
     line-height: 1.8;
 }
 
@@ -277,19 +334,19 @@ nav a:hover {
 
     margin-top: 25px;
 
+    padding-bottom: 3px;
+
     font-size: 0.65rem;
 
     text-transform: uppercase;
 
     border-bottom: 1px solid currentColor;
-
-    padding-bottom: 3px;
 }
 
 
-/* =========================
-   MUSIC CARD
-========================= */
+/* ========================================
+   MUSIC
+======================================== */
 
 .music-card {
     background: #bfc8b3;
@@ -298,6 +355,11 @@ nav a:hover {
 .vinyl {
     width: 270px;
     height: 270px;
+
+    position: absolute;
+
+    top: 55px;
+    right: -45px;
 
     border-radius: 50%;
 
@@ -310,26 +372,21 @@ nav a:hover {
             #171714 5px
         );
 
-    position: absolute;
-
-    top: 55px;
-    right: -45px;
-
-    box-shadow: 5px 8px 15px rgba(0,0,0,0.2);
+    box-shadow: 5px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .vinyl-label {
     width: 80px;
     height: 80px;
 
-    border-radius: 50%;
-
-    background: #a6aa91;
-
     position: absolute;
 
     top: 95px;
     left: 95px;
+
+    border-radius: 50%;
+
+    background: #a6aa91;
 }
 
 .vinyl-label::after {
@@ -338,20 +395,20 @@ nav a:hover {
     width: 10px;
     height: 10px;
 
-    border-radius: 50%;
-
-    background: #171714;
-
     position: absolute;
 
     top: 35px;
     left: 35px;
+
+    border-radius: 50%;
+
+    background: #171714;
 }
 
 
-/* =========================
-   GAME CARD
-========================= */
+/* ========================================
+   GAMES
+======================================== */
 
 .games-card {
     background: #ded8c9;
@@ -360,6 +417,8 @@ nav a:hover {
 .photo-placeholder {
     width: 70%;
     height: 240px;
+
+    max-width: 100%;
 
     margin: 5px auto;
 
@@ -372,17 +431,20 @@ nav a:hover {
     color: #bfc8b3;
 
     font-size: 0.7rem;
+
     letter-spacing: 0.15em;
+
+    text-align: center;
 
     transform: rotate(-3deg);
 
-    box-shadow: 8px 10px 0 rgba(23,23,20,0.12);
+    box-shadow: 8px 10px 0 rgba(23, 23, 20, 0.12);
 }
 
 
-/* =========================
-   ART CARD
-========================= */
+/* ========================================
+   ART
+======================================== */
 
 .art-card {
     background: #c7cbb9;
@@ -392,11 +454,13 @@ nav a:hover {
     width: 65%;
     height: 230px;
 
+    max-width: 100%;
+
     margin: 5px auto;
 
     background: #eee9dc;
 
-    border: 1px solid rgba(23,23,20,0.25);
+    border: 1px solid rgba(23, 23, 20, 0.25);
 
     display: flex;
 
@@ -407,13 +471,13 @@ nav a:hover {
 
     transform: rotate(3deg);
 
-    box-shadow: 8px 10px 0 rgba(23,23,20,0.1);
+    box-shadow: 8px 10px 0 rgba(23, 23, 20, 0.1);
 }
 
 
-/* =========================
-   PROJECT CARD
-========================= */
+/* ========================================
+   PROJECTS
+======================================== */
 
 .projects-card {
     background: #d9d1bd;
@@ -422,13 +486,15 @@ nav a:hover {
 .note-paper {
     width: 230px;
 
+    max-width: 80%;
+
     margin: 10px auto;
 
     padding: 35px 25px;
 
     background: #f0eadb;
 
-    box-shadow: 7px 9px 0 rgba(23,23,20,0.1);
+    box-shadow: 7px 9px 0 rgba(23, 23, 20, 0.1);
 
     transform: rotate(-5deg);
 }
@@ -442,9 +508,9 @@ nav a:hover {
 }
 
 
-/* =========================
+/* ========================================
    CURRENTLY
-========================= */
+======================================== */
 
 .currently {
     width: 84%;
@@ -452,16 +518,18 @@ nav a:hover {
 
     margin: 0 auto 15vh;
 
-    border-top: 1px solid rgba(23,23,20,0.35);
-
-    border-bottom: 1px solid rgba(23,23,20,0.35);
-
     padding: 50px 0;
+
+    border-top: 1px solid rgba(23, 23, 20, 0.35);
+
+    border-bottom: 1px solid rgba(23, 23, 20, 0.35);
 }
 
 .currently-title {
     display: flex;
+
     align-items: center;
+
     gap: 15px;
 
     margin-bottom: 40px;
@@ -479,6 +547,7 @@ nav a:hover {
 
 .currently-list {
     display: grid;
+
     grid-template-columns: repeat(3, 1fr);
 
     gap: 30px;
@@ -486,6 +555,7 @@ nav a:hover {
 
 .current-item {
     display: flex;
+
     flex-direction: column;
 
     gap: 8px;
@@ -493,6 +563,7 @@ nav a:hover {
 
 .current-item span {
     font-size: 0.6rem;
+
     opacity: 0.5;
 }
 
@@ -501,12 +572,15 @@ nav a:hover {
 }
 
 
-/* =========================
+/* ========================================
    LITTLE NOTE
-========================= */
+======================================== */
 
 .little-note {
+    width: 100%;
+
     display: flex;
+
     justify-content: center;
 
     margin-bottom: 15vh;
@@ -519,11 +593,11 @@ nav a:hover {
 
     background: #d2c9aa;
 
+    text-align: center;
+
     transform: rotate(-2deg);
 
-    box-shadow: 10px 12px 0 rgba(23,23,20,0.1);
-
-    text-align: center;
+    box-shadow: 10px 12px 0 rgba(23, 23, 20, 0.1);
 }
 
 .note p {
@@ -548,28 +622,31 @@ nav a:hover {
     top: 10px;
     left: 50%;
 
-    transform: translateX(-50%);
-
     font-size: 0.7rem;
+
+    transform: translateX(-50%);
 }
 
 
-/* =========================
+/* ========================================
    FOOTER
-========================= */
+======================================== */
 
 footer {
+    width: 100%;
+
     padding: 70px 6vw 40px;
 
-    border-top: 1px solid rgba(23,23,20,0.25);
-
     text-align: center;
+
+    border-top: 1px solid rgba(23, 23, 20, 0.25);
 }
 
 .footer-logo {
     font-family: "Playfair Display", serif;
 
     font-size: 2rem;
+
     font-weight: 700;
 }
 
@@ -581,6 +658,7 @@ footer > p {
 
 .footer-links {
     display: flex;
+
     justify-content: center;
 
     gap: 25px;
@@ -589,6 +667,8 @@ footer > p {
 }
 
 .footer-links a {
+    padding-bottom: 3px;
+
     font-size: 0.65rem;
 
     text-transform: uppercase;
@@ -601,36 +681,91 @@ footer > p {
 }
 
 
-/* =========================
+/* ========================================
    MOBILE
-========================= */
+======================================== */
 
 @media (max-width: 700px) {
 
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+
+        overflow-x: hidden;
+    }
+
+
+    /* HEADER */
+
     .site-header {
+        width: 100%;
+
         padding: 22px 6vw;
+
+        gap: 18px;
+    }
+
+    .logo {
+        font-size: 1.15rem;
+
+        flex-shrink: 0;
     }
 
     nav {
-        gap: 13px;
+        min-width: 0;
+
+        display: flex;
+
+        gap: 14px;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+
+        scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar {
+        display: none;
     }
 
     nav a {
+        flex-shrink: 0;
+
         font-size: 0.55rem;
     }
 
+
+    /* HERO */
+
     .hero {
+        width: 100%;
+
         min-height: 80vh;
 
         padding: 10vh 7vw;
     }
 
     .hero h1 {
+        width: 100%;
+        max-width: 100%;
+
         font-size: clamp(3.5rem, 17vw, 6rem);
+
+        line-height: 0.86;
+
+        overflow-wrap: break-word;
+        word-break: normal;
     }
 
     .hero-text {
+        width: 100%;
+        max-width: 100%;
+
         font-size: 0.7rem;
+
+        line-height: 1.8;
     }
 
     .scribble {
@@ -638,16 +773,27 @@ footer > p {
         bottom: 10%;
     }
 
+    .tape-hero {
+        right: 8%;
+    }
+
+
+    /* CARDS */
+
     .categories {
         width: 88%;
+        max-width: 100%;
 
         display: flex;
+
         flex-direction: column;
 
         gap: 45px;
     }
 
     .scrap-card {
+        width: 100%;
+
         min-height: 470px;
 
         padding: 30px;
@@ -656,12 +802,21 @@ footer > p {
     .card-content {
         left: 30px;
         right: 30px;
+
         bottom: 30px;
     }
 
     .card-content h2 {
         font-size: 2.6rem;
     }
+
+    .card-content p {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* VINYL */
 
     .vinyl {
         width: 220px;
@@ -686,17 +841,30 @@ footer > p {
         left: 28px;
     }
 
+
+    /* GAMES */
+
     .photo-placeholder {
         width: 82%;
+        max-width: 100%;
+
         height: 210px;
     }
 
+
+    /* ART */
+
     .art-paper {
         width: 78%;
+        max-width: 100%;
     }
+
+
+    /* CURRENTLY */
 
     .currently {
         width: 88%;
+        max-width: 100%;
     }
 
     .currently-list {
@@ -709,8 +877,16 @@ footer > p {
         font-size: 2rem;
     }
 
+
+    /* NOTE */
+
+    .little-note {
+        width: 100%;
+    }
+
     .note {
         width: 82%;
+        max-width: 100%;
 
         padding: 35px 20px;
     }
@@ -719,7 +895,65 @@ footer > p {
         font-size: 1.25rem;
     }
 
+
+    /* FOOTER */
+
+    footer {
+        width: 100%;
+
+        padding-left: 6vw;
+        padding-right: 6vw;
+    }
+
     .footer-links {
         flex-wrap: wrap;
+    }
+}
+
+
+/* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+@media (max-width: 390px) {
+
+    .site-header {
+        padding-left: 5vw;
+        padding-right: 5vw;
+
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    nav {
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 0.5rem;
+    }
+
+    .hero {
+        padding-left: 6vw;
+        padding-right: 6vw;
+    }
+
+    .hero h1 {
+        font-size: 15vw;
+    }
+
+    .hero-text {
+        font-size: 0.65rem;
+    }
+
+    .scrap-card {
+        min-height: 450px;
+    }
+
+    .card-content h2 {
+        font-size: 2.3rem;
     }
 }
