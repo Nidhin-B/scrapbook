@@ -21,8 +21,12 @@
 
 <body>
 
-    <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="site-header">
+
         <a href="../index.html" class="logo">
             SCRAPBOOK<span>.</span>
         </a>
@@ -34,13 +38,27 @@
             <a href="../art/index.html">Art</a>
             <a href="../projects/index.html">Projects</a>
         </nav>
+
     </header>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         MUSIC PAGE
+    ========================== -->
+
     <main class="subpage">
 
+        <!-- BACK BUTTON -->
+
+        <div class="back-link-wrap">
+            <a href="../index.html" class="back-link">
+                ← Back to Scrapbook
+            </a>
+        </div>
+
+
         <!-- HERO -->
+
         <section class="subpage-hero">
 
             <p class="eyebrow">
@@ -60,8 +78,11 @@
         </section>
 
 
-        <!-- FEATURED MUSIC -->
-        <section class="paper-block">
+        <!-- =========================
+             FEATURED
+        ========================== -->
+
+        <section class="paper-block music-feature">
 
             <p class="section-label">
                 FEATURED
@@ -71,16 +92,17 @@
                 Where The Light Ends.
             </h2>
 
-            <p>
+            <p class="feature-description">
                 A little corner for the music that currently
                 lives inside this scrapbook.
             </p>
 
 
             <!-- MUSIC PLAYER -->
+
             <div class="music-player">
 
-                <div class="player-top">
+                <div class="music-player-top">
 
                     <button
                         class="play-button"
@@ -91,7 +113,9 @@
                         ▶
                     </button>
 
+
                     <div class="track-info">
+
                         <strong>
                             Where The Light Ends
                         </strong>
@@ -99,12 +123,19 @@
                         <span>
                             ORIGINAL COMPOSITION
                         </span>
+
+                    </div>
+
+
+                    <div class="track-mark">
+                        ♪
                     </div>
 
                 </div>
 
 
-                <!-- PROGRESS -->
+                <!-- PROGRESS BAR -->
+
                 <div class="music-progress">
 
                     <input
@@ -118,14 +149,22 @@
                     >
 
                     <div class="music-time">
-                        <span id="currentTime">0:00</span>
-                        <span id="duration">0:00</span>
+
+                        <span id="currentTime">
+                            0:00
+                        </span>
+
+                        <span id="duration">
+                            0:00
+                        </span>
+
                     </div>
 
                 </div>
 
 
-                <!-- ACTUAL AUDIO FILE -->
+                <!-- ACTUAL AUDIO -->
+
                 <audio
                     id="musicPlayer"
                     preload="metadata"
@@ -136,6 +175,7 @@
                     >
 
                     Your browser does not support audio playback.
+
                 </audio>
 
             </div>
@@ -143,7 +183,10 @@
         </section>
 
 
-        <!-- MUSIC COLLECTION -->
+        <!-- =========================
+             MUSIC CATEGORIES
+        ========================== -->
+
         <section class="page-grid">
 
             <article class="paper-block small-card">
@@ -222,7 +265,10 @@
     </main>
 
 
-    <!-- FOOTER -->
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
     <footer class="site-footer">
 
         <div class="footer-logo">
@@ -240,7 +286,10 @@
     </footer>
 
 
-    <!-- MUSIC PLAYER SCRIPT -->
+    <!-- =========================
+         MUSIC PLAYER SCRIPT
+    ========================== -->
+
     <script>
 
         const player =
@@ -268,12 +317,30 @@
             const minutes =
                 Math.floor(seconds / 60);
 
-            const remainingSeconds =
+            const secondsPart =
                 Math.floor(seconds % 60)
                     .toString()
                     .padStart(2, "0");
 
-            return `${minutes}:${remainingSeconds}`;
+            return `${minutes}:${secondsPart}`;
+
+        }
+
+
+        function updateProgress() {
+
+            if (!player.duration) {
+                return;
+            }
+
+            const percentage =
+                (player.currentTime /
+                player.duration) * 100;
+
+            progressBar.value = percentage;
+
+            currentTime.textContent =
+                formatTime(player.currentTime);
 
         }
 
@@ -283,31 +350,41 @@
         playButton.addEventListener("click", () => {
 
             if (player.paused) {
+
                 player.play();
+
             } else {
+
                 player.pause();
+
             }
 
         });
 
 
-        /* BUTTON STATE */
+        /* PLAY STATE */
 
         player.addEventListener("play", () => {
 
             playButton.textContent = "Ⅱ";
 
+            playButton.classList.add("playing");
+
         });
 
+
+        /* PAUSE STATE */
 
         player.addEventListener("pause", () => {
 
             playButton.textContent = "▶";
 
+            playButton.classList.remove("playing");
+
         });
 
 
-        /* LOAD DURATION */
+        /* AUDIO LOADED */
 
         player.addEventListener(
             "loadedmetadata",
@@ -316,30 +393,18 @@
                 duration.textContent =
                     formatTime(player.duration);
 
+                currentTime.textContent =
+                    "0:00";
+
             }
         );
 
 
-        /* UPDATE PROGRESS */
+        /* PROGRESS */
 
         player.addEventListener(
             "timeupdate",
-            () => {
-
-                if (!player.duration) {
-                    return;
-                }
-
-                const progress =
-                    (player.currentTime /
-                    player.duration) * 100;
-
-                progressBar.value = progress;
-
-                currentTime.textContent =
-                    formatTime(player.currentTime);
-
-            }
+            updateProgress
         );
 
 
@@ -357,17 +422,21 @@
                     (progressBar.value / 100)
                     * player.duration;
 
+                updateProgress();
+
             }
         );
 
 
-        /* TRACK ENDED */
+        /* END */
 
         player.addEventListener(
             "ended",
             () => {
 
                 playButton.textContent = "▶";
+
+                playButton.classList.remove("playing");
 
                 progressBar.value = 0;
 
@@ -379,7 +448,6 @@
     </script>
 
 
-    <!-- GLOBAL SCRIPT -->
     <script src="../script.js"></script>
 
 </body>
