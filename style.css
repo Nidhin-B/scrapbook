@@ -2348,12 +2348,16 @@ input[type="range"]::-moz-range-thumb {
     position: relative;
 
     width: 100%;
-    max-width: 760px;
+    max-width: 700px;
 
     margin: 35px auto 0;
     padding: 10px;
 
     box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     background: var(--white);
     border: 1px solid rgba(23, 23, 20, .15);
@@ -2365,19 +2369,26 @@ input[type="range"]::-moz-range-thumb {
     overflow: hidden;
 }
 
+
+/* Image automatically respects its
+   natural dimensions and aspect ratio */
+
 .artwork img {
     display: block;
 
-    width: 100%;
-    max-width: 100%;
+    width: auto;
     height: auto;
+
+    max-width: 100%;
+    max-height: 560px;
 
     box-sizing: border-box;
 
     object-fit: contain;
 
-    border: 0;
+    margin: 0 auto;
 
+    border: 0;
     background: transparent;
 }
 
@@ -2410,7 +2421,8 @@ input[type="range"]::-moz-range-thumb {
     justify-content: space-between;
     align-items: baseline;
 
-    max-width: 760px;
+    width: 100%;
+    max-width: 700px;
 
     margin: 18px auto 0;
 }
@@ -2443,8 +2455,13 @@ input[type="range"]::-moz-range-thumb {
     }
 
     .artwork img {
-        width: 100%;
+        width: auto;
         height: auto;
+
+        max-width: 100%;
+        max-height: 420px;
+
+        margin: 0 auto;
     }
 
     .artwork-caption {
