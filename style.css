@@ -2335,6 +2335,8 @@ input[type="range"]::-moz-range-thumb {
     background: var(--white);
 
     box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
 /* ========================================
    ART — FEATURED IMAGE
    ART PAGE ONLY
@@ -2469,5 +2471,4 @@ input[type="range"]::-moz-range-thumb {
         align-items: flex-start;
         gap: 5px;
     }
-
 }
