@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&display=swap');
 
-
 /* ========================================
    SCRAPBOOK — GLOBAL
 ======================================== */
@@ -25,6 +24,7 @@
 
 html {
     background: var(--paper);
+    color: var(--ink);
     overflow-x: hidden;
     scroll-behavior: smooth;
     color-scheme: light;
@@ -33,12 +33,9 @@ html {
 body {
     background: var(--paper);
     color: var(--ink);
-
     font-family: "DM Mono", monospace;
     line-height: 1.5;
-
     overflow-x: hidden;
-
     color-scheme: light;
 }
 
@@ -51,35 +48,29 @@ button {
     font-family: inherit;
 }
 
-
 /* ========================================
    PAPER TEXTURE
 ======================================== */
 
 body::before {
     content: "";
-
     position: fixed;
     inset: 0;
-
     pointer-events: none;
-
     z-index: 9990;
-
     opacity: .035;
 
     background-image:
         radial-gradient(
-            rgba(0,0,0,.8) .6px,
+            rgba(0, 0, 0, .8) .6px,
             transparent .6px
         );
 
     background-size: 5px 5px;
 }
 
-
 /* ========================================
-   CROSS-PAGE VIEW TRANSITIONS
+   PAGE TRANSITIONS
 ======================================== */
 
 @view-transition {
@@ -91,23 +82,14 @@ body::before {
 }
 
 ::view-transition-old(root) {
-    animation:
-        scrapbook-old
-        .72s
-        cubic-bezier(.76,0,.24,1)
-        both;
+    animation: scrapbook-old .72s cubic-bezier(.76, 0, .24, 1) both;
 }
 
 ::view-transition-new(root) {
-    animation:
-        scrapbook-new
-        1s
-        cubic-bezier(.22,.61,.36,1)
-        both;
+    animation: scrapbook-new 1s cubic-bezier(.22, .61, .36, 1) both;
 }
 
 @keyframes scrapbook-old {
-
     0% {
         opacity: 1;
         transform: translateY(0);
@@ -124,7 +106,6 @@ body::before {
 }
 
 @keyframes scrapbook-new {
-
     0% {
         opacity: 0;
         transform: translateY(18px);
@@ -144,49 +125,38 @@ body::before {
     }
 }
 
-
-/* ========================================
-   FALLBACK PAGE COVER
-   Used when View Transitions aren't supported
-======================================== */
+/* Fallback transition */
 
 .fallback-cover {
     position: fixed;
     inset: 0;
-
     z-index: 99999;
-
     pointer-events: none;
-
     background: var(--paper);
 
     transform: translateY(0);
 
     transition:
-        transform .9s cubic-bezier(.76,0,.24,1);
+        transform .9s cubic-bezier(.76, 0, .24, 1);
 }
 
 .fallback-cover::after {
     content: "";
-
     position: absolute;
-
     left: 0;
     right: 0;
     bottom: -8px;
-
     height: 12px;
 
-    background: rgba(0,0,0,.08);
+    background: rgba(0, 0, 0, .08);
 
     box-shadow:
-        0 -8px 25px rgba(0,0,0,.08);
+        0 -8px 25px rgba(0, 0, 0, .08);
 }
 
 .fallback-cover.hide {
     transform: translateY(-100%);
 }
-
 
 /* ========================================
    HEADER
@@ -194,7 +164,6 @@ body::before {
 
 .site-header {
     width: 100%;
-
     padding: 28px 6vw;
 
     display: flex;
@@ -209,12 +178,9 @@ body::before {
 
 .logo {
     font-family: "Playfair Display", serif;
-
     font-size: 25px;
     font-weight: 800;
-
     letter-spacing: -1px;
-
     white-space: nowrap;
 }
 
@@ -225,7 +191,6 @@ body::before {
 nav {
     display: flex;
     align-items: center;
-
     gap: clamp(18px, 3vw, 38px);
 }
 
@@ -234,9 +199,7 @@ nav a {
 
     font-size: 12px;
     font-weight: 500;
-
     text-transform: uppercase;
-
     letter-spacing: 1.5px;
 
     transition:
@@ -246,7 +209,6 @@ nav a {
 
 nav a::after {
     content: "";
-
     position: absolute;
 
     left: 0;
@@ -264,4 +226,883 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-nav a:hover
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ========================================
+   MAIN
+======================================== */
+
+main {
+    width: min(1180px, 88vw);
+    margin: 0 auto;
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+    min-height: 560px;
+
+    position: relative;
+
+    padding:
+        clamp(70px, 10vw, 125px)
+        5vw
+        80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.tape {
+    position: absolute;
+
+    background: rgba(191, 200, 179, .72);
+
+    transform: rotate(-3deg);
+
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, .05);
+}
+
+.tape-hero {
+    width: 120px;
+    height: 28px;
+
+    top: 70px;
+    right: 11%;
+
+    transform: rotate(7deg);
+}
+
+.eyebrow {
+    color: var(--muted);
+
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(55px, 9vw, 112px);
+    line-height: .86;
+
+    font-weight: 800;
+    letter-spacing: -5px;
+
+    max-width: 900px;
+
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 span {
+    color: var(--sage);
+}
+
+.hero-text {
+    max-width: 500px;
+
+    margin-top: 38px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.scribble {
+    margin-top: 30px;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 17px;
+    font-style: italic;
+
+    transform: rotate(-3deg);
+
+    width: fit-content;
+}
+
+/* ========================================
+   CATEGORY GRID
+======================================== */
+
+.categories {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 28px;
+
+    padding:
+        40px 0
+        100px;
+}
+
+/* ========================================
+   SCRAPBOOK CARDS
+======================================== */
+
+.scrap-card {
+    min-height: 430px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(23, 23, 20, .14);
+
+    padding: 34px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    box-shadow:
+        0 8px 25px rgba(23, 23, 20, .05);
+
+    transition:
+        transform .35s cubic-bezier(.22, .61, .36, 1),
+        box-shadow .35s ease;
+}
+
+.scrap-card:hover {
+    transform: translateY(-7px) rotate(-.4deg);
+
+    box-shadow:
+        0 18px 40px rgba(23, 23, 20, .10);
+}
+
+.card-content {
+    position: relative;
+    z-index: 3;
+}
+
+.card-number {
+    display: block;
+
+    font-size: 10px;
+    letter-spacing: 2px;
+
+    color: var(--muted);
+
+    margin-bottom: 7px;
+}
+
+.scrap-card h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: clamp(35px, 4vw, 54px);
+    line-height: .95;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 15px;
+}
+
+.scrap-card p {
+    max-width: 390px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.card-link {
+    display: inline-block;
+
+    margin-top: 23px;
+
+    font-size: 10px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid var(--ink);
+
+    padding-bottom: 4px;
+
+    transition:
+        transform .25s ease,
+        opacity .25s ease;
+}
+
+.scrap-card:hover .card-link {
+    transform: translateX(6px);
+    opacity: .65;
+}
+
+/* ========================================
+   MUSIC CARD
+======================================== */
+
+.music-card {
+    background: var(--paper-light);
+
+    transform: rotate(-1deg);
+}
+
+.card-tape {
+    position: absolute;
+
+    top: 20px;
+    left: 50%;
+
+    width: 115px;
+    height: 28px;
+
+    transform: translateX(-50%) rotate(-2deg);
+
+    background: rgba(191, 200, 179, .72);
+
+    z-index: 5;
+}
+
+.vinyl {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    right: -45px;
+    top: 35px;
+
+    background:
+        repeating-radial-gradient(
+            circle,
+            #171714 0px,
+            #171714 3px,
+            #252520 4px,
+            #171714 6px
+        );
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, .15);
+}
+
+.vinyl::before {
+    content: "";
+
+    position: absolute;
+    inset: 18px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.vinyl-label {
+    position: absolute;
+
+    width: 82px;
+    height: 82px;
+
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: var(--sage);
+}
+
+.vinyl-label::after {
+    content: "";
+
+    position: absolute;
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: var(--paper);
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+/* ========================================
+   GAMES CARD
+======================================== */
+
+.games-card {
+    background: #d7d3c7;
+
+    transform: rotate(1deg);
+}
+
+.photo-placeholder {
+    position: absolute;
+
+    top: 32px;
+    left: 32px;
+    right: 32px;
+
+    height: 220px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b7064,
+            #353833
+        );
+
+    border: 8px solid var(--white);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, .13);
+
+    transform: rotate(-1.5deg);
+}
+
+.photo-placeholder span {
+    color: var(--white);
+
+    text-align: center;
+
+    font-size: 12px;
+    line-height: 1.7;
+    letter-spacing: 2px;
+}
+
+/* ========================================
+   ART CARD
+======================================== */
+
+.art-card {
+    background: #d9dfd2;
+
+    transform: rotate(.7deg);
+}
+
+.art-paper {
+    position: absolute;
+
+    width: 230px;
+    height: 220px;
+
+    top: 30px;
+    left: 40px;
+
+    background: var(--paper-light);
+
+    transform: rotate(-4deg);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .09);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 30px;
+}
+
+.art-paper span {
+    font-family: "Playfair Display", serif;
+
+    font-size: 42px;
+
+    color: var(--sage);
+}
+
+.art-paper span:nth-child(2) {
+    transform: translateY(-25px) rotate(8deg);
+}
+
+.art-paper span:nth-child(3) {
+    transform: translateY(22px) rotate(-12deg);
+}
+
+/* ========================================
+   PROJECTS CARD
+======================================== */
+
+.projects-card {
+    background: #ded7c4;
+
+    transform: rotate(-.6deg);
+}
+
+.note-paper {
+    position: absolute;
+
+    width: 245px;
+    min-height: 205px;
+
+    top: 28px;
+    right: 38px;
+
+    padding: 35px 28px;
+
+    background: #efe7c9;
+
+    transform: rotate(4deg);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .09);
+}
+
+.note-paper::before,
+.note-paper::after {
+    content: "";
+
+    position: absolute;
+
+    width: 48px;
+    height: 18px;
+
+    background: rgba(191, 200, 179, .72);
+}
+
+.note-paper::before {
+    top: -8px;
+    left: 50px;
+
+    transform: rotate(-8deg);
+}
+
+.note-paper::after {
+    bottom: -7px;
+    right: 35px;
+
+    transform: rotate(-6deg);
+}
+
+.note-paper p {
+    font-family: "Playfair Display", serif;
+
+    color: var(--ink);
+
+    font-size: 22px;
+    line-height: 1.15;
+}
+
+/* ========================================
+   CURRENTLY
+======================================== */
+
+.currently {
+    padding: 30px 0 100px;
+}
+
+.currently-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    margin-bottom: 30px;
+}
+
+.currently-title span {
+    color: var(--sage);
+    font-size: 18px;
+}
+
+.currently-title h2 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 31px;
+    letter-spacing: -1px;
+}
+
+.currently-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    border-top: 1px solid rgba(23, 23, 20, .18);
+}
+
+.current-item {
+    padding: 25px 20px;
+
+    border-bottom: 1px solid rgba(23, 23, 20, .18);
+}
+
+.current-item + .current-item {
+    border-left: 1px solid rgba(23, 23, 20, .18);
+}
+
+.current-item span {
+    display: block;
+
+    font-size: 9px;
+    letter-spacing: 2px;
+
+    color: var(--muted);
+
+    margin-bottom: 9px;
+}
+
+.current-item strong {
+    font-family: "Playfair Display", serif;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ========================================
+   LITTLE NOTE
+======================================== */
+
+.little-note {
+    display: flex;
+    justify-content: center;
+
+    padding: 20px 0 110px;
+}
+
+.note {
+    position: relative;
+
+    width: min(430px, 90%);
+
+    padding: 35px 40px;
+
+    background: var(--note);
+
+    transform: rotate(-2deg);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, .08);
+}
+
+.note .pin {
+    position: absolute;
+
+    top: -11px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 17px;
+
+    color: var(--sage);
+}
+
+.note p {
+    font-family: "Playfair Display", serif;
+
+    font-size: 21px;
+    line-height: 1.25;
+}
+
+.note small {
+    display: block;
+
+    margin-top: 17px;
+
+    font-size: 10px;
+    letter-spacing: 1px;
+
+    color: var(--muted);
+}
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    border-top: 1px solid rgba(23, 23, 20, .16);
+
+    width: min(1180px, 88vw);
+
+    margin: 0 auto;
+
+    padding:
+        45px 0
+        55px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr auto;
+
+    gap: 12px 30px;
+
+    align-items: center;
+}
+
+.footer-logo {
+    font-family: "Playfair Display", serif;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.footer-logo span {
+    color: var(--sage);
+}
+
+footer > p {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.footer-links {
+    display: flex;
+    gap: 22px;
+}
+
+.footer-links a {
+    font-size: 10px;
+
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+
+    transition: opacity .2s ease;
+}
+
+.footer-links a:hover {
+    opacity: .5;
+}
+
+.copyright {
+    grid-column: 1 / -1;
+
+    margin-top: 12px;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+    .site-header {
+        padding: 22px 6vw;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    nav {
+        width: 100%;
+
+        justify-content: space-between;
+
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    nav a::after {
+        bottom: -5px;
+    }
+
+    main {
+        width: 88vw;
+    }
+
+    .hero {
+        min-height: 520px;
+
+        padding:
+            65px 0
+            65px;
+    }
+
+    .tape-hero {
+        top: 40px;
+        right: 2%;
+    }
+
+    .eyebrow {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(48px, 14vw, 76px);
+
+        letter-spacing: -3px;
+    }
+
+    .hero-text {
+        font-size: 11px;
+
+        max-width: 340px;
+
+        margin-top: 30px;
+    }
+
+    .scribble {
+        font-size: 14px;
+    }
+
+    .categories {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+
+        padding:
+            20px 0
+            80px;
+    }
+
+    .scrap-card {
+        min-height: 440px;
+
+        padding: 28px;
+    }
+
+    .vinyl {
+        width: 205px;
+        height: 205px;
+
+        right: -45px;
+        top: 30px;
+    }
+
+    .vinyl-label {
+        width: 68px;
+        height: 68px;
+    }
+
+    .photo-placeholder {
+        top: 28px;
+        left: 28px;
+        right: 28px;
+
+        height: 220px;
+    }
+
+    .art-paper {
+        width: 205px;
+        height: 195px;
+
+        top: 30px;
+        left: 30px;
+    }
+
+    .note-paper {
+        width: 215px;
+        min-height: 190px;
+
+        top: 28px;
+        right: 25px;
+    }
+
+    .scrap-card h2 {
+        font-size: 42px;
+    }
+
+    .scrap-card p {
+        font-size: 10px;
+    }
+
+    .currently {
+        padding:
+            10px 0
+            75px;
+    }
+
+    .currently-title h2 {
+        font-size: 27px;
+    }
+
+    .currently-list {
+        grid-template-columns: 1fr;
+    }
+
+    .current-item + .current-item {
+        border-left: 0;
+    }
+
+    .current-item {
+        padding: 20px 5px;
+    }
+
+    .current-item strong {
+        font-size: 17px;
+    }
+
+    .little-note {
+        padding:
+            10px 0
+            90px;
+    }
+
+    .note {
+        width: 92%;
+
+        padding: 30px;
+    }
+
+    .note p {
+        font-size: 18px;
+    }
+
+    footer {
+        width: 88vw;
+
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+
+        padding:
+            38px 0
+            45px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .copyright {
+        grid-column: auto;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
