@@ -1,141 +1,94 @@
 /* ========================================
-   SCRAPBOOK — PAGE MOTION SYSTEM
+   SCRAPBOOK PAGE TRANSITIONS
 ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ====================================
-       CREATE TRANSITION LAYER
-    ==================================== */
+    /*
+       Small entrance sequence.
 
-    const transition = document.createElement("div");
-
-    transition.className = "page-transition";
-
-    document.body.appendChild(transition);
-
-
-    /* ====================================
-       PAGE ENTRANCE
-    ==================================== */
+       The View Transition API handles the actual
+       cross-page paper-like movement when supported.
+    */
 
     requestAnimationFrame(() => {
-
         document.body.classList.add("page-ready");
-
     });
 
 
-    /* ====================================
-       PAGE LINKS
-    ==================================== */
+    /*
+       Fallback for browsers that don't support
+       cross-document View Transitions.
+    */
 
-    const links = document.querySelectorAll("a");
-
-    links.forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            const href = link.getAttribute("href");
-
-            /* Ignore invalid links */
-
-            if (!href || href === "#") {
-                return;
-            }
+    const supportsViewTransitions =
+        "startViewTransition" in document;
 
 
-            /* Ignore anchors */
+    if (!supportsViewTransitions) {
 
-            if (href.startsWith("#")) {
-                return;
-            }
+        const cover = document.createElement("div");
 
+        cover.className = "fallback-cover";
 
-            /* Ignore external websites */
+        document.body.appendChild(cover);
 
-            if (
-                href.startsWith("http://") ||
-                href.startsWith("https://") ||
-                href.startsWith("//")
-            ) {
-                return;
-            }
+        requestAnimationFrame(() => {
+            cover.classList.add("hide");
+        });
 
 
-            /* Ignore downloads */
+        const links = document.querySelectorAll("a");
 
-            if (
-                link.hasAttribute("download")
-            ) {
-                return;
-            }
+        links.forEach(link => {
 
+            link.addEventListener("click", event => {
 
-            /* Ignore new tabs */
+                const href = link.getAttribute("href");
 
-            if (
-                link.target === "_blank"
-            ) {
-                return;
-            }
+                if (!href || href === "#") return;
 
+                if (
+                    href.startsWith("http://") ||
+                    href.startsWith("https://") ||
+                    href.startsWith("//") ||
+                    href.startsWith("#") ||
+                    link.target === "_blank" ||
+                    link.hasAttribute("download")
+                ) {
+                    return;
+                }
 
-            /* Prevent multiple transitions */
+                event.preventDefault();
 
-            if (
-                document.body.classList.contains(
-                    "page-leaving"
-                )
-            ) {
-                return;
-            }
+                cover.classList.remove("hide");
 
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 650);
 
-            event.preventDefault();
-
-
-            /* =================================
-               START PAGE TRANSITION
-            ================================= */
-
-            document.body.classList.remove(
-                "page-ready"
-            );
-
-            document.body.classList.add(
-                "page-leaving"
-            );
-
-
-            /* =================================
-               CHANGE PAGE
-            ================================= */
-
-            setTimeout(() => {
-
-                window.location.href = href;
-
-            }, 650);
+            });
 
         });
 
+    }
+
+
+    /*
+       Browser back / forward.
+
+       This prevents the page from getting stuck
+       in its outgoing state when restored from cache.
+    */
+
+    window.addEventListener("pageshow", () => {
+
+        document.body.classList.remove("page-leaving");
+
+        requestAnimationFrame(() => {
+            document.body.classList.add("page-ready");
+        });
+
     });
-
-
-    /* ====================================
-       BACK/FORWARD BROWSER SUPPORT
-    ==================================== */
-
-    window.addEventListener(
-        "pageshow",
-        () => {
-
-            document.body.classList.remove(
-                "page-leaving"
-            );
-
-        }
-    );
 
 });
