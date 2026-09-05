@@ -2346,11 +2346,11 @@ input[type="range"]::-moz-range-thumb {
     overflow: hidden;
 }
 
-.art-feature .artwork {
+.artwork {
     position: relative;
 
-    width: min(100%, 700px);
-    max-width: 100%;
+    width: 100%;
+    max-width: 700px;
 
     margin: 35px auto 0;
     padding: 10px;
@@ -2371,44 +2371,50 @@ input[type="range"]::-moz-range-thumb {
     overflow: hidden;
 }
 
-.art-feature .artwork img {
+
+/* Image automatically respects its
+   natural dimensions and aspect ratio */
+
+.artwork img {
     display: block;
 
-    /* Keep the ORIGINAL aspect ratio */
     width: auto;
     height: auto;
 
-    /* NEVER allow the image to escape its container */
     max-width: 100%;
     max-height: 560px;
 
-    margin: 0 auto;
+    box-sizing: border-box;
 
     object-fit: contain;
+
+    margin: 0 auto;
 
     border: 0;
     background: transparent;
 }
 
-/* Tape */
 
-.art-feature .artwork::before {
+/* Scrapbook tape */
+
+.artwork::before {
     content: "";
 
     position: absolute;
 
-    width: 100px;
-    height: 24px;
+    width: 90px;
+    height: 20px;
 
-    top: -11px;
+    top: -9px;
     left: 50%;
 
-    transform: translateX(-50%) rotate(-2deg);
+    transform: translateX(-50%) rotate(2deg);
 
-    background: rgba(191, 200, 179, .72);
+    background: rgba(191, 200, 179, .78);
 
     z-index: 2;
 }
+
 
 /* Caption */
 
@@ -2417,54 +2423,47 @@ input[type="range"]::-moz-range-thumb {
     justify-content: space-between;
     align-items: baseline;
 
-    gap: 20px;
+    width: 100%;
+    max-width: 700px;
 
-    margin-top: 18px;
+    margin: 18px auto 0;
 }
 
 .artwork-caption span {
-    font-size: 11px;
-    letter-spacing: .14em;
+    font-size: 9px;
+    letter-spacing: 1.2px;
     color: var(--muted);
 }
 
 .artwork-caption strong {
-    font-family: Georgia, serif;
-    font-size: 22px;
-    font-weight: normal;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
 }
 
-/* PHONE */
+
+/* Mobile */
 
 @media (max-width: 700px) {
 
-    .art-feature .artwork {
+    .artwork {
         width: 100%;
         max-width: 100%;
-
-        margin-left: auto;
-        margin-right: auto;
 
         padding: 7px;
 
         transform: rotate(-.35deg);
-
-        overflow: hidden;
     }
 
-    .art-feature .artwork img {
-        display: block;
-
+    .artwork img {
         width: auto;
         height: auto;
 
         max-width: 100%;
         max-height: 420px;
 
-        margin-left: auto;
-        margin-right: auto;
-
-        object-fit: contain;
+        margin: 0 auto;
     }
 
     .artwork-caption {
@@ -2472,4 +2471,5 @@ input[type="range"]::-moz-range-thumb {
         align-items: flex-start;
         gap: 5px;
     }
+
 }
