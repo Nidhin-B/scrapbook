@@ -4,108 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Scrapbook</title>
-    <meta name="description" content="A collection of music, games, art and things I'm making.">
+    <title>Scrapbook — A collection of things I make</title>
+    <meta name="description" content="A personal scrapbook of music, games, art, and creative projects.">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVIGATION -->
-    <header class="navbar">
-        <a href="#" class="logo">SCRAPBOOK</a>
+    <!-- PAPER TEXTURE / BACKGROUND -->
+    <div class="paper"></div>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">SCRAPBOOK<span>.</span></a>
 
         <nav>
             <a href="#music">Music</a>
             <a href="#games">Games</a>
             <a href="#art">Art</a>
             <a href="#projects">Projects</a>
-            <a href="#about">About</a>
         </nav>
-
-        <button class="menu">☰</button>
     </header>
 
 
-    <!-- HERO -->
     <main>
 
+        <!-- HERO -->
         <section class="hero">
 
-            <div class="hero-text">
-                <p class="small-label">WELCOME TO</p>
+            <div class="tape tape-hero"></div>
 
-                <h1>SCRAPBOOK</h1>
+            <p class="eyebrow">A little corner of the internet</p>
 
-                <p class="intro">
-                    A collection of things I've made,
-                    started, abandoned, and kept.
-                </p>
+            <h1>
+                WELCOME<br>
+                TO MY<br>
+                <span>SCRAPBOOK.</span>
+            </h1>
 
-                <p class="categories">
-                    music · games · art · experiments
-                </p>
+            <p class="hero-text">
+                Music, games, drawings, ideas, experiments,
+                and whatever else ends up living in my notebook.
+            </p>
 
-                <a href="#music" class="explore">
-                    EXPLORE ↓
-                </a>
-            </div>
-
-            <div class="hero-note">
-                <p>everything<br>starts as<br>a blank page.</p>
-            </div>
+            <div class="scribble">✳ made by me ✳</div>
 
         </section>
 
 
-        <!-- MUSIC -->
-        <section id="music" class="section-card">
-            <span class="number">01</span>
-            <h2>MUSIC</h2>
-            <p>Things I listen to, make, and keep.</p>
-            <a href="#">VIEW MUSIC →</a>
-        </section>
+        <!-- CATEGORY GRID -->
+        <section class="categories">
+
+            <!-- MUSIC -->
+            <a href="#music" class="scrap-card music-card" id="music">
+                <div class="card-tape"></div>
+
+                <div class="vinyl">
+                    <div class="vinyl-label"></div>
+                </div>
+
+                <div class="card-content">
+                    <span class="card-number">01</span>
+                    <h2>MUSIC</h2>
+                    <p>
+                        Sounds, themes, experiments,
+                        and things I'm currently making.
+                    </p>
+                    <span class="card-link">open page →</span>
+                </div>
+            </a>
 
 
-        <!-- GAMES -->
-        <section id="games" class="section-card">
-            <span class="number">02</span>
-            <h2>GAMES</h2>
-            <p>Games I'm building and ideas I'm messing with.</p>
-            <a href="#">VIEW GAMES →</a>
-        </section>
+            <!-- GAMES -->
+            <a href="#games" class="scrap-card games-card" id="games">
+
+                <div class="photo-placeholder">
+                    <span>GAME<br>SCREENSHOT</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="card-number">02</span>
+                    <h2>GAMES</h2>
+                    <p>
+                        Game ideas, prototypes, worlds,
+                        mechanics, and development progress.
+                    </p>
+                    <span class="card-link">open page →</span>
+                </div>
+
+            </a>
 
 
-        <!-- ART -->
-        <section id="art" class="section-card">
-            <span class="number">03</span>
-            <h2>ART</h2>
-            <p>Drawings, designs, experiments and visual stuff.</p>
-            <a href="#">VIEW ART →</a>
-        </section>
+            <!-- ART -->
+            <a href="#art" class="scrap-card art-card" id="art">
+
+                <div class="art-paper">
+                    <span>✦</span>
+                    <span>✎</span>
+                    <span>◌</span>
+                </div>
+
+                <div class="card-content">
+                    <span class="card-number">03</span>
+                    <h2>ART</h2>
+                    <p>
+                        Illustrations, characters, sketches,
+                        designs, and random visual ideas.
+                    </p>
+                    <span class="card-link">open page →</span>
+                </div>
+
+            </a>
 
 
-        <!-- PROJECTS -->
-        <section id="projects" class="section-card">
-            <span class="number">04</span>
-            <h2>PROJECTS</h2>
-            <p>Other things I'm working on.</p>
-            <a href="#">VIEW PROJECTS →</a>
+            <!-- PROJECTS -->
+            <a href="#projects" class="scrap-card projects-card" id="projects">
+
+                <div class="note-paper">
+                    <p>
+                        "What if I<br>
+                        actually<br>
+                        made this?"
+                    </p>
+                </div>
+
+                <div class="card-content">
+                    <span class="card-number">04</span>
+                    <h2>PROJECTS</h2>
+                    <p>
+                        Bigger ideas, experiments,
+                        stories, and unfinished chaos.
+                    </p>
+                    <span class="card-link">open page →</span>
+                </div>
+
+            </a>
+
         </section>
 
 
         <!-- CURRENTLY -->
         <section class="currently">
-            <span>CURRENTLY</span>
-            <p>Working on something new...</p>
+
+            <div class="currently-title">
+                <span>✦</span>
+                <h2>CURRENTLY</h2>
+            </div>
+
+            <div class="currently-list">
+
+                <div class="current-item">
+                    <span>LISTENING</span>
+                    <strong>something loud</strong>
+                </div>
+
+                <div class="current-item">
+                    <span>MAKING</span>
+                    <strong>a bunch of things</strong>
+                </div>
+
+                <div class="current-item">
+                    <span>PLAYING</span>
+                    <strong>probably Minecraft</strong>
+                </div>
+
+            </div>
+
         </section>
 
 
-        <!-- ABOUT -->
-        <section id="about" class="about">
-            <p class="small-label">A LITTLE ABOUT THIS PLACE</p>
-            <h2>JUST A PLACE<br>TO KEEP THINGS.</h2>
+        <!-- LITTLE NOTE -->
+        <section class="little-note">
+
+            <div class="note">
+                <span class="pin">●</span>
+
+                <p>
+                    This website is basically<br>
+                    my digital notebook.
+                </p>
+
+                <small>— welcome in</small>
+            </div>
+
         </section>
 
     </main>
@@ -113,9 +195,27 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>SCRAPBOOK · 2026</p>
-        <p>made with whatever I had.</p>
+
+        <div class="footer-logo">SCRAPBOOK<span>.</span></div>
+
+        <p>
+            made with questionable amounts of caffeine
+        </p>
+
+        <div class="footer-links">
+            <a href="#">YouTube</a>
+            <a href="#">GitHub</a>
+            <a href="#">Instagram</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 Scrapbook
+        </p>
+
     </footer>
+
+
+    <script src="script.js"></script>
 
 </body>
 </html>
