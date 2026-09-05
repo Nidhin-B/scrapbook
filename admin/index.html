@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+no<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -247,7 +247,39 @@
     const publishButton = document.getElementById("publishButton");
 
     publishButton.addEventListener("click", function () {
-        alert("Publisher UI is working. GitHub publishing comes next.");
+
+        const type = document.getElementById("type").value;
+        const title = document.getElementById("title").value.trim();
+        const category = document.getElementById("category").value.trim();
+        const description = document.getElementById("description").value.trim();
+        const file = document.getElementById("asset").files[0];
+        const published = document.getElementById("published").checked;
+        const featured = document.getElementById("featured").checked;
+
+        if (!title) {
+            alert("Give it a title first.");
+            return;
+        }
+
+        const item = {
+            id: Date.now().toString(),
+            type: type,
+            title: title,
+            category: category,
+            description: description,
+            fileName: file ? file.name : "",
+            published: published,
+            featured: featured,
+            date: new Date().toISOString()
+        };
+
+        console.log("Publisher item:", item);
+
+        alert(
+            "Content record created!\\n\\n" +
+            title +
+            "\\n\\nCheck the browser console to see the data."
+        );
     });
 </script>
 
