@@ -1,5 +1,5 @@
 /* ========================================
-   SCRAPBOOK — SIMPLE PAGE MOTION
+   SCRAPBOOK — FAST PAGE MOTION
 ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,25 +12,34 @@ document.addEventListener("DOMContentLoaded", () => {
         ).matches;
 
 
-    /* ----------------------------------------
+    /* ========================================
        PAGE ENTRANCE
-    ---------------------------------------- */
+    ======================================== */
 
     if (!reducedMotion) {
 
-        body.classList.add("motion-enabled");
+        body.classList.add(
+            "motion-enabled"
+        );
 
         requestAnimationFrame(() => {
-            body.classList.add("page-ready");
+
+            body.classList.add(
+                "page-ready"
+            );
+
         });
 
     }
 
 
-    /* ----------------------------------------
-       SAME-SITE LINKS
-       NO ARTIFICIAL DELAY
-    ---------------------------------------- */
+    /* ========================================
+       NAVIGATION
+       
+       IMPORTANT:
+       There is NO artificial delay here.
+       The browser navigates immediately.
+    ======================================== */
 
     const links =
         document.querySelectorAll(
@@ -39,92 +48,112 @@ document.addEventListener("DOMContentLoaded", () => {
 
     links.forEach(link => {
 
-        link.addEventListener("click", event => {
+        link.addEventListener(
+            "click",
+            event => {
 
-            const href =
-                link.getAttribute("href");
+                const href =
+                    link.getAttribute("href");
 
-            if (!href) return;
-
-            /* Don't interfere with anchors */
-            if (href.startsWith("#")) return;
-
-            /* Don't interfere with downloads */
-            if (link.hasAttribute("download")) return;
-
-            /* Don't interfere with new tabs */
-            if (link.target === "_blank") return;
+                if (!href) return;
 
 
-            let destination;
+                /* Anchor links */
 
-            try {
+                if (
+                    href.startsWith("#")
+                ) {
+                    return;
+                }
 
-                destination =
-                    new URL(
-                        href,
-                        window.location.href
-                    );
 
-            } catch {
+                /* Downloads */
 
-                return;
+                if (
+                    link.hasAttribute(
+                        "download"
+                    )
+                ) {
+                    return;
+                }
+
+
+                /* New tabs */
+
+                if (
+                    link.target === "_blank"
+                ) {
+                    return;
+                }
+
+
+                let destination;
+
+                try {
+
+                    destination =
+                        new URL(
+                            href,
+                            window.location.href
+                        );
+
+                } catch {
+
+                    return;
+
+                }
+
+
+                /* External links */
+
+                if (
+                    destination.origin !==
+                    window.location.origin
+                ) {
+                    return;
+                }
+
+
+                /* Same page */
+
+                if (
+                    destination.href ===
+                    window.location.href
+                ) {
+                    return;
+                }
+
+
+                /*
+                 * DO NOTHING.
+                 *
+                 * We intentionally allow the
+                 * browser to navigate normally.
+                 *
+                 * This is what removes the huge
+                 * artificial delay.
+                 */
 
             }
-
-
-            /* External website */
-            if (
-                destination.origin !==
-                window.location.origin
-            ) {
-
-                return;
-
-            }
-
-
-            /* Same exact page */
-            if (
-                destination.href ===
-                window.location.href
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-             * Let the browser navigate normally.
-             *
-             * No 760ms timeout.
-             * No duplicate listeners.
-             * No fake loading screen.
-             */
-
-        });
+        );
 
     });
 
 
-    /* ----------------------------------------
+    /* ========================================
        BACK / FORWARD CACHE
-    ---------------------------------------- */
+    ======================================== */
 
     window.addEventListener(
         "pageshow",
         () => {
 
             body.classList.remove(
-                "page-leaving"
+                "page-ready"
             );
 
-            if (!reducedMotion) {
 
-                body.classList.remove(
-                    "page-ready"
-                );
+            if (!reducedMotion) {
 
                 requestAnimationFrame(() => {
 
