@@ -2347,33 +2347,52 @@ input[type="range"]::-moz-range-thumb {
 .artwork {
     position: relative;
 
-    width: min(100%, 760px);
-    margin: 35px auto 0;
+    width: 100%;
+    max-width: 760px;
 
-    padding: 14px;
+    margin: 35px auto 0;
+    padding: 10px;
+
+    box-sizing: border-box;
 
     background: var(--white);
+    border: 1px solid rgba(23, 23, 20, .15);
 
-    border: 1px solid rgba(23, 23, 20, .18);
+    box-shadow: 7px 8px 0 rgba(101, 113, 91, .10);
 
-    box-shadow:
-        8px 10px 0 rgba(101, 113, 91, .12),
-        0 4px 18px rgba(23, 23, 20, .08);
+    transform: rotate(-.6deg);
 
-    transform: rotate(-.8deg);
+    overflow: hidden;
 }
 
-/* little piece of scrapbook tape */
+.artwork img {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+
+    box-sizing: border-box;
+
+    object-fit: contain;
+
+    border: 0;
+
+    background: transparent;
+}
+
+
+/* Scrapbook tape */
 
 .artwork::before {
     content: "";
 
     position: absolute;
 
-    width: 105px;
-    height: 23px;
+    width: 90px;
+    height: 20px;
 
-    top: -10px;
+    top: -9px;
     left: 50%;
 
     transform: translateX(-50%) rotate(2deg);
@@ -2383,21 +2402,6 @@ input[type="range"]::-moz-range-thumb {
     z-index: 2;
 }
 
-.artwork img {
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    object-fit: contain;
-
-    border: 1px solid rgba(23, 23, 20, .12);
-
-    background: var(--paper);
-
-    filter: none;
-}
-
 
 /* Caption */
 
@@ -2405,27 +2409,22 @@ input[type="range"]::-moz-range-thumb {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 20px;
 
-    width: min(100%, 760px);
+    max-width: 760px;
 
     margin: 18px auto 0;
-
-    font-family: 'DM Mono', monospace;
 }
 
 .artwork-caption span {
     font-size: 9px;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
     color: var(--muted);
 }
 
 .artwork-caption strong {
     font-family: 'Playfair Display', serif;
-
     font-size: 18px;
     font-weight: 600;
-
     color: var(--ink);
 }
 
@@ -2436,14 +2435,21 @@ input[type="range"]::-moz-range-thumb {
 
     .artwork {
         width: 100%;
-        padding: 10px;
+        max-width: 100%;
 
-        transform: rotate(-.5deg);
+        padding: 7px;
+
+        transform: rotate(-.35deg);
+    }
+
+    .artwork img {
+        width: 100%;
+        height: auto;
     }
 
     .artwork-caption {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: flex-start;
         gap: 5px;
     }
 
