@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&display=swap');
 
+
 /* ========================================
-   SCRAPBOOK
+   SCRAPBOOK — GLOBAL
 ======================================== */
 
 :root {
@@ -23,16 +24,22 @@
 }
 
 html {
-    overflow-x: hidden;
     background: var(--paper);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    color-scheme: light;
 }
 
 body {
     background: var(--paper);
     color: var(--ink);
+
     font-family: "DM Mono", monospace;
     line-height: 1.5;
+
     overflow-x: hidden;
+
+    color-scheme: light;
 }
 
 a {
@@ -40,20 +47,39 @@ a {
     text-decoration: none;
 }
 
+button {
+    font-family: inherit;
+}
+
+
+/* ========================================
+   PAPER TEXTURE
+======================================== */
+
 body::before {
     content: "";
+
     position: fixed;
     inset: 0;
+
     pointer-events: none;
+
     z-index: 9990;
+
     opacity: .035;
-    background-image: radial-gradient(rgba(0,0,0,.8) .6px, transparent .6px);
+
+    background-image:
+        radial-gradient(
+            rgba(0,0,0,.8) .6px,
+            transparent .6px
+        );
+
     background-size: 5px 5px;
 }
 
 
 /* ========================================
-   REAL CROSS-PAGE VIEW TRANSITION
+   CROSS-PAGE VIEW TRANSITIONS
 ======================================== */
 
 @view-transition {
@@ -61,47 +87,104 @@ body::before {
 }
 
 ::view-transition-group(root) {
-    animation-duration: .9s;
+    animation-duration: .95s;
 }
 
 ::view-transition-old(root) {
-    animation: scrapbookOld .65s cubic-bezier(.76,0,.24,1) both;
+    animation:
+        scrapbook-old
+        .72s
+        cubic-bezier(.76,0,.24,1)
+        both;
 }
 
 ::view-transition-new(root) {
-    animation: scrapbookNew .9s cubic-bezier(.22,.61,.36,1) both;
+    animation:
+        scrapbook-new
+        1s
+        cubic-bezier(.22,.61,.36,1)
+        both;
 }
 
-@keyframes scrapbookOld {
+@keyframes scrapbook-old {
+
     0% {
         opacity: 1;
         transform: translateY(0);
     }
 
-    55% {
+    60% {
         opacity: 1;
     }
 
     100% {
-        opacity: .96;
+        opacity: .98;
         transform: translateY(-2%);
     }
 }
 
-@keyframes scrapbookNew {
+@keyframes scrapbook-new {
+
     0% {
         opacity: 0;
-        transform: translateY(12px);
+        transform: translateY(18px);
     }
 
     35% {
         opacity: .35;
     }
 
+    70% {
+        opacity: .8;
+    }
+
     100% {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+/* ========================================
+   FALLBACK PAGE COVER
+   Used when View Transitions aren't supported
+======================================== */
+
+.fallback-cover {
+    position: fixed;
+    inset: 0;
+
+    z-index: 99999;
+
+    pointer-events: none;
+
+    background: var(--paper);
+
+    transform: translateY(0);
+
+    transition:
+        transform .9s cubic-bezier(.76,0,.24,1);
+}
+
+.fallback-cover::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -8px;
+
+    height: 12px;
+
+    background: rgba(0,0,0,.08);
+
+    box-shadow:
+        0 -8px 25px rgba(0,0,0,.08);
+}
+
+.fallback-cover.hide {
+    transform: translateY(-100%);
 }
 
 
@@ -111,11 +194,14 @@ body::before {
 
 .site-header {
     width: 100%;
+
     padding: 28px 6vw;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    gap: 30px;
 
     position: relative;
     z-index: 10;
@@ -123,9 +209,13 @@ body::before {
 
 .logo {
     font-family: "Playfair Display", serif;
+
     font-size: 25px;
     font-weight: 800;
+
     letter-spacing: -1px;
+
+    white-space: nowrap;
 }
 
 .logo span {
@@ -134,26 +224,39 @@ body::before {
 
 nav {
     display: flex;
+    align-items: center;
+
     gap: clamp(18px, 3vw, 38px);
 }
 
 nav a {
     position: relative;
+
     font-size: 12px;
+    font-weight: 500;
+
     text-transform: uppercase;
+
     letter-spacing: 1.5px;
 
-    transition: transform .2s ease;
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
 }
 
 nav a::after {
     content: "";
+
     position: absolute;
+
     left: 0;
     bottom: -7px;
+
     width: 0;
     height: 1px;
+
     background: var(--ink);
+
     transition: width .25s ease;
 }
 
@@ -161,787 +264,4 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-nav a:hover::after {
-    width: 100%;
-}
-
-
-/* ========================================
-   HOMEPAGE HERO
-======================================== */
-
-.hero {
-    width: min(1200px, 88vw);
-    min-height: 78vh;
-    margin: auto;
-
-    padding: 80px 0 100px;
-
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.tape {
-    position: absolute;
-    width: 105px;
-    height: 32px;
-    background: rgba(210,201,170,.82);
-    pointer-events: none;
-}
-
-.tape-hero {
-    top: 80px;
-    right: 8%;
-    transform: rotate(7deg);
-}
-
-.eyebrow {
-    margin-bottom: 20px;
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 2px;
-}
-
-.hero h1 {
-    max-width: 1000px;
-
-    font-family: "Playfair Display", serif;
-    font-size: clamp(58px,10vw,138px);
-    font-weight: 800;
-    line-height: .86;
-    letter-spacing: -7px;
-}
-
-.hero-text {
-    max-width: 600px;
-    margin-top: 42px;
-
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.9;
-}
-
-.scribble {
-    margin-top: 28px;
-    font-size: 14px;
-    transform: rotate(-2deg);
-}
-
-
-/* ========================================
-   HOMEPAGE CARDS
-======================================== */
-
-.categories {
-    width: min(1050px,86vw);
-    margin: 20px auto 130px;
-
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 42px;
-}
-
-.scrap-card {
-    min-height: 390px;
-    padding: 35px;
-
-    position: relative;
-    overflow: hidden;
-
-    display: block;
-
-    border: 1px solid rgba(23,23,20,.15);
-    box-shadow: 4px 7px 18px rgba(0,0,0,.07);
-
-    transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        box-shadow .35s ease;
-}
-
-.music-card {
-    background: var(--sage-light);
-    transform: rotate(-1.2deg);
-}
-
-.games-card {
-    background: var(--paper-light);
-    transform: rotate(1.2deg);
-}
-
-.art-card {
-    background: var(--note);
-    transform: rotate(-.8deg);
-}
-
-.projects-card {
-    background: #c8c7b9;
-    transform: rotate(1deg);
-}
-
-.scrap-card:hover {
-    transform: rotate(0) translateY(-8px);
-    box-shadow: 7px 12px 22px rgba(0,0,0,.12);
-}
-
-.card-tape {
-    position: absolute;
-    width: 85px;
-    height: 25px;
-    top: 18px;
-    right: 35px;
-    background: rgba(231,224,194,.78);
-    transform: rotate(5deg);
-}
-
-.card-content {
-    position: relative;
-    z-index: 4;
-}
-
-.card-number {
-    display: block;
-    color: #747668;
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
-}
-
-.scrap-card h2 {
-    font-family: "Playfair Display", serif;
-    font-size: clamp(43px,6vw,70px);
-    line-height: .9;
-    letter-spacing: -3px;
-    margin-bottom: 22px;
-}
-
-.scrap-card p {
-    max-width: 420px;
-    font-size: 12px;
-    line-height: 1.8;
-    color: #404039;
-}
-
-.card-link {
-    display: inline-block;
-    margin-top: 28px;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-}
-
-
-/* ========================================
-   VINYL
-======================================== */
-
-.vinyl {
-    width: 225px;
-    height: 225px;
-
-    border-radius: 50%;
-
-    position: absolute;
-    right: -55px;
-    bottom: -65px;
-
-    background:
-        repeating-radial-gradient(
-            circle,
-            #171714 0 2px,
-            #25251f 3px,
-            #171714 5px
-        );
-
-    box-shadow: 3px 5px 10px rgba(0,0,0,.18);
-
-    transition: transform .9s cubic-bezier(.2,.8,.2,1);
-}
-
-.music-card:hover .vinyl {
-    transform: rotate(40deg);
-}
-
-.vinyl-label {
-    position: absolute;
-
-    width: 62px;
-    height: 62px;
-
-    border-radius: 50%;
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%,-50%);
-
-    background: var(--sage);
-    border: 2px solid var(--ink);
-}
-
-.vinyl-label::after {
-    content: "";
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    border-radius: 50%;
-    background: var(--ink);
-
-    left: 50%;
-    top: 50%;
-
-    transform: translate(-50%,-50%);
-}
-
-
-/* ========================================
-   OTHER HOMEPAGE VISUALS
-======================================== */
-
-.photo-placeholder {
-    width: 78%;
-    height: 170px;
-
-    margin: 20px 0 30px;
-
-    border: 2px solid var(--ink);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        repeating-linear-gradient(
-            135deg,
-            rgba(0,0,0,.025) 0 8px,
-            transparent 8px 16px
-        );
-
-    transform: rotate(-2deg);
-
-    font-size: 10px;
-    letter-spacing: 2px;
-}
-
-.art-paper {
-    position: absolute;
-
-    right: 30px;
-    bottom: 35px;
-
-    width: 180px;
-    height: 150px;
-
-    background: #eee8d8;
-
-    border: 1px solid rgba(0,0,0,.12);
-
-    box-shadow: 4px 6px 10px rgba(0,0,0,.1);
-
-    transform: rotate(5deg);
-}
-
-.art-paper span {
-    position: absolute;
-    font-family: "Playfair Display",serif;
-    font-size: 42px;
-}
-
-.art-paper span:nth-child(1) {
-    top: 15px;
-    left: 20px;
-}
-
-.art-paper span:nth-child(2) {
-    right: 25px;
-    top: 45px;
-    transform: rotate(-15deg);
-}
-
-.art-paper span:nth-child(3) {
-    bottom: 10px;
-    left: 65px;
-    font-size: 55px;
-}
-
-.note-paper {
-    position: absolute;
-
-    right: 28px;
-    bottom: 35px;
-
-    width: 205px;
-    padding: 25px 22px;
-
-    background: #eee8d7;
-
-    border: 1px solid rgba(0,0,0,.12);
-
-    box-shadow: 4px 6px 12px rgba(0,0,0,.1);
-
-    transform: rotate(-4deg);
-}
-
-.note-paper p {
-    font-family: "Playfair Display",serif;
-    font-size: 20px;
-    line-height: 1.25;
-}
-
-
-/* ========================================
-   CURRENTLY
-======================================== */
-
-.currently {
-    width: min(1000px,86vw);
-
-    margin: 100px auto 150px;
-    padding: 50px;
-
-    background: var(--sage);
-    color: var(--white);
-
-    transform: rotate(-.5deg);
-
-    box-shadow: 5px 8px 20px rgba(0,0,0,.1);
-}
-
-.currently-title {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 38px;
-}
-
-.currently-title h2 {
-    font-family: "Playfair Display",serif;
-    font-size: clamp(40px,6vw,65px);
-    line-height: .9;
-}
-
-.currently-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.current-item {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-
-    padding-bottom: 15px;
-
-    border-bottom: 1px solid rgba(255,255,255,.25);
-}
-
-.current-item span {
-    min-width: 95px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    opacity: .7;
-}
-
-.current-item strong {
-    font-size: 15px;
-    font-weight: 500;
-}
-
-
-/* ========================================
-   NOTE
-======================================== */
-
-.little-note {
-    width: 100%;
-    margin: 100px auto 150px;
-
-    display: flex;
-    justify-content: center;
-}
-
-.note {
-    width: min(430px,90vw);
-
-    padding: 45px 40px;
-
-    position: relative;
-
-    background: var(--note);
-
-    box-shadow: 5px 7px 16px rgba(0,0,0,.1);
-
-    transform: rotate(2deg);
-
-    text-align: center;
-}
-
-.note .pin {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.note p {
-    font-family: "Playfair Display",serif;
-    font-size: 23px;
-    line-height: 1.4;
-}
-
-.note small {
-    display: block;
-    margin-top: 20px;
-    color: #66665d;
-    font-size: 11px;
-}
-
-
-/* ========================================
-   INNER PAGES
-======================================== */
-
-.page-main {
-    width: min(1100px,86vw);
-    margin: auto;
-    padding: 80px 0 130px;
-}
-
-.page-hero {
-    position: relative;
-    padding: 70px 0 90px;
-}
-
-.page-label {
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
-}
-
-.page-title {
-    font-family: "Playfair Display",serif;
-    font-size: clamp(70px,13vw,150px);
-    line-height: .8;
-    letter-spacing: -7px;
-}
-
-.page-intro {
-    max-width: 580px;
-    margin-top: 35px;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.9;
-}
-
-.paper-block {
-    position: relative;
-    padding: 45px;
-
-    background: var(--paper-light);
-
-    border: 1px solid rgba(0,0,0,.12);
-
-    box-shadow: 5px 8px 18px rgba(0,0,0,.08);
-
-    transform: rotate(-.7deg);
-
-    margin-bottom: 50px;
-}
-
-.paper-block h2 {
-    font-family: "Playfair Display",serif;
-    font-size: 42px;
-    margin-bottom: 18px;
-}
-
-.paper-block p {
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.9;
-}
-
-.page-grid {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 30px;
-}
-
-.page-card {
-    min-height: 220px;
-    padding: 30px;
-
-    background: var(--note);
-
-    border: 1px solid rgba(0,0,0,.1);
-
-    box-shadow: 4px 6px 14px rgba(0,0,0,.07);
-
-    transition: transform .3s ease;
-}
-
-.page-card:nth-child(even) {
-    transform: rotate(1deg);
-}
-
-.page-card:nth-child(odd) {
-    transform: rotate(-1deg);
-}
-
-.page-card:hover {
-    transform: rotate(0) translateY(-5px);
-}
-
-.page-card h3 {
-    font-family: "Playfair Display",serif;
-    font-size: 32px;
-    margin-bottom: 15px;
-}
-
-.page-card p {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-.fake-player {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    padding: 22px;
-
-    margin-top: 30px;
-
-    background: var(--dark);
-    color: var(--white);
-}
-
-.play-button {
-    width: 45px;
-    height: 45px;
-
-    border: 1px solid rgba(255,255,255,.5);
-
-    border-radius: 50%;
-
-    display: grid;
-    place-items: center;
-}
-
-.track-info strong {
-    display: block;
-    font-size: 12px;
-}
-
-.track-info span {
-    color: #aaa99e;
-    font-size: 9px;
-}
-
-
-/* ========================================
-   FOOTER
-======================================== */
-
-footer {
-    width: 100%;
-
-    margin-top: 80px;
-    padding: 50px 7%;
-
-    background: var(--dark);
-    color: var(--white);
-
-    display: grid;
-
-    grid-template-columns: 1fr auto auto;
-
-    gap: 30px;
-}
-
-.footer-logo {
-    font-family: "Playfair Display",serif;
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.footer-logo span {
-    color: #9da58b;
-}
-
-footer p {
-    font-size: 10px;
-    color: #aaa99e;
-}
-
-.footer-links {
-    display: flex;
-    gap: 20px;
-}
-
-.footer-links a {
-    font-size: 10px;
-    letter-spacing: 1px;
-}
-
-.copyright {
-    grid-column: 1/-1;
-
-    padding-top: 20px;
-
-    border-top: 1px solid rgba(255,255,255,.12);
-}
-
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media(max-width:700px) {
-
-    .site-header {
-        padding: 22px 7%;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    nav {
-        gap: 12px;
-    }
-
-    nav a {
-        font-size: 8px;
-        letter-spacing: 1px;
-    }
-
-    .hero {
-        width: 86vw;
-        min-height: auto;
-        padding: 65px 0 90px;
-    }
-
-    .hero h1 {
-        font-size: clamp(48px,14.5vw,76px);
-        letter-spacing: -4px;
-    }
-
-    .hero-text {
-        margin-top: 30px;
-        font-size: 11px;
-    }
-
-    .categories {
-        width: 86vw;
-        grid-template-columns: 1fr;
-        gap: 30px;
-        margin-bottom: 100px;
-    }
-
-    .scrap-card {
-        min-height: 350px;
-        padding: 28px;
-    }
-
-    .scrap-card h2 {
-        font-size: 48px;
-    }
-
-    .vinyl {
-        width: 180px;
-        height: 180px;
-    }
-
-    .currently {
-        width: 86vw;
-        padding: 32px 25px;
-        margin: 80px auto 110px;
-    }
-
-    .current-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .little-note {
-        margin-bottom: 100px;
-    }
-
-    footer {
-        display: block;
-        text-align: center;
-        padding: 40px 8%;
-    }
-
-    .footer-links {
-        margin-top: 25px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .copyright {
-        margin-top: 25px;
-    }
-
-    /* INNER PAGES */
-
-    .page-main {
-        width: 86vw;
-        padding-top: 40px;
-    }
-
-    .page-hero {
-        padding: 50px 0 65px;
-    }
-
-    .page-title {
-        font-size: clamp(60px,17vw,100px);
-        letter-spacing: -5px;
-    }
-
-    .page-intro {
-        font-size: 11px;
-    }
-
-    .paper-block {
-        padding: 30px 25px;
-    }
-
-    .paper-block h2 {
-        font-size: 34px;
-    }
-
-    .page-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .page-card {
-        min-height: 190px;
-    }
-
-    .fake-player {
-        padding: 18px;
-    }
-}
-
-
-/* ========================================
-   REDUCED MOTION
-======================================== */
-
-@media(prefers-reduced-motion:reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-    }
-}
+nav a:hover
