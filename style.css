@@ -1,5 +1,5 @@
 /* ========================================
-   SCRAPBOOK — COMPLETE STYLE
+   SCRAPBOOK — MAIN STYLE
 ======================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@500;600;700;800&display=swap');
@@ -194,7 +194,7 @@ main {
 }
 
 
-/* little tape */
+/* hero tape */
 
 .tape {
     position: absolute;
@@ -231,7 +231,7 @@ main {
 }
 
 
-/* hero heading */
+/* hero title */
 
 .hero h1 {
     max-width: 1000px;
@@ -252,7 +252,7 @@ main {
 }
 
 
-/* hero description */
+/* hero paragraph */
 
 .hero-text {
     max-width: 600px;
@@ -284,7 +284,7 @@ main {
 }
 
 
-/* decorative star */
+/* hero decoration */
 
 .hero::after {
     content: "✦";
@@ -303,7 +303,7 @@ main {
 
 
 /* ========================================
-   CATEGORY AREA
+   CATEGORY GRID
 ======================================== */
 
 .categories {
@@ -346,7 +346,7 @@ main {
 }
 
 
-/* card colours */
+/* card backgrounds */
 
 .music-card {
     background: var(--sage-light);
@@ -373,7 +373,7 @@ main {
 }
 
 
-/* hover */
+/* card hover */
 
 .music-card:hover,
 .games-card:hover,
@@ -698,9 +698,6 @@ main {
         5px 8px 20px rgba(0,0,0,0.1);
 }
 
-
-/* title */
-
 .currently-title {
     display: flex;
 
@@ -724,9 +721,6 @@ main {
 
     letter-spacing: -2px;
 }
-
-
-/* list */
 
 .currently-list {
     display: flex;
@@ -910,17 +904,16 @@ footer p {
 
 
 /* ========================================
-   PAGE TRANSITION
+   PREMIUM PAGE TRANSITIONS
 ======================================== */
 
 /*
-   A separate overlay is used instead of
-   changing the layout itself.
+   The transition is deliberately subtle.
+   It should feel like turning a scrapbook page,
+   not like a giant website animation.
 */
 
-body::after {
-    content: "";
-
+.page-transition {
     position: fixed;
 
     inset: 0;
@@ -937,105 +930,250 @@ body::after {
 }
 
 
-/* entering */
+/* page entering */
 
 body.page-ready {
     animation:
-        scrapbookPageIn
+        pageFadeIn
         0.65s
-        ease both;
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+@keyframes pageFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
 }
 
 
-/* leaving */
+/* paper revealing */
 
-body.page-leaving::after {
+body.page-ready .page-transition {
     animation:
-        scrapbookPageOut
-        0.48s
+        paperReveal
+        0.85s
         cubic-bezier(.76,0,.24,1)
         forwards;
 }
 
-
-@keyframes scrapbookPageIn {
+@keyframes paperReveal {
 
     from {
-        opacity: 0;
-
-        transform:
-            translateY(10px);
+        transform: translateY(0);
     }
 
     to {
-        opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(-100%);
     }
 
 }
 
 
-@keyframes scrapbookPageOut {
+/* page leaving */
+
+body.page-leaving .page-transition {
+    animation:
+        paperCover
+        0.65s
+        cubic-bezier(.76,0,.24,1)
+        forwards;
+}
+
+@keyframes paperCover {
 
     from {
-        transform:
-            translateY(100%);
+        transform: translateY(100%);
     }
 
     to {
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
 
 }
 
 
 /* ========================================
-   PAGE CONTENT ENTRANCE
+   HOMEPAGE ENTRANCE
 ======================================== */
+
+body.page-ready .site-header {
+    animation:
+        headerEnter
+        0.6s
+        ease
+        both;
+}
+
+@keyframes headerEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
 
 body.page-ready .hero {
     animation:
-        contentRise
-        0.7s
+        heroEnter
+        0.85s
         0.05s
-        ease both;
+        cubic-bezier(.22,.61,.36,1)
+        both;
 }
 
-body.page-ready .categories {
-    animation:
-        contentRise
-        0.7s
-        0.12s
-        ease both;
-}
-
-body.page-ready .currently {
-    animation:
-        contentRise
-        0.7s
-        0.18s
-        ease both;
-}
-
-body.page-ready .little-note {
-    animation:
-        contentRise
-        0.7s
-        0.24s
-        ease both;
-}
-
-
-@keyframes contentRise {
+@keyframes heroEnter {
 
     from {
         opacity: 0;
+        transform: translateY(25px);
+    }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+body.page-ready .eyebrow {
+    animation:
+        softRise
+        0.6s
+        0.15s
+        ease
+        both;
+}
+
+
+body.page-ready .hero h1 {
+    animation:
+        titleEnter
+        0.9s
+        0.2s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+@keyframes titleEnter {
+
+    from {
+        opacity: 0;
         transform:
-            translateY(20px);
+            translateY(30px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+body.page-ready .hero-text {
+    animation:
+        softRise
+        0.7s
+        0.35s
+        ease
+        both;
+}
+
+body.page-ready .scribble {
+    animation:
+        scribbleEnter
+        0.65s
+        0.48s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+@keyframes scribbleEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(10px)
+            rotate(-5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            rotate(-2deg);
+    }
+
+}
+
+@keyframes softRise {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* ========================================
+   CARDS ENTER ONE AFTER ANOTHER
+======================================== */
+
+body.page-ready .scrap-card {
+    animation:
+        cardEnter
+        0.75s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+body.page-ready .scrap-card:nth-child(1) {
+    animation-delay: 0.22s;
+}
+
+body.page-ready .scrap-card:nth-child(2) {
+    animation-delay: 0.31s;
+}
+
+body.page-ready .scrap-card:nth-child(3) {
+    animation-delay: 0.40s;
+}
+
+body.page-ready .scrap-card:nth-child(4) {
+    animation-delay: 0.49s;
+}
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(28px)
+            rotate(0deg);
     }
 
     to {
@@ -1046,21 +1184,92 @@ body.page-ready .little-note {
 
 
 /* ========================================
-   REDUCED MOTION
+   VINYL ENTRANCE
 ======================================== */
 
-@media (prefers-reduced-motion: reduce) {
+body.page-ready .vinyl {
+    animation:
+        vinylEnter
+        0.95s
+        0.45s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
 
-    html {
-        scroll-behavior: auto;
+@keyframes vinylEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            rotate(-25deg);
     }
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+}
+
+
+/* ========================================
+   LOWER SECTIONS
+======================================== */
+
+body.page-ready .currently {
+    animation:
+        currentlyEnter
+        0.8s
+        0.35s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+@keyframes currentlyEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            rotate(-2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            rotate(-0.5deg);
+    }
+
+}
+
+
+body.page-ready .little-note {
+    animation:
+        noteEnter
+        0.8s
+        0.5s
+        cubic-bezier(.22,.61,.36,1)
+        both;
+}
+
+@keyframes noteEnter {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(25px)
+            rotate(5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            rotate(2deg);
     }
 
 }
@@ -1075,7 +1284,6 @@ body.page-ready .little-note {
     html,
     body {
         width: 100%;
-
         overflow-x: hidden;
     }
 
@@ -1133,7 +1341,8 @@ body.page-ready .little-note {
     }
 
     .hero h1 {
-        font-size: clamp(48px, 14.5vw, 76px);
+        font-size:
+            clamp(48px, 14.5vw, 76px);
 
         letter-spacing: -4px;
 
@@ -1227,7 +1436,7 @@ body.page-ready .little-note {
     }
 
 
-    /* game placeholder */
+    /* game image */
 
     .photo-placeholder {
         width: 82%;
@@ -1281,7 +1490,9 @@ body.page-ready .little-note {
             auto
             110px;
 
-        padding: 32px 25px;
+        padding:
+            32px
+            25px;
     }
 
     .currently-title {
@@ -1315,7 +1526,7 @@ body.page-ready .little-note {
     }
 
 
-    /* little note */
+    /* note */
 
     .little-note {
         margin:
@@ -1325,7 +1536,9 @@ body.page-ready .little-note {
     }
 
     .note {
-        padding: 38px 25px;
+        padding:
+            38px
+            25px;
     }
 
     .note p {
@@ -1337,7 +1550,8 @@ body.page-ready .little-note {
 
     footer {
         padding:
-            40px 8%;
+            40px
+            8%;
 
         display: block;
 
@@ -1367,14 +1581,22 @@ body.page-ready .little-note {
     }
 
 
-    /* transition */
+    /* mobile transitions */
 
-    body.page-ready {
-        animation-duration: 0.5s;
+    body.page-ready .hero {
+        animation-duration: 0.65s;
     }
 
-    body.page-leaving::after {
-        animation-duration: 0.4s;
+    body.page-ready .scrap-card {
+        animation-duration: 0.65s;
+    }
+
+    body.page-ready .page-transition {
+        animation-duration: 0.72s;
+    }
+
+    body.page-leaving .page-transition {
+        animation-duration: 0.58s;
     }
 
 }
@@ -1429,6 +1651,25 @@ body.page-ready .little-note {
 
     .currently {
         width: 88vw;
+    }
+
+}
+
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-delay: 0ms !important;
+
+        transition-duration: 0.01ms !important;
     }
 
 }
