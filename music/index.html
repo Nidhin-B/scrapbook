@@ -114,24 +114,67 @@
 
         <div class="fake-player">
 
-            <div class="play-button">
+            <button
+                class="play-button"
+                id="playButton"
+                type="button"
+                aria-label="Play Where The Light Ends"
+            >
                 ▶
-            </div>
+            </button>
 
 
             <div class="track-info">
 
                 <strong>
-                    Current obsession
+                    Where The Light Ends
                 </strong>
 
                 <span>
-                    coming soon
+                    ORIGINAL COMPOSITION
                 </span>
 
             </div>
 
         </div>
+
+
+        <div class="music-progress">
+
+            <input
+                type="range"
+                id="progressBar"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+                aria-label="Track progress"
+            >
+
+            <div class="music-time">
+
+                <span id="currentTime">
+                    0:00
+                </span>
+
+                <span id="duration">
+                    0:00
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <audio
+            id="musicPlayer"
+            preload="metadata"
+        >
+            <source
+                src="where%20the%20Light%20Ends.mp3"
+                type="audio/mpeg"
+            >
+        </audio>
 
     </section>
 
@@ -242,6 +285,112 @@
 
 </footer>
 
+
+
+<script>
+
+const player = document.getElementById("musicPlayer");
+const playButton = document.getElementById("playButton");
+const progressBar = document.getElementById("progressBar");
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+
+
+function formatTime(seconds) {
+
+    if (!Number.isFinite(seconds)) {
+        return "0:00";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+
+    const remainingSeconds =
+        Math.floor(seconds % 60)
+        .toString()
+        .padStart(2, "0");
+
+    return `${minutes}:${remainingSeconds}`;
+}
+
+
+playButton.addEventListener("click", () => {
+
+    if (player.paused) {
+
+        player.play();
+
+    } else {
+
+        player.pause();
+
+    }
+
+});
+
+
+player.addEventListener("play", () => {
+
+    playButton.textContent = "Ⅱ";
+
+});
+
+
+player.addEventListener("pause", () => {
+
+    playButton.textContent = "▶";
+
+});
+
+
+player.addEventListener("loadedmetadata", () => {
+
+    duration.textContent =
+        formatTime(player.duration);
+
+});
+
+
+player.addEventListener("timeupdate", () => {
+
+    if (!player.duration) {
+        return;
+    }
+
+    const progress =
+        (player.currentTime / player.duration) * 100;
+
+    progressBar.value = progress;
+
+    currentTime.textContent =
+        formatTime(player.currentTime);
+
+});
+
+
+progressBar.addEventListener("input", () => {
+
+    if (!player.duration) {
+        return;
+    }
+
+    player.currentTime =
+        (progressBar.value / 100) *
+        player.duration;
+
+});
+
+
+player.addEventListener("ended", () => {
+
+    playButton.textContent = "▶";
+
+    progressBar.value = 0;
+
+    currentTime.textContent = "0:00";
+
+});
+
+</script>
 
 
 <script src="../script.js"></script>
