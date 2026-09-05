@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light"
+    >
 
     <title>Music — Scrapbook</title>
 
@@ -11,343 +22,385 @@
         content="Music, albums, soundtracks and compositions from the Scrapbook."
     >
 
-    <link rel="stylesheet" href="../style.css">
-
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap"
         rel="stylesheet"
+        href="../style.css"
     >
+
 </head>
+
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
 
-    <header class="site-header">
+<header class="site-header">
 
-        <a href="../index.html" class="logo">
-            SCRAPBOOK<span>.</span>
+    <a
+        href="../index.html"
+        class="logo"
+    >
+        SCRAPBOOK<span>.</span>
+    </a>
+
+
+    <nav>
+
+        <a href="../music/index.html">
+            Music
         </a>
 
-        <nav class="main-nav">
-            <a href="../index.html">Home</a>
-            <a href="../music/index.html" class="active">Music</a>
-            <a href="../games/index.html">Games</a>
-            <a href="../art/index.html">Art</a>
-            <a href="../projects/index.html">Projects</a>
-        </nav>
+        <a href="../games/index.html">
+            Games
+        </a>
 
-    </header>
+        <a href="../art/index.html">
+            Art
+        </a>
+
+        <a href="../projects/index.html">
+            Projects
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="page-main">
 
 
     <!-- =========================
-         MUSIC PAGE
+         MUSIC HERO
     ========================== -->
 
-    <main class="subpage">
+    <section class="page-hero">
 
-        <!-- BACK BUTTON -->
-
-        <div class="back-link-wrap">
-            <a href="../index.html" class="back-link">
-                ← Back to Scrapbook
-            </a>
+        <div class="page-label">
+            02 / MUSIC
         </div>
 
 
-        <!-- HERO -->
+        <h1 class="page-title">
+            MUSIC.
+        </h1>
 
-        <section class="subpage-hero">
 
-            <p class="eyebrow">
-                02 — MUSIC
-            </p>
+        <p class="page-intro">
+            Music, albums, soundtracks and compositions
+            from the Scrapbook.
+        </p>
 
-            <h1>
-                Sounds I've<br>
-                <em>made.</em>
-            </h1>
 
-            <p class="hero-description">
-                Music, albums, soundtracks and compositions
-                from the Scrapbook.
-            </p>
+        <a
+            href="../index.html"
+            class="back-scrapbook"
+        >
+            ← BACK TO SCRAPBOOK
+        </a>
 
-        </section>
+    </section>
+
+
+
+    <!-- =========================
+         FEATURED TRACK
+    ========================== -->
+
+    <section class="paper-block music-feature">
+
+        <p class="section-label">
+            FEATURED
+        </p>
+
+
+        <h2>
+            Where The Light Ends.
+        </h2>
+
+
+        <p>
+            A little corner for the music that currently
+            lives inside this scrapbook.
+        </p>
 
 
         <!-- =========================
-             FEATURED
+             MUSIC PLAYER
         ========================== -->
 
-        <section class="paper-block music-feature">
-
-            <p class="section-label">
-                FEATURED
-            </p>
-
-            <h2>
-                Where The Light Ends.
-            </h2>
-
-            <p class="feature-description">
-                A little corner for the music that currently
-                lives inside this scrapbook.
-            </p>
+        <div class="fake-player music-player">
 
 
-            <!-- MUSIC PLAYER -->
-
-            <div class="music-player">
-
-                <div class="music-player-top">
-
-                    <button
-                        class="play-button"
-                        id="playButton"
-                        type="button"
-                        aria-label="Play Where The Light Ends"
-                    >
-                        ▶
-                    </button>
+            <div class="music-player-main">
 
 
-                    <div class="track-info">
-
-                        <strong>
-                            Where The Light Ends
-                        </strong>
-
-                        <span>
-                            ORIGINAL COMPOSITION
-                        </span>
-
-                    </div>
-
-
-                    <div class="track-mark">
-                        ♪
-                    </div>
-
-                </div>
-
-
-                <!-- PROGRESS BAR -->
-
-                <div class="music-progress">
-
-                    <input
-                        type="range"
-                        id="progressBar"
-                        min="0"
-                        max="100"
-                        value="0"
-                        step="0.1"
-                        aria-label="Track progress"
-                    >
-
-                    <div class="music-time">
-
-                        <span id="currentTime">
-                            0:00
-                        </span>
-
-                        <span id="duration">
-                            0:00
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- ACTUAL AUDIO -->
-
-                <audio
-                    id="musicPlayer"
-                    preload="metadata"
+                <button
+                    class="play-button"
+                    id="playButton"
+                    type="button"
+                    aria-label="Play Where The Light Ends"
                 >
-                    <source
-                        src="./where%20the%20Light%20Ends.mp3"
-                        type="audio/mpeg"
-                    >
+                    ▶
+                </button>
 
-                    Your browser does not support audio playback.
 
-                </audio>
+                <div class="track-info">
+
+                    <strong>
+                        Where The Light Ends
+                    </strong>
+
+                    <span>
+                        ORIGINAL COMPOSITION
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="track-mark"
+                    aria-hidden="true"
+                >
+                    ♪
+                </div>
 
             </div>
 
-        </section>
+
+            <div class="music-progress">
 
 
-        <!-- =========================
-             MUSIC CATEGORIES
-        ========================== -->
-
-        <section class="page-grid">
-
-            <article class="paper-block small-card">
-
-                <p class="section-label">
-                    01
-                </p>
-
-                <h3>
-                    Archive.
-                </h3>
-
-                <p>
-                    Older compositions, unfinished ideas
-                    and things worth keeping.
-                </p>
-
-            </article>
+                <input
+                    type="range"
+                    id="progressBar"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.1"
+                    aria-label="Track progress"
+                >
 
 
-            <article class="paper-block small-card">
+                <div class="music-time">
 
-                <p class="section-label">
-                    02
-                </p>
+                    <span id="currentTime">
+                        0:00
+                    </span>
 
-                <h3>
-                    Themes.
-                </h3>
+                    <span id="duration">
+                        0:00
+                    </span>
 
-                <p>
-                    Music made for characters, games,
-                    worlds and stories.
-                </p>
+                </div>
 
-            </article>
+            </div>
 
 
-            <article class="paper-block small-card">
+            <audio
+                id="musicPlayer"
+                preload="metadata"
+            >
 
-                <p class="section-label">
-                    03
-                </p>
+                <source
+                    src="./where%20the%20Light%20Ends.mp3"
+                    type="audio/mpeg"
+                >
 
-                <h3>
-                    Experiments.
-                </h3>
+                Your browser does not support audio playback.
 
-                <p>
-                    Weird sounds, different styles
-                    and ideas that might become something.
-                </p>
-
-            </article>
+            </audio>
 
 
-            <article class="paper-block small-card">
-
-                <p class="section-label">
-                    04
-                </p>
-
-                <h3>
-                    Playlist.
-                </h3>
-
-                <p>
-                    A collection of music that belongs
-                    somewhere inside the Scrapbook.
-                </p>
-
-            </article>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer class="site-footer">
-
-        <div class="footer-logo">
-            SCRAPBOOK<span>.</span>
         </div>
 
-        <p>
-            A small collection of things I've made.
-        </p>
+    </section>
 
-        <span>
-            © 2026
-        </span>
-
-    </footer>
 
 
     <!-- =========================
-         MUSIC PLAYER SCRIPT
+         MUSIC CATEGORIES
     ========================== -->
 
-    <script>
-
-        const player =
-            document.getElementById("musicPlayer");
-
-        const playButton =
-            document.getElementById("playButton");
-
-        const progressBar =
-            document.getElementById("progressBar");
-
-        const currentTime =
-            document.getElementById("currentTime");
-
-        const duration =
-            document.getElementById("duration");
+    <section class="page-grid">
 
 
-        function formatTime(seconds) {
+        <article class="page-card">
 
-            if (!Number.isFinite(seconds)) {
-                return "0:00";
-            }
+            <h3>
+                Archive
+            </h3>
 
-            const minutes =
-                Math.floor(seconds / 60);
+            <p>
+                Older compositions, unfinished ideas
+                and things worth keeping.
+            </p>
 
-            const secondsPart =
-                Math.floor(seconds % 60)
-                    .toString()
-                    .padStart(2, "0");
+        </article>
 
-            return `${minutes}:${secondsPart}`;
 
+        <article class="page-card">
+
+            <h3>
+                Themes
+            </h3>
+
+            <p>
+                Music made for characters, games,
+                worlds and stories.
+            </p>
+
+        </article>
+
+
+        <article class="page-card">
+
+            <h3>
+                Experiments
+            </h3>
+
+            <p>
+                Weird sounds, different styles
+                and ideas that might become something.
+            </p>
+
+        </article>
+
+
+        <article class="page-card">
+
+            <h3>
+                Playlist
+            </h3>
+
+            <p>
+                A collection of music that belongs
+                somewhere inside the Scrapbook.
+            </p>
+
+        </article>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        SCRAPBOOK<span>.</span>
+    </div>
+
+
+    <p>
+        A collection of things I make.
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="../index.html">
+            Home
+        </a>
+
+        <a href="../music/index.html">
+            Music
+        </a>
+
+        <a href="../games/index.html">
+            Games
+        </a>
+
+        <a href="../art/index.html">
+            Art
+        </a>
+
+        <a href="../projects/index.html">
+            Projects
+        </a>
+
+    </div>
+
+
+    <p class="copyright">
+        © 2026 Scrapbook
+    </p>
+
+</footer>
+
+
+
+<!-- =========================
+     MUSIC PLAYER SCRIPT
+========================== -->
+
+<script>
+
+    const player =
+        document.getElementById("musicPlayer");
+
+    const playButton =
+        document.getElementById("playButton");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    const currentTime =
+        document.getElementById("currentTime");
+
+    const duration =
+        document.getElementById("duration");
+
+
+    function formatTime(seconds) {
+
+        if (!Number.isFinite(seconds)) {
+            return "0:00";
         }
 
+        const minutes =
+            Math.floor(seconds / 60);
 
-        function updateProgress() {
+        const secondsPart =
+            Math.floor(seconds % 60)
+                .toString()
+                .padStart(2, "0");
 
-            if (!player.duration) {
-                return;
-            }
+        return `${minutes}:${secondsPart}`;
 
-            const percentage =
-                (player.currentTime /
-                player.duration) * 100;
+    }
 
-            progressBar.value = percentage;
 
-            currentTime.textContent =
-                formatTime(player.currentTime);
+    function updateProgress() {
 
+        if (!player.duration) {
+            return;
         }
 
+        const percentage =
+            (player.currentTime /
+            player.duration) * 100;
 
-        /* PLAY / PAUSE */
+        progressBar.value =
+            percentage;
 
-        playButton.addEventListener("click", () => {
+        currentTime.textContent =
+            formatTime(player.currentTime);
+
+    }
+
+
+    /* PLAY / PAUSE */
+
+    playButton.addEventListener(
+        "click",
+        () => {
 
             if (player.paused) {
 
@@ -359,96 +412,113 @@
 
             }
 
-        });
+        }
+    );
 
 
-        /* PLAY STATE */
+    /* PLAY STATE */
 
-        player.addEventListener("play", () => {
+    player.addEventListener(
+        "play",
+        () => {
 
             playButton.textContent = "Ⅱ";
 
-            playButton.classList.add("playing");
+            playButton.classList.add(
+                "playing"
+            );
 
-        });
+        }
+    );
 
 
-        /* PAUSE STATE */
+    /* PAUSE STATE */
 
-        player.addEventListener("pause", () => {
+    player.addEventListener(
+        "pause",
+        () => {
 
             playButton.textContent = "▶";
 
-            playButton.classList.remove("playing");
+            playButton.classList.remove(
+                "playing"
+            );
 
-        });
+        }
+    );
 
 
-        /* AUDIO LOADED */
+    /* AUDIO LOADED */
 
-        player.addEventListener(
-            "loadedmetadata",
-            () => {
+    player.addEventListener(
+        "loadedmetadata",
+        () => {
 
-                duration.textContent =
-                    formatTime(player.duration);
+            duration.textContent =
+                formatTime(player.duration);
 
-                currentTime.textContent =
-                    "0:00";
+            currentTime.textContent =
+                "0:00";
 
+        }
+    );
+
+
+    /* PROGRESS */
+
+    player.addEventListener(
+        "timeupdate",
+        updateProgress
+    );
+
+
+    /* SEEK */
+
+    progressBar.addEventListener(
+        "input",
+        () => {
+
+            if (!player.duration) {
+                return;
             }
-        );
+
+            player.currentTime =
+                (progressBar.value / 100)
+                * player.duration;
+
+            updateProgress();
+
+        }
+    );
 
 
-        /* PROGRESS */
+    /* END */
 
-        player.addEventListener(
-            "timeupdate",
-            updateProgress
-        );
+    player.addEventListener(
+        "ended",
+        () => {
 
+            playButton.textContent =
+                "▶";
 
-        /* SEEK */
+            playButton.classList.remove(
+                "playing"
+            );
 
-        progressBar.addEventListener(
-            "input",
-            () => {
+            progressBar.value = 0;
 
-                if (!player.duration) {
-                    return;
-                }
+            currentTime.textContent =
+                "0:00";
 
-                player.currentTime =
-                    (progressBar.value / 100)
-                    * player.duration;
+        }
+    );
 
-                updateProgress();
-
-            }
-        );
+</script>
 
 
-        /* END */
+<script src="../script.js"></script>
 
-        player.addEventListener(
-            "ended",
-            () => {
-
-                playButton.textContent = "▶";
-
-                playButton.classList.remove("playing");
-
-                progressBar.value = 0;
-
-                currentTime.textContent = "0:00";
-
-            }
-        );
-
-    </script>
-
-
-    <script src="../script.js"></script>
 
 </body>
+
 </html>
