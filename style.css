@@ -1948,4 +1948,317 @@ footer > p {
     .motion-enabled.page-ready footer {  
         animation: none;  
     }  
+/* ========================================
+   MUSIC PLAYER — FIX ONLY
+   Does not affect other pages
+======================================== */
+
+.music-player {
+    width: 100%;
+    margin-top: 32px;
+    padding: 18px 20px 16px;
+
+    display: block;
+
+    background: var(--dark);
+    color: var(--white);
+
+    border: 1px solid rgba(247, 244, 235, .10);
+
+    transform: rotate(.4deg);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .08);
+}
+
+
+/* TOP ROW */
+
+.music-player-top {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+}
+
+
+/* PLAY BUTTON */
+
+.music-player .play-button {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border:
+        1px solid
+        rgba(247, 244, 235, .30);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: var(--white);
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.music-player .play-button:hover {
+    background:
+        rgba(247, 244, 235, .10);
+
+    transform:
+        scale(1.05);
+}
+
+.music-player .play-button:active {
+    transform:
+        scale(.95);
+}
+
+
+/* TRACK INFO */
+
+.music-player .track-info {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.music-player .track-info strong {
+    display: block;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    color: var(--white);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-player .track-info span {
+    color:
+        rgba(247, 244, 235, .55);
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* LITTLE MUSIC MARK */
+
+.music-player .track-mark {
+    flex-shrink: 0;
+
+    color:
+        rgba(247, 244, 235, .45);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 22px;
+}
+
+
+/* ========================================
+   PROGRESS BAR
+======================================== */
+
+.music-player .music-progress {
+    width: 100%;
+
+    margin-top: 18px;
+}
+
+.music-player .music-progress input[type="range"] {
+    width: 100%;
+    height: 4px;
+
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background:
+        transparent;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+
+/* CHROME / ANDROID */
+
+.music-player .music-progress
+input[type="range"]::-webkit-slider-runnable-track {
+
+    width: 100%;
+    height: 4px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .22);
+}
+
+.music-player .music-progress
+input[type="range"]::-webkit-slider-thumb {
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 11px;
+    height: 11px;
+
+    margin-top: -3.5px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--sage);
+
+    cursor: pointer;
+}
+
+
+/* FIREFOX */
+
+.music-player .music-progress
+input[type="range"]::-moz-range-track {
+
+    width: 100%;
+    height: 4px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(247, 244, 235, .22);
+}
+
+.music-player .music-progress
+input[type="range"]::-moz-range-progress {
+
+    height: 4px;
+
+    border-radius: 20px;
+
+    background:
+        var(--sage);
+}
+
+.music-player .music-progress
+input[type="range"]::-moz-range-thumb {
+
+    width: 11px;
+    height: 11px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background:
+        var(--sage);
+
+    cursor: pointer;
+}
+
+
+/* TIME */
+
+.music-player .music-time {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    color:
+        rgba(247, 244, 235, .45);
+
+    font-size: 9px;
+
+    letter-spacing: .5px;
+}
+
+
+/* ========================================
+   MOBILE — MUSIC PLAYER ONLY
+======================================== */
+
+@media (max-width: 700px) {
+
+    .music-player {
+        width: 100%;
+
+        margin-top: 25px;
+
+        padding:
+            15px 15px 14px;
+    }
+
+    .music-player-top {
+        gap: 12px;
+    }
+
+    .music-player .play-button {
+        width: 37px;
+        height: 37px;
+
+        font-size: 10px;
+    }
+
+    .music-player .track-info strong {
+        font-size: 14px;
+    }
+
+    .music-player .track-info span {
+        font-size: 8px;
+    }
+
+    .music-player .track-mark {
+        font-size: 18px;
+    }
+
+    .music-player .music-progress {
+        margin-top: 15px;
+    }
+
+    .music-player .music-time {
+        font-size: 8px;
+    }
 }
