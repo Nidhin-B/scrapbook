@@ -1,1 +1,312 @@
-ghh
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f1eee3;
+    color: #1d1d19;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    width: 100%;
+    padding: 28px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.logo {
+    color: #171713;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+nav {
+    display: flex;
+    gap: 32px;
+}
+
+nav a {
+    color: #292923;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 75vh;
+    padding: 80px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.hero-text {
+    max-width: 600px;
+}
+
+.small-label {
+    color: #899276;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: clamp(60px, 10vw, 140px);
+    line-height: .9;
+    letter-spacing: -5px;
+    margin-bottom: 30px;
+}
+
+.intro {
+    max-width: 450px;
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.categories {
+    color: #747b64;
+    font-size: 15px;
+    margin-bottom: 35px;
+}
+
+.explore {
+    display: inline-block;
+    padding: 13px 28px;
+    background: #969f7d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: transform .2s ease;
+}
+
+.explore:hover {
+    transform: translateY(-3px);
+}
+
+.hero-note {
+    width: 190px;
+    padding: 30px;
+    background: #e6e1d4;
+    transform: rotate(4deg);
+    box-shadow: 4px 6px 15px rgba(0,0,0,.08);
+}
+
+.hero-note p {
+    font-family: cursive;
+    font-size: 18px;
+}
+
+/* SECTIONS */
+
+main {
+    width: 100%;
+}
+
+.section-card {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    margin: 70px auto;
+    padding: 55px;
+    background: #e5e0d3;
+    border: 1px solid rgba(0,0,0,.05);
+    box-shadow: 3px 5px 15px rgba(0,0,0,.06);
+    transition: transform .25s ease;
+}
+
+.section-card:nth-child(odd) {
+    transform: rotate(-1deg);
+}
+
+.section-card:nth-child(even) {
+    transform: rotate(1deg);
+}
+
+.section-card:hover {
+    transform: rotate(0deg) translateY(-5px);
+}
+
+.number {
+    color: #8d9675;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.section-card h2 {
+    font-size: 42px;
+    margin: 10px 0;
+    letter-spacing: -1px;
+}
+
+.section-card p {
+    max-width: 450px;
+    margin-bottom: 25px;
+}
+
+.section-card a {
+    color: #737c60;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.section-card a:hover {
+    text-decoration: underline;
+}
+
+/* CURRENTLY */
+
+.currently {
+    width: 75%;
+    max-width: 850px;
+    margin: 130px auto;
+    padding: 35px;
+    background: #9aa282;
+    color: #fff;
+}
+
+.currently span {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #20201c;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.currently p {
+    font-size: 22px;
+}
+
+/* ABOUT */
+
+.about {
+    width: 80%;
+    max-width: 850px;
+    margin: 140px auto;
+}
+
+.about h2 {
+    font-size: clamp(45px, 7vw, 90px);
+    line-height: .95;
+    letter-spacing: -3px;
+    margin-top: 15px;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 100px;
+    padding: 50px 7%;
+    background: #20201c;
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-size: 12px;
+}
+
+/* PHONE */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 22px 7%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 70px 8% 90px;
+        display: block;
+    }
+
+    h1 {
+        font-size: 64px;
+        letter-spacing: -3px;
+    }
+
+    .intro {
+        font-size: 18px;
+    }
+
+    .hero-note {
+        margin: 50px auto 0;
+        width: 180px;
+    }
+
+    .section-card {
+        width: 86%;
+        margin: 45px auto;
+        padding: 35px 28px;
+    }
+
+    .section-card h2 {
+        font-size: 36px;
+    }
+
+    .currently {
+        width: 86%;
+        margin: 100px auto;
+    }
+
+    .about {
+        width: 86%;
+        margin: 100px auto;
+    }
+
+    footer {
+        display: block;
+        padding: 40px 8%;
+    }
+
+    footer p + p {
+        margin-top: 10px;
+    }
+}
