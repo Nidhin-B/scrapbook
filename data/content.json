@@ -1,5 +1,17 @@
 {
-  "art": [],
+  "art": [
+    {
+      "id": "7b526889-17a1-40b9-9387-4300e919d5ce",
+      "type": "art",
+      "title": "Testw2",
+      "description": "",
+      "date": "2026-09-06T08:01:04.401Z",
+      "published": true,
+      "featured": false,
+      "category": "illustrations",
+      "image": "art/testw2-1788681662907.jpg"
+    }
+  ],
   "music": [],
   "games": [],
   "projects": []
