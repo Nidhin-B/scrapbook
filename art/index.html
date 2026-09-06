@@ -163,7 +163,7 @@
 
 
     <!-- =========================
-         PUBLISHED ART
+         RECENT ART
     ========================== -->
 
     <section class="paper-block">
@@ -202,66 +202,136 @@
          ART CATEGORIES
     ========================== -->
 
-    <section class="page-grid">
+    <section class="paper-block">
+
+        <p class="page-label">
+            CHARACTERS
+        </p>
 
 
-        <article class="page-card">
-
-            <h3>
-                Characters
-            </h3>
-
-            <p>
-                Original characters, designs and little
-                personality experiments.
-            </p>
-
-        </article>
+        <h2>
+            Characters.
+        </h2>
 
 
-        <article class="page-card">
-
-            <h3>
-                Illustrations
-            </h3>
-
-            <p>
-                Finished artwork, fanart and pieces made
-                just because the idea looked cool.
-            </p>
-
-        </article>
+        <p>
+            Original characters, designs and little
+            personality experiments.
+        </p>
 
 
-        <article class="page-card">
-
-            <h3>
-                Sketches
-            </h3>
+        <div
+            id="characters-art"
+            class="page-grid"
+        >
 
             <p>
-                Rough drawings, unfinished ideas and things
-                that might become finished pieces later.
+                Loading artwork...
             </p>
 
-        </article>
-
-
-        <article class="page-card">
-
-            <h3>
-                Experiments
-            </h3>
-
-            <p>
-                Different styles, compositions and visual
-                ideas I'm trying out.
-            </p>
-
-        </article>
-
+        </div>
 
     </section>
+
+
+
+    <section class="paper-block">
+
+        <p class="page-label">
+            ILLUSTRATIONS
+        </p>
+
+
+        <h2>
+            Illustrations.
+        </h2>
+
+
+        <p>
+            Finished artwork, fanart and pieces made
+            just because the idea looked cool.
+        </p>
+
+
+        <div
+            id="illustrations-art"
+            class="page-grid"
+        >
+
+            <p>
+                Loading artwork...
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="paper-block">
+
+        <p class="page-label">
+            SKETCHES
+        </p>
+
+
+        <h2>
+            Sketches.
+        </h2>
+
+
+        <p>
+            Rough drawings, unfinished ideas and things
+            that might become finished pieces later.
+        </p>
+
+
+        <div
+            id="sketches-art"
+            class="page-grid"
+        >
+
+            <p>
+                Loading artwork...
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="paper-block">
+
+        <p class="page-label">
+            EXPERIMENTS
+        </p>
+
+
+        <h2>
+            Experiments.
+        </h2>
+
+
+        <p>
+            Different styles, compositions and visual
+            ideas I'm trying out.
+        </p>
+
+
+        <div
+            id="experiments-art"
+            class="page-grid"
+        >
+
+            <p>
+                Loading artwork...
+            </p>
+
+        </div>
+
+    </section>
+
 
 </main>
 
@@ -319,8 +389,23 @@
 
     async function loadPublishedArt() {
 
-        const container =
+        const recentContainer =
             document.getElementById("published-art");
+
+        const categoryContainers = {
+            characters:
+                document.getElementById("characters-art"),
+
+            illustrations:
+                document.getElementById("illustrations-art"),
+
+            sketches:
+                document.getElementById("sketches-art"),
+
+            experiments:
+                document.getElementById("experiments-art")
+        };
+
 
         try {
 
@@ -331,8 +416,10 @@
                 throw new Error("Could not load content.");
             }
 
+
             const content =
                 await response.json();
+
 
             const artwork =
                 (content.art || [])
@@ -341,75 +428,133 @@
                     new Date(b.date) - new Date(a.date)
                 );
 
-            if (artwork.length === 0) {
 
-                container.innerHTML =
-                    "<p>No published artwork yet.</p>";
+            /*
+             * Render one artwork card.
+             */
 
-                return;
+            function createArtworkCard(item) {
+
+                const date =
+                    new Date(item.date)
+                    .toLocaleDateString(
+                        undefined,
+                        {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric"
+                        }
+                    );
+
+
+                const imageHtml =
+                    item.image
+                        ? `
+                            <img
+                                class="published-art-image"
+                                src="../${escapeHtml(item.image)}"
+                                alt="${escapeHtml(item.title)}"
+                                loading="lazy"
+                            >
+                          `
+                        : "";
+
+
+                return `
+                    <article class="page-card">
+
+                        <p class="page-label">
+                            ART / ${date}
+                        </p>
+
+                        ${imageHtml}
+
+                        <h3>
+                            ${escapeHtml(item.title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHtml(item.description || "")}
+                        </p>
+
+                    </article>
+                `;
+
             }
 
 
-            container.innerHTML =
-                artwork.map(item => {
+            /*
+             * RECENT WORK
+             * Shows every published artwork,
+             * newest first.
+             */
 
-                    const date =
-                        new Date(item.date)
-                        .toLocaleDateString(
-                            undefined,
-                            {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric"
-                            }
+            if (artwork.length === 0) {
+
+                recentContainer.innerHTML =
+                    "<p>No published artwork yet.</p>";
+
+            } else {
+
+                recentContainer.innerHTML =
+                    artwork
+                    .map(createArtworkCard)
+                    .join("");
+
+            }
+
+
+            /*
+             * CATEGORY SECTIONS
+             */
+
+            Object.entries(categoryContainers)
+                .forEach(([category, container]) => {
+
+                    const categoryArtwork =
+                        artwork.filter(
+                            item => item.category === category
                         );
 
 
-                    const imageHtml =
-                        item.image
-                            ? `
-                                <img
-                                    class="published-art-image"
-                                    src="../${escapeHtml(item.image)}"
-                                    alt="${escapeHtml(item.title)}"
-                                    loading="lazy"
-                                >
-                              `
-                            : "";
+                    if (categoryArtwork.length === 0) {
+
+                        container.innerHTML =
+                            "<p>No artwork in this category yet.</p>";
+
+                        return;
+                    }
 
 
-                    return `
-                        <article class="page-card">
+                    container.innerHTML =
+                        categoryArtwork
+                        .map(createArtworkCard)
+                        .join("");
 
-                            <p class="page-label">
-                                ART / ${date}
-                            </p>
+                });
 
-                            ${imageHtml}
-
-                            <h3>
-                                ${escapeHtml(item.title)}
-                            </h3>
-
-                            <p>
-                                ${escapeHtml(item.description || "")}
-                            </p>
-
-                        </article>
-                    `;
-
-                }).join("");
 
         } catch (error) {
 
-            container.innerHTML =
+            recentContainer.innerHTML =
                 "<p>Could not load published artwork.</p>";
+
+
+            Object.values(categoryContainers)
+                .forEach(container => {
+
+                    container.innerHTML =
+                        "<p>Could not load artwork.</p>";
+
+                });
+
 
             console.error(error);
 
         }
 
     }
+
 
 
     function escapeHtml(value) {
@@ -422,6 +567,7 @@
             .replace(/'/g, "&#039;");
 
     }
+
 
 
     loadPublishedArt();
