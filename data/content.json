@@ -1,5 +1,17 @@
 {
-  "art": [],
+  "art": [
+    {
+      "id": "9bc324b9-ffd5-4c6d-8fce-aa19866cc2c0",
+      "type": "art",
+      "title": "Hs",
+      "description": "",
+      "date": "2026-09-06T08:18:21.843Z",
+      "published": true,
+      "featured": false,
+      "category": "characters",
+      "image": "art/hs-1788682700259.jpg"
+    }
+  ],
   "music": [],
   "games": [],
   "projects": []
