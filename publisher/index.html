@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Scrapbook Publisher</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f1eee5;
+      color: #25251f;
+      font-family: Arial, sans-serif;
+    }
+
+    .publisher {
+      width: min(760px, 100%);
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      margin-top: 0;
+      color: #68675e;
+    }
+
+    .card {
+      margin-top: 24px;
+      padding: 24px;
+      background: #faf8f0;
+      border: 1px solid #d8d3c5;
+      border-radius: 16px;
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 7px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #c9c4b7;
+      border-radius: 10px;
+      background: white;
+      color: #25251f;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 22px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #555d43;
+      color: white;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #status {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: #77746a;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="publisher">
+
+    <h1>Scrapbook Publisher</h1>
+    <p class="subtitle">
+      Private publishing dashboard for your Scrapbook.
+    </p>
+
+    <section class="card">
+
+      <h2>Publisher login</h2>
+
+      <label for="secret">Publisher secret</label>
+      <input
+        id="secret"
+        type="password"
+        placeholder="Enter your private publisher secret"
+        autocomplete="off"
+      >
+
+      <p class="hint">
+        This is the secret you created in Cloudflare. Never put it directly into this file.
+      </p>
+
+      <button id="testAuth">Test authentication</button>
+
+      <div id="status"></div>
+
+    </section>
+
+    <section class="card">
+
+      <h2>New item</h2>
+
+      <label for="type">Type</label>
+      <select id="type">
+        <option value="art">Art</option>
+        <option value="music">Music</option>
+        <option value="games">Game</option>
+        <option value="project">Project</option>
+      </select>
+
+      <label for="title">Title</label>
+      <input
+        id="title"
+        type="text"
+        placeholder="Enter a title"
+      >
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        placeholder="Write a short description..."
+      ></textarea>
+
+      <button id="publish" disabled>
+        Publish
+      </button>
+
+    </section>
+
+  </main>
+
+  <script>
+    const WORKER_URL =
+      "https://scrapbook-publisherr.nidhinb1889.workers.dev";
+
+    const secretInput = document.getElementById("secret");
+    const testAuthButton = document.getElementById("testAuth");
+    const publishButton = document.getElementById("publish");
+    const statusBox = document.getElementById("status");
+
+    let authenticated = false;
+
+    function showStatus(message, success = false) {
+      statusBox.textContent = message;
+      statusBox.style.display = "block";
+      statusBox.style.background = success
+        ? "#dfe8d5"
+        : "#eee2d8";
+    }
+
+    testAuthButton.addEventListener("click", async () => {
+      const secret = secretInput.value.trim();
+
+      if (!secret) {
+        showStatus("Enter your publisher secret first.");
+        return;
+      }
+
+      testAuthButton.disabled = true;
+      showStatus("Checking...");
+
+      try {
+        const response = await fetch(
+          WORKER_URL + "/auth-test",
+          {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + secret
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          authenticated = false;
+          publishButton.disabled = true;
+          showStatus("Authentication failed.");
+          return;
+        }
+
+        authenticated = true;
+        publishButton.disabled = false;
+        showStatus("Authentication successful! 🔐", true);
+
+      } catch (error) {
+        authenticated = false;
+        publishButton.disabled = true;
+        showStatus("Could not connect to the publisher.");
+      } finally {
+        testAuthButton.disabled = false;
+      }
+    });
+
+    publishButton.addEventListener("click", () => {
+      if (!authenticated) {
+        showStatus("Authenticate first.");
+        return;
+      }
+
+      showStatus(
+        "Authentication works. Publishing will be connected next. 🚀",
+        true
+      );
+    });
+  </script>
+
+</body>
+</html>
