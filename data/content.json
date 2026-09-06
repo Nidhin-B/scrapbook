@@ -1,5 +1,15 @@
 {
-  "art": [],
+  "art": [
+    {
+      "id": "4de286a7-06a4-4df3-81fa-1cb65c14cae2",
+      "type": "art",
+      "title": "Yo",
+      "description": "Test",
+      "date": "2026-09-06T05:49:51.210Z",
+      "published": true,
+      "featured": false
+    }
+  ],
   "music": [],
   "games": [],
   "projects": []
