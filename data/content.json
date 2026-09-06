@@ -1,16 +1,6 @@
 {
   "art": [
     {
-      "id": "2aae4eef-9623-4a1d-837e-e4bc878570ad",
-      "type": "art",
-      "title": "test2",
-      "description": "",
-      "date": "2026-09-06T06:57:58.665Z",
-      "published": true,
-      "featured": false,
-      "image": "art/test2-1788677875480.png"
-    },
-    {
       "id": "4de286a7-06a4-4df3-81fa-1cb65c14cae2",
       "type": "art",
       "title": "Yo",
