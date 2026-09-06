@@ -219,6 +219,43 @@
       </select>
 
 
+      <!-- ART CATEGORY -->
+
+      <div id="artCategoryWrapper">
+
+        <label for="artCategory">
+          Art category
+        </label>
+
+        <select id="artCategory">
+
+          <option value="recent">Recent Works</option>
+
+          <option value="characters">
+            Characters
+          </option>
+
+          <option value="illustrations">
+            Illustrations
+          </option>
+
+          <option value="sketches">
+            Sketches
+          </option>
+
+          <option value="backgrounds">
+            Backgrounds
+          </option>
+
+        </select>
+
+        <p class="hint">
+          Choose which Art section this piece belongs to.
+        </p>
+
+      </div>
+
+
       <label for="title">
         Title
       </label>
@@ -313,6 +350,15 @@
     const imageInput =
       document.getElementById("image");
 
+    const typeInput =
+      document.getElementById("type");
+
+    const artCategoryWrapper =
+      document.getElementById("artCategoryWrapper");
+
+    const artCategoryInput =
+      document.getElementById("artCategory");
+
     const statusBox =
       document.getElementById("status");
 
@@ -321,6 +367,36 @@
 
 
     let authenticated = false;
+
+
+    // =========================
+    // ART CATEGORY VISIBILITY
+    // =========================
+
+    function updateArtCategoryVisibility() {
+
+      if (typeInput.value === "art") {
+
+        artCategoryWrapper.style.display =
+          "block";
+
+      } else {
+
+        artCategoryWrapper.style.display =
+          "none";
+
+      }
+
+    }
+
+
+    typeInput.addEventListener(
+      "change",
+      updateArtCategoryVisibility
+    );
+
+
+    updateArtCategoryVisibility();
 
 
     // =========================
@@ -554,9 +630,12 @@
           getSecret();
 
         const type =
-          document.getElementById(
-            "type"
-          ).value;
+          typeInput.value;
+
+        const category =
+          type === "art"
+            ? artCategoryInput.value
+            : null;
 
         const title =
           document.getElementById(
@@ -642,6 +721,8 @@
                   JSON.stringify({
 
                     type,
+
+                    category,
 
                     title,
 
@@ -793,7 +874,6 @@
         }
 
 
-        // Make sure the returned data is an object.
         if (
           !data ||
           typeof data !== "object" ||
@@ -835,6 +915,7 @@
             });
 
           });
+
         }
 
 
@@ -910,6 +991,12 @@
                 : "";
 
 
+            const categoryHtml =
+              item.category
+                ? ` / ${escapeHtml(item.category)}`
+                : "";
+
+
             return `
               <article class="post">
 
@@ -917,6 +1004,7 @@
 
                 <p class="post-label">
                   ${escapeHtml(item.displayType)}
+                  ${categoryHtml}
                   / ${escapeHtml(date)}
                 </p>
 
