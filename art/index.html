@@ -153,6 +153,42 @@
 
 
     <!-- =========================
+         PUBLISHED ART
+    ========================== -->
+
+    <section class="paper-block">
+
+        <p class="page-label">
+            PUBLISHED
+        </p>
+
+
+        <h2>
+            Recent work.
+        </h2>
+
+
+        <p>
+            New pieces added to the Scrapbook.
+        </p>
+
+
+        <div
+            id="published-art"
+            class="page-grid"
+        >
+
+            <p>
+                Loading artwork...
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
          ART CATEGORIES
     ========================== -->
 
@@ -267,6 +303,105 @@
 
 
 <script src="../script.js"></script>
+
+
+<script>
+
+    async function loadPublishedArt() {
+
+        const container =
+            document.getElementById("published-art");
+
+        try {
+
+            const response =
+                await fetch("../data/content.json");
+
+            if (!response.ok) {
+                throw new Error("Could not load content.");
+            }
+
+            const content =
+                await response.json();
+
+            const artwork =
+                (content.art || [])
+                .filter(item => item.published)
+                .sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+            if (artwork.length === 0) {
+
+                container.innerHTML =
+                    "<p>No published artwork yet.</p>";
+
+                return;
+            }
+
+
+            container.innerHTML =
+                artwork.map(item => {
+
+                    const date =
+                        new Date(item.date)
+                        .toLocaleDateString(
+                            undefined,
+                            {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric"
+                            }
+                        );
+
+                    return `
+                        <article class="page-card">
+
+                            <p class="page-label">
+                                ART / ${date}
+                            </p>
+
+                            <h3>
+                                ${escapeHtml(item.title)}
+                            </h3>
+
+                            <p>
+                                ${escapeHtml(item.description || "")}
+                            </p>
+
+                        </article>
+                    `;
+
+                }).join("");
+
+        } catch (error) {
+
+            container.innerHTML =
+                "<p>Could not load published artwork.</p>";
+
+            console.error(error);
+
+        }
+
+    }
+
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    loadPublishedArt();
+
+</script>
+
 
 </body>
 
