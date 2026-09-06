@@ -1,17 +1,5 @@
 {
-  "art": [
-    {
-      "id": "50e23722-b64b-4b99-9eee-8814abadf8dd",
-      "type": "art",
-      "title": "Test 1",
-      "description": "",
-      "date": "2026-09-06T08:59:27.958Z",
-      "published": true,
-      "featured": false,
-      "category": "characters",
-      "image": "art/test-1-1788685166334.jpg"
-    }
-  ],
+  "art": [],
   "music": [],
   "games": [],
   "projects": []
