@@ -1,5 +1,16 @@
 {
-  "art": [],
+  "art": [
+    {
+      "id": "8d61cc06-8c95-4e3b-9748-d7a70f61589a",
+      "type": "art",
+      "title": "Test1",
+      "description": "",
+      "date": "2026-09-06T07:56:57.279Z",
+      "published": true,
+      "featured": false,
+      "category": "characters"
+    }
+  ],
   "music": [],
   "games": [],
   "projects": []
