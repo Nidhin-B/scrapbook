@@ -81,6 +81,11 @@
       opacity: 0.9;
     }
 
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     #status {
       margin-top: 18px;
       padding: 12px;
@@ -92,6 +97,61 @@
       margin-top: 8px;
       color: #77746a;
       font-size: 14px;
+    }
+
+    .posts {
+      margin-top: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .post {
+      padding: 16px;
+      background: white;
+      border: 1px solid #d8d3c5;
+      border-radius: 12px;
+    }
+
+    .post-image {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 14px;
+      border-radius: 10px;
+    }
+
+    .post-label {
+      margin: 0 0 6px;
+      color: #77746a;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .post h3 {
+      margin: 0 0 6px;
+    }
+
+    .post-description {
+      margin: 0;
+      color: #68675e;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    .delete-button {
+      margin-top: 0;
+      background: #7a5145;
+    }
+
+    .empty {
+      color: #77746a;
     }
   </style>
 </head>
@@ -106,11 +166,18 @@
       Private publishing dashboard for your Scrapbook.
     </p>
 
+
+    <!-- =========================
+         LOGIN
+    ========================== -->
+
     <section class="card">
 
       <h2>Publisher login</h2>
 
-      <label for="secret">Publisher secret</label>
+      <label for="secret">
+        Publisher secret
+      </label>
 
       <input
         id="secret"
@@ -132,21 +199,29 @@
     </section>
 
 
+    <!-- =========================
+         NEW ITEM
+    ========================== -->
+
     <section class="card">
 
       <h2>New item</h2>
 
-      <label for="type">Type</label>
+      <label for="type">
+        Type
+      </label>
 
       <select id="type">
         <option value="art">Art</option>
         <option value="music">Music</option>
         <option value="games">Game</option>
-        <option value="project">Project</option>
+        <option value="projects">Project</option>
       </select>
 
 
-      <label for="title">Title</label>
+      <label for="title">
+        Title
+      </label>
 
       <input
         id="title"
@@ -155,7 +230,9 @@
       >
 
 
-      <label for="description">Description</label>
+      <label for="description">
+        Description
+      </label>
 
       <textarea
         id="description"
@@ -184,6 +261,34 @@
 
     </section>
 
+
+    <!-- =========================
+         MANAGE POSTS
+    ========================== -->
+
+    <section class="card">
+
+      <h2>Manage posts</h2>
+
+      <p class="hint">
+        View everything currently published to your Scrapbook.
+      </p>
+
+      <button id="refreshPosts" disabled>
+        Refresh posts
+      </button>
+
+      <div
+        id="posts"
+        class="posts"
+      >
+        <p class="empty">
+          Authenticate first to load your posts.
+        </p>
+      </div>
+
+    </section>
+
   </main>
 
 
@@ -202,11 +307,17 @@
     const publishButton =
       document.getElementById("publish");
 
+    const refreshPostsButton =
+      document.getElementById("refreshPosts");
+
     const imageInput =
       document.getElementById("image");
 
     const statusBox =
       document.getElementById("status");
+
+    const postsContainer =
+      document.getElementById("posts");
 
 
     let authenticated = false;
@@ -217,17 +328,33 @@
       success = false
     ) {
 
-      statusBox.textContent = message;
+      statusBox.textContent =
+        message;
 
-      statusBox.style.display = "block";
+      statusBox.style.display =
+        "block";
 
       statusBox.style.background =
         success
           ? "#dfe8d5"
           : "#eee2d8";
-
     }
 
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    // =========================
+    // AUTHENTICATION
+    // =========================
 
     testAuthButton.addEventListener(
       "click",
@@ -244,13 +371,15 @@
           );
 
           return;
-
         }
 
 
-        testAuthButton.disabled = true;
+        testAuthButton.disabled =
+          true;
 
-        showStatus("Checking...");
+        showStatus(
+          "Checking..."
+        );
 
 
         try {
@@ -275,22 +404,32 @@
 
           if (!response.ok) {
 
-            authenticated = false;
+            authenticated =
+              false;
 
-            publishButton.disabled = true;
+            publishButton.disabled =
+              true;
+
+            refreshPostsButton.disabled =
+              true;
 
             showStatus(
               "Authentication failed."
             );
 
             return;
-
           }
 
 
-          authenticated = true;
+          authenticated =
+            true;
 
-          publishButton.disabled = false;
+          publishButton.disabled =
+            false;
+
+          refreshPostsButton.disabled =
+            false;
+
 
           showStatus(
             "Authentication successful! 🔐",
@@ -298,40 +437,50 @@
           );
 
 
+          loadPosts();
+
+
         } catch (error) {
 
-          authenticated = false;
+          authenticated =
+            false;
 
-          publishButton.disabled = true;
+          publishButton.disabled =
+            true;
+
+          refreshPostsButton.disabled =
+            true;
 
           showStatus(
             "Could not connect to the publisher."
           );
 
-
         } finally {
 
-          testAuthButton.disabled = false;
-
+          testAuthButton.disabled =
+            false;
         }
 
       }
     );
 
 
+    // =========================
+    // IMAGE → BASE64
+    // =========================
+
     async function fileToBase64(file) {
 
       const buffer =
         await file.arrayBuffer();
 
-
       const bytes =
         new Uint8Array(buffer);
 
-
       let binary = "";
 
-      const chunkSize = 0x8000;
+      const chunkSize =
+        0x8000;
 
 
       for (
@@ -340,20 +489,23 @@
         i += chunkSize
       ) {
 
-        binary += String.fromCharCode(
-          ...bytes.subarray(
-            i,
-            i + chunkSize
-          )
-        );
-
+        binary +=
+          String.fromCharCode(
+            ...bytes.subarray(
+              i,
+              i + chunkSize
+            )
+          );
       }
 
 
       return btoa(binary);
-
     }
 
+
+    // =========================
+    // PUBLISH
+    // =========================
 
     publishButton.addEventListener(
       "click",
@@ -366,7 +518,6 @@
           );
 
           return;
-
         }
 
 
@@ -374,13 +525,19 @@
           secretInput.value.trim();
 
         const type =
-          document.getElementById("type").value;
+          document.getElementById(
+            "type"
+          ).value;
 
         const title =
-          document.getElementById("title").value.trim();
+          document.getElementById(
+            "title"
+          ).value.trim();
 
         const description =
-          document.getElementById("description").value.trim();
+          document.getElementById(
+            "description"
+          ).value.trim();
 
         const imageFile =
           imageInput.files[0];
@@ -393,18 +550,21 @@
           );
 
           return;
-
         }
 
 
-        publishButton.disabled = true;
+        publishButton.disabled =
+          true;
 
-        showStatus("Publishing...");
+        showStatus(
+          "Publishing..."
+        );
 
 
         try {
 
-          let image = null;
+          let image =
+            null;
 
 
           if (imageFile) {
@@ -415,10 +575,16 @@
 
 
             image = {
-              name: imageFile.name,
-              data: await fileToBase64(imageFile)
-            };
 
+              name:
+                imageFile.name,
+
+              data:
+                await fileToBase64(
+                  imageFile
+                )
+
+            };
           }
 
 
@@ -434,19 +600,27 @@
                 method: "POST",
 
                 headers: {
+
                   "Authorization":
                     "Bearer " + secret,
 
                   "Content-Type":
                     "application/json"
+
                 },
 
-                body: JSON.stringify({
-                  type,
-                  title,
-                  description,
-                  image
-                })
+                body:
+                  JSON.stringify({
+
+                    type,
+
+                    title,
+
+                    description,
+
+                    image
+
+                  })
               }
             );
 
@@ -463,7 +637,6 @@
             );
 
             return;
-
           }
 
 
@@ -483,7 +656,11 @@
           ).value = "";
 
 
-          imageInput.value = "";
+          imageInput.value =
+            "";
+
+
+          loadPosts();
 
 
         } catch (error) {
@@ -494,12 +671,309 @@
             "Could not connect to the publisher."
           );
 
-
         } finally {
 
-          publishButton.disabled = false;
-
+          publishButton.disabled =
+            false;
         }
+
+      }
+    );
+
+
+    // =========================
+    // LOAD POSTS
+    // =========================
+
+    async function loadPosts() {
+
+      if (!authenticated) {
+        return;
+      }
+
+
+      postsContainer.innerHTML =
+        "<p class='empty'>Loading posts...</p>";
+
+
+      try {
+
+        const response =
+          await fetch(
+            WORKER_URL + "/content",
+            {
+              method: "POST",
+
+              headers: {
+                "Authorization":
+                  "Bearer " +
+                  secretInput.value.trim()
+              }
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Could not load posts."
+          );
+        }
+
+
+        const allPosts = [];
+
+
+        for (const type of [
+          "art",
+          "music",
+          "games",
+          "projects"
+        ]) {
+
+          const items =
+            Array.isArray(data[type])
+              ? data[type]
+              : [];
+
+
+          items.forEach(item => {
+
+            allPosts.push({
+              ...item,
+              displayType: type
+            });
+
+          });
+        }
+
+
+        allPosts.sort(
+          (a, b) =>
+            new Date(b.date) -
+            new Date(a.date)
+        );
+
+
+        if (allPosts.length === 0) {
+
+          postsContainer.innerHTML =
+            "<p class='empty'>No published posts yet.</p>";
+
+          return;
+        }
+
+
+        postsContainer.innerHTML =
+          allPosts.map(item => {
+
+            const date =
+              new Date(item.date)
+                .toLocaleDateString(
+                  undefined,
+                  {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric"
+                  }
+                );
+
+
+            const imageHtml =
+              item.image
+                ? `
+                    <img
+                      class="post-image"
+                      src="../${escapeHtml(item.image)}"
+                      alt="${escapeHtml(item.title)}"
+                      loading="lazy"
+                    >
+                  `
+                : "";
+
+
+            return `
+              <article class="post">
+
+                ${imageHtml}
+
+                <p class="post-label">
+                  ${escapeHtml(item.displayType)}
+                  / ${escapeHtml(date)}
+                </p>
+
+                <h3>
+                  ${escapeHtml(item.title)}
+                </h3>
+
+                <p class="post-description">
+                  ${escapeHtml(
+                    item.description || ""
+                  )}
+                </p>
+
+                <div class="post-actions">
+
+                  <button
+                    class="delete-button"
+                    data-id="${escapeHtml(item.id)}"
+                    data-title="${escapeHtml(item.title)}"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </article>
+            `;
+
+          }).join("");
+
+
+        document
+          .querySelectorAll(
+            ".delete-button"
+          )
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                deletePost(
+                  button.dataset.id,
+                  button.dataset.title
+                );
+
+              }
+            );
+
+          });
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        postsContainer.innerHTML =
+          "<p class='empty'>Could not load posts.</p>";
+      }
+
+    }
+
+
+    // =========================
+    // DELETE POST
+    // =========================
+
+    async function deletePost(
+      id,
+      title
+    ) {
+
+      if (!authenticated) {
+
+        showStatus(
+          "Authenticate first."
+        );
+
+        return;
+      }
+
+
+      const confirmed =
+        confirm(
+          `Delete "${title}"?\n\nThis will permanently remove the post and its uploaded image, if it has one.`
+        );
+
+
+      if (!confirmed) {
+        return;
+      }
+
+
+      showStatus(
+        `Deleting "${title}"...`
+      );
+
+
+      try {
+
+        const response =
+          await fetch(
+            WORKER_URL + "/delete",
+            {
+              method: "POST",
+
+              headers: {
+
+                "Authorization":
+                  "Bearer " +
+                  secretInput.value.trim(),
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body:
+                JSON.stringify({
+                  id
+                })
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          showStatus(
+            data.message ||
+            "Delete failed."
+          );
+
+          return;
+        }
+
+
+        showStatus(
+          `"${title}" deleted successfully! 🗑️`,
+          true
+        );
+
+
+        loadPosts();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          "Could not connect to the publisher."
+        );
+      }
+
+    }
+
+
+    // =========================
+    // REFRESH
+    // =========================
+
+    refreshPostsButton.addEventListener(
+      "click",
+      () => {
+
+        loadPosts();
 
       }
     );
