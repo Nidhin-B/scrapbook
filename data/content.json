@@ -1,6 +1,16 @@
 {
   "art": [
     {
+      "id": "2aae4eef-9623-4a1d-837e-e4bc878570ad",
+      "type": "art",
+      "title": "test2",
+      "description": "",
+      "date": "2026-09-06T06:57:58.665Z",
+      "published": true,
+      "featured": false,
+      "image": "art/test2-1788677875480.png"
+    },
+    {
       "id": "11ca9737-4c70-4128-a3dc-33f8443dfa63",
       "type": "art",
       "title": "Test",
