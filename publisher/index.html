@@ -223,16 +223,67 @@
       }
     });
 
-    publishButton.addEventListener("click", () => {
-      if (!authenticated) {
-        showStatus("Authenticate first.");
-        return;
-      }
+    publishButton.addEventListener("click", async () => {
+  if (!authenticated) {
+    showStatus("Authenticate first.");
+    return;
+  }
 
+  const secret = secretInput.value.trim();
+  const type = document.getElementById("type").value;
+  const title = document.getElementById("title").value.trim();
+  const description = document.getElementById("description").value.trim();
+
+  if (!title) {
+    showStatus("Enter a title first.");
+    return;
+  }
+
+  publishButton.disabled = true;
+  showStatus("Publishing...");
+
+  try {
+    const response = await fetch(
+      WORKER_URL + "/publish",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + secret,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          type,
+          title,
+          description
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
       showStatus(
-        "Authentication works. Publishing will be connected next. 🚀",
-        true
+        data.message || "Publishing failed."
       );
+      return;
+    }
+
+    showStatus(
+      "Published successfully! 🚀",
+      true
+    );
+
+    document.getElementById("title").value = "";
+    document.getElementById("description").value = "";
+
+  } catch (error) {
+    showStatus(
+      "Could not connect to the publisher."
+    );
+  } finally {
+    publishButton.disabled = false;
+  }
+});
     });
   </script>
 
