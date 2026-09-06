@@ -101,6 +101,7 @@
   <main class="publisher">
 
     <h1>Scrapbook Publisher</h1>
+
     <p class="subtitle">
       Private publishing dashboard for your Scrapbook.
     </p>
@@ -110,6 +111,7 @@
       <h2>Publisher login</h2>
 
       <label for="secret">Publisher secret</label>
+
       <input
         id="secret"
         type="password"
@@ -121,17 +123,21 @@
         This is the secret you created in Cloudflare. Never put it directly into this file.
       </p>
 
-      <button id="testAuth">Test authentication</button>
+      <button id="testAuth">
+        Test authentication
+      </button>
 
       <div id="status"></div>
 
     </section>
+
 
     <section class="card">
 
       <h2>New item</h2>
 
       <label for="type">Type</label>
+
       <select id="type">
         <option value="art">Art</option>
         <option value="music">Music</option>
@@ -139,30 +145,38 @@
         <option value="project">Project</option>
       </select>
 
+
       <label for="title">Title</label>
+
       <input
         id="title"
         type="text"
         placeholder="Enter a title"
       >
 
+
       <label for="description">Description</label>
+
       <textarea
         id="description"
         placeholder="Write a short description..."
       ></textarea>
 
-<label for="image">Artwork image</label>
 
-<input
-  id="image"
-  type="file"
-  accept="image/*"
->
+      <label for="image">
+        Artwork image
+      </label>
 
-<p class="hint">
-  Choose an image to publish with this artwork.
-</p>
+      <input
+        id="image"
+        type="file"
+        accept="image/*"
+      >
+
+      <p class="hint">
+        Choose an image to publish with this artwork.
+      </p>
+
 
       <button id="publish" disabled>
         Publish
@@ -172,131 +186,324 @@
 
   </main>
 
+
   <script>
+
     const WORKER_URL =
       "https://scrapbook-publisherr.nidhinb1889.workers.dev";
 
-    const secretInput = document.getElementById("secret");
-    const testAuthButton = document.getElementById("testAuth");
-const publishButton = document.getElementById("publish");
-const imageInput = document.getElementById("image");
-const statusBox = document.getElementById("status");
+
+    const secretInput =
+      document.getElementById("secret");
+
+    const testAuthButton =
+      document.getElementById("testAuth");
+
+    const publishButton =
+      document.getElementById("publish");
+
+    const imageInput =
+      document.getElementById("image");
+
+    const statusBox =
+      document.getElementById("status");
+
+
     let authenticated = false;
 
-    function showStatus(message, success = false) {
+
+    function showStatus(
+      message,
+      success = false
+    ) {
+
       statusBox.textContent = message;
+
       statusBox.style.display = "block";
-      statusBox.style.background = success
-        ? "#dfe8d5"
-        : "#eee2d8";
+
+      statusBox.style.background =
+        success
+          ? "#dfe8d5"
+          : "#eee2d8";
+
     }
 
-    testAuthButton.addEventListener("click", async () => {
-      const secret = secretInput.value.trim();
 
-      if (!secret) {
-        showStatus("Enter your publisher secret first.");
-        return;
-      }
+    testAuthButton.addEventListener(
+      "click",
+      async () => {
 
-      testAuthButton.disabled = true;
-      showStatus("Checking...");
+        const secret =
+          secretInput.value.trim();
 
-      try {
-        const response = await fetch(
-          WORKER_URL + "/auth-test",
-          {
-            method: "POST",
-            headers: {
-              "Authorization": "Bearer " + secret
-            }
-          }
-        );
 
-        const data = await response.json();
+        if (!secret) {
 
-        if (!response.ok) {
-          authenticated = false;
-          publishButton.disabled = true;
-          showStatus("Authentication failed.");
+          showStatus(
+            "Enter your publisher secret first."
+          );
+
           return;
+
         }
 
-        authenticated = true;
-        publishButton.disabled = false;
-        showStatus("Authentication successful! 🔐", true);
 
-      } catch (error) {
-        authenticated = false;
-        publishButton.disabled = true;
-        showStatus("Could not connect to the publisher.");
-      } finally {
-        testAuthButton.disabled = false;
-      }
-    });
+        testAuthButton.disabled = true;
 
-    publishButton.addEventListener("click", async () => {
-  if (!authenticated) {
-    showStatus("Authenticate first.");
-    return;
-  }
+        showStatus("Checking...");
 
-  const secret = secretInput.value.trim();
-  const type = document.getElementById("type").value;
-  const title = document.getElementById("title").value.trim();
-  const description = document.getElementById("description").value.trim();
-const imageFile = imageInput.files[0];
 
-  if (!title) {
-    showStatus("Enter a title first.");
-    return;
-  }
+        try {
 
-  publishButton.disabled = true;
-  showStatus("Publishing...");
+          const response =
+            await fetch(
+              WORKER_URL + "/auth-test",
+              {
+                method: "POST",
 
-  try {
-    const response = await fetch(
-      WORKER_URL + "/publish",
-      {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + secret,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          type,
-          title,
-          description
-        })
+                headers: {
+                  "Authorization":
+                    "Bearer " + secret
+                }
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            authenticated = false;
+
+            publishButton.disabled = true;
+
+            showStatus(
+              "Authentication failed."
+            );
+
+            return;
+
+          }
+
+
+          authenticated = true;
+
+          publishButton.disabled = false;
+
+          showStatus(
+            "Authentication successful! 🔐",
+            true
+          );
+
+
+        } catch (error) {
+
+          authenticated = false;
+
+          publishButton.disabled = true;
+
+          showStatus(
+            "Could not connect to the publisher."
+          );
+
+
+        } finally {
+
+          testAuthButton.disabled = false;
+
+        }
+
       }
     );
 
-    const data = await response.json();
 
-    if (!response.ok) {
-      showStatus(
-        data.message || "Publishing failed."
-      );
-      return;
+    async function fileToBase64(file) {
+
+      const buffer =
+        await file.arrayBuffer();
+
+
+      const bytes =
+        new Uint8Array(buffer);
+
+
+      let binary = "";
+
+      const chunkSize = 0x8000;
+
+
+      for (
+        let i = 0;
+        i < bytes.length;
+        i += chunkSize
+      ) {
+
+        binary += String.fromCharCode(
+          ...bytes.subarray(
+            i,
+            i + chunkSize
+          )
+        );
+
+      }
+
+
+      return btoa(binary);
+
     }
 
-    showStatus(
-      "Published successfully! 🚀",
-      true
+
+    publishButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!authenticated) {
+
+          showStatus(
+            "Authenticate first."
+          );
+
+          return;
+
+        }
+
+
+        const secret =
+          secretInput.value.trim();
+
+        const type =
+          document.getElementById("type").value;
+
+        const title =
+          document.getElementById("title").value.trim();
+
+        const description =
+          document.getElementById("description").value.trim();
+
+        const imageFile =
+          imageInput.files[0];
+
+
+        if (!title) {
+
+          showStatus(
+            "Enter a title first."
+          );
+
+          return;
+
+        }
+
+
+        publishButton.disabled = true;
+
+        showStatus("Publishing...");
+
+
+        try {
+
+          let image = null;
+
+
+          if (imageFile) {
+
+            showStatus(
+              "Preparing image..."
+            );
+
+
+            image = {
+              name: imageFile.name,
+              data: await fileToBase64(imageFile)
+            };
+
+          }
+
+
+          showStatus(
+            "Uploading and publishing..."
+          );
+
+
+          const response =
+            await fetch(
+              WORKER_URL + "/publish",
+              {
+                method: "POST",
+
+                headers: {
+                  "Authorization":
+                    "Bearer " + secret,
+
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  type,
+                  title,
+                  description,
+                  image
+                })
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            showStatus(
+              data.message ||
+              "Publishing failed."
+            );
+
+            return;
+
+          }
+
+
+          showStatus(
+            "Published successfully! 🚀",
+            true
+          );
+
+
+          document.getElementById(
+            "title"
+          ).value = "";
+
+
+          document.getElementById(
+            "description"
+          ).value = "";
+
+
+          imageInput.value = "";
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showStatus(
+            "Could not connect to the publisher."
+          );
+
+
+        } finally {
+
+          publishButton.disabled = false;
+
+        }
+
+      }
     );
 
-    document.getElementById("title").value = "";
-    document.getElementById("description").value = "";
-
-  } catch (error) {
-    showStatus(
-      "Could not connect to the publisher."
-    );
-  } finally {
-    publishButton.disabled = false;
-  }
-});
   </script>
 
 </body>
