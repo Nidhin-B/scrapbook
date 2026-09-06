@@ -229,8 +229,6 @@
 
         <select id="artCategory">
 
-          <option value="recent">Recent Works</option>
-
           <option value="characters">
             Characters
           </option>
@@ -243,8 +241,8 @@
             Sketches
           </option>
 
-          <option value="backgrounds">
-            Backgrounds
+          <option value="experiments">
+            Experiments
           </option>
 
         </select>
@@ -904,7 +902,10 @@
 
           items.forEach(item => {
 
-            if (!item || typeof item !== "object") {
+            if (
+              !item ||
+              typeof item !== "object"
+            ) {
               return;
             }
 
@@ -992,6 +993,7 @@
 
 
             const categoryHtml =
+              item.displayType === "art" &&
               item.category
                 ? ` / ${escapeHtml(item.category)}`
                 : "";
@@ -1009,7 +1011,9 @@
                 </p>
 
                 <h3>
-                  ${escapeHtml(item.title || "Untitled")}
+                  ${escapeHtml(
+                    item.title || "Untitled"
+                  )}
                 </h3>
 
                 <p class="post-description">
@@ -1096,6 +1100,35 @@
 
 
     // =========================
+    // REFRESH POSTS
+    // =========================
+
+    refreshPostsButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!authenticated) {
+          return;
+        }
+
+        refreshPostsButton.disabled =
+          true;
+
+        try {
+
+          await loadPosts();
+
+        } finally {
+
+          refreshPostsButton.disabled =
+            false;
+        }
+
+      }
+    );
+
+
+    // =========================
     // DELETE POST
     // =========================
 
@@ -1160,7 +1193,8 @@
         let data = {};
 
         try {
-          data = await response.json();
+          data =
+            await response.json();
         } catch {
           data = {};
         }
@@ -1178,22 +1212,8 @@
         }
 
 
-        let message =
-          `"${title}" deleted successfully! 🗑️`;
-
-
-        if (
-          data.imageDeleted === false
-        ) {
-
-          message +=
-            " The post was deleted, but its image could not be removed.";
-
-        }
-
-
         showStatus(
-          message,
+          `"${title}" deleted successfully! 🗑️`,
           true
         );
 
@@ -1215,20 +1235,6 @@
       }
 
     }
-
-
-    // =========================
-    // REFRESH
-    // =========================
-
-    refreshPostsButton.addEventListener(
-      "click",
-      () => {
-
-        loadPosts();
-
-      }
-    );
 
   </script>
 
