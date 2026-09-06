@@ -323,6 +323,10 @@
     let authenticated = false;
 
 
+    // =========================
+    // STATUS
+    // =========================
+
     function showStatus(
       message,
       success = false
@@ -341,14 +345,28 @@
     }
 
 
+    // =========================
+    // HTML ESCAPE
+    // =========================
+
     function escapeHtml(value) {
 
-      return String(value)
+      return String(value ?? "")
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+    }
+
+
+    // =========================
+    // GET SECRET
+    // =========================
+
+    function getSecret() {
+
+      return secretInput.value.trim();
     }
 
 
@@ -361,7 +379,7 @@
       async () => {
 
         const secret =
-          secretInput.value.trim();
+          getSecret();
 
 
         if (!secret) {
@@ -398,8 +416,13 @@
             );
 
 
-          const data =
-            await response.json();
+          let data = {};
+
+          try {
+            data = await response.json();
+          } catch {
+            data = {};
+          }
 
 
           if (!response.ok) {
@@ -414,6 +437,7 @@
               true;
 
             showStatus(
+              data.error ||
               "Authentication failed."
             );
 
@@ -437,10 +461,15 @@
           );
 
 
-          loadPosts();
+          await loadPosts();
 
 
         } catch (error) {
+
+          console.error(
+            "Authentication error:",
+            error
+          );
 
           authenticated =
             false;
@@ -522,7 +551,7 @@
 
 
         const secret =
-          secretInput.value.trim();
+          getSecret();
 
         const type =
           document.getElementById(
@@ -625,13 +654,19 @@
             );
 
 
-          const data =
-            await response.json();
+          let data = {};
+
+          try {
+            data = await response.json();
+          } catch {
+            data = {};
+          }
 
 
           if (!response.ok) {
 
             showStatus(
+              data.error ||
               data.message ||
               "Publishing failed."
             );
@@ -660,12 +695,15 @@
             "";
 
 
-          loadPosts();
+          await loadPosts();
 
 
         } catch (error) {
 
-          console.error(error);
+          console.error(
+            "Publish error:",
+            error
+          );
 
           showStatus(
             "Could not connect to the publisher."
@@ -698,6 +736,18 @@
 
       try {
 
+        const secret =
+          getSecret();
+
+
+        if (!secret) {
+
+          throw new Error(
+            "Publisher secret is missing."
+          );
+        }
+
+
         const response =
           await fetch(
             WORKER_URL + "/content",
@@ -706,22 +756,52 @@
 
               headers: {
                 "Authorization":
-                  "Bearer " +
-                  secretInput.value.trim()
+                  "Bearer " + secret
               }
             }
           );
 
 
-        const data =
-          await response.json();
+        const responseText =
+          await response.text();
+
+
+        let data;
+
+        try {
+
+          data =
+            JSON.parse(
+              responseText
+            );
+
+        } catch {
+
+          throw new Error(
+            "The publisher returned an invalid response."
+          );
+        }
 
 
         if (!response.ok) {
 
           throw new Error(
+            data.error ||
             data.message ||
-            "Could not load posts."
+            `Server returned ${response.status}.`
+          );
+        }
+
+
+        // Make sure the returned data is an object.
+        if (
+          !data ||
+          typeof data !== "object" ||
+          Array.isArray(data)
+        ) {
+
+          throw new Error(
+            "Invalid content data received."
           );
         }
 
@@ -744,6 +824,11 @@
 
           items.forEach(item => {
 
+            if (!item || typeof item !== "object") {
+              return;
+            }
+
+
             allPosts.push({
               ...item,
               displayType: type
@@ -754,9 +839,24 @@
 
 
         allPosts.sort(
-          (a, b) =>
-            new Date(b.date) -
-            new Date(a.date)
+          (a, b) => {
+
+            const dateA =
+              new Date(a.date).getTime();
+
+            const dateB =
+              new Date(b.date).getTime();
+
+            return (
+              (Number.isFinite(dateB)
+                ? dateB
+                : 0) -
+              (Number.isFinite(dateA)
+                ? dateA
+                : 0)
+            );
+
+          }
         );
 
 
@@ -772,9 +872,21 @@
         postsContainer.innerHTML =
           allPosts.map(item => {
 
-            const date =
-              new Date(item.date)
-                .toLocaleDateString(
+            let date =
+              "Unknown date";
+
+
+            const parsedDate =
+              new Date(item.date);
+
+
+            if (
+              item.date &&
+              !isNaN(parsedDate.getTime())
+            ) {
+
+              date =
+                parsedDate.toLocaleDateString(
                   undefined,
                   {
                     year: "numeric",
@@ -782,6 +894,7 @@
                     day: "numeric"
                   }
                 );
+            }
 
 
             const imageHtml =
@@ -790,7 +903,7 @@
                     <img
                       class="post-image"
                       src="../${escapeHtml(item.image)}"
-                      alt="${escapeHtml(item.title)}"
+                      alt="${escapeHtml(item.title || "Artwork")}"
                       loading="lazy"
                     >
                   `
@@ -808,7 +921,7 @@
                 </p>
 
                 <h3>
-                  ${escapeHtml(item.title)}
+                  ${escapeHtml(item.title || "Untitled")}
                 </h3>
 
                 <p class="post-description">
@@ -821,8 +934,8 @@
 
                   <button
                     class="delete-button"
-                    data-id="${escapeHtml(item.id)}"
-                    data-title="${escapeHtml(item.title)}"
+                    data-id="${escapeHtml(item.id || "")}"
+                    data-title="${escapeHtml(item.title || "Untitled")}"
                   >
                     Delete
                   </button>
@@ -845,9 +958,26 @@
               "click",
               () => {
 
+                const id =
+                  button.dataset.id;
+
+                const title =
+                  button.dataset.title;
+
+
+                if (!id) {
+
+                  showStatus(
+                    "This post has no valid ID."
+                  );
+
+                  return;
+                }
+
+
                 deletePost(
-                  button.dataset.id,
-                  button.dataset.title
+                  id,
+                  title
                 );
 
               }
@@ -858,10 +988,20 @@
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Load posts error:",
+          error
+        );
+
 
         postsContainer.innerHTML =
-          "<p class='empty'>Could not load posts.</p>";
+          `
+            <p class="empty">
+              Could not load posts.<br>
+              <small>${escapeHtml(error.message)}</small>
+            </p>
+          `;
+
       }
 
     }
@@ -914,7 +1054,7 @@
 
                 "Authorization":
                   "Bearer " +
-                  secretInput.value.trim(),
+                  getSecret(),
 
                 "Content-Type":
                   "application/json"
@@ -929,13 +1069,19 @@
           );
 
 
-        const data =
-          await response.json();
+        let data = {};
+
+        try {
+          data = await response.json();
+        } catch {
+          data = {};
+        }
 
 
         if (!response.ok) {
 
           showStatus(
+            data.error ||
             data.message ||
             "Delete failed."
           );
@@ -944,22 +1090,40 @@
         }
 
 
+        let message =
+          `"${title}" deleted successfully! 🗑️`;
+
+
+        if (
+          data.imageDeleted === false
+        ) {
+
+          message +=
+            " The post was deleted, but its image could not be removed.";
+
+        }
+
+
         showStatus(
-          `"${title}" deleted successfully! 🗑️`,
+          message,
           true
         );
 
 
-        loadPosts();
+        await loadPosts();
 
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          "Delete error:",
+          error
+        );
 
         showStatus(
           "Could not connect to the publisher."
         );
+
       }
 
     }
